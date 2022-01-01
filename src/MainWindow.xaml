@@ -1,0 +1,68 @@
+﻿<Window x:Class="GenshinSwitch.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GenshinSwitch"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Genshin Switch"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Icon="Resources/Sapphire.ico"
+        Height="500" Width="400"
+        MinHeight="460" MinWidth="400">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="Resources/miHoYo.png" MaxHeight="100" x:Name="imageMiHoYo" ToolTip="三连击启动提瓦特大地图"/>
+            <materialDesign:Card Grid.Row="1" Padding="10" Margin="10,15,10,5">
+                <StackPanel>
+                    <TextBlock Text="原神安装目录：" FontSize="16" Foreground="#673AB7"/>
+                    <FrameworkElement Height="5"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" CornerRadius="2" BorderBrush="#673AB7" BorderThickness="1.5" Margin="0,5,0,5">
+                            <TextBox x:Name="textBoxInstallPath" Text="" MaxLines="1" FontSize="16" Foreground="#673AB7" ToolTip="示例：C:\Program Files\Genshin Impact"/>
+                        </Border>
+                        <Button x:Name="buttonInstallPath" Grid.Column="1" Content="..." Margin="5,0,0,0" HorizontalAlignment="Left" ToolTip="手动选择原神安装目录"/>
+                    </Grid>
+                </StackPanel>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="2" Padding="10" Margin="10,10,10,5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Button x:Name="buttonAdd" Content="保存" Margin="0,0,5,10" ToolTip="保存当前登录中账号"/>
+                        <Button x:Name="buttonRemove" Content="移除" Margin="5,0,5,10" ToolTip="移除选中账号" />
+                    </StackPanel>
+                    <Button Grid.Column="1" x:Name="buttonYaml" Content="配置文件" Margin="0,0,0,10" ToolTip="请在关闭本程序后修改配置文件然后在重启程序"/>
+                </Grid>
+                <Border Grid.Row="1" CornerRadius="2" BorderBrush="#673AB7" BorderThickness="1.5">
+                    <ListBox x:Name="listBoxAccount" Foreground="#673AB7" ToolTip="双击重启原神登录" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+                </Border>
+                </Grid>
+            </materialDesign:Card>
+            <TextBlock Grid.Row="3" x:Name="textBlockVersion" HorizontalAlignment="Right" Foreground="Gray" Text="v1.0" Margin="10,5,10,10"/>
+        </Grid>
+    </Grid>
+</Window>

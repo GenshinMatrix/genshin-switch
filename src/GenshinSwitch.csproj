@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>genshin-switch</AssemblyName>
+	<LangVersion>8.0</LangVersion>
+    <ApplicationIcon>Resources\Sapphire.ico</ApplicationIcon>
+    <ApplicationManifest>App.manifest</ApplicationManifest>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\GenshinImpact.png" />
+    <None Remove="Resources\miHoYo.png" />
+    <None Remove="Resources\Sapphire.ico" />
+    <None Remove="Resources\Sapphire.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\GenshinImpact.png" />
+    <Resource Include="Resources\miHoYo.png" />
+    <Resource Include="Resources\Sapphire.ico" />
+    <Resource Include="Resources\Sapphire.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+</Project>

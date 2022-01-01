@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using DialogResultF = System.Windows.Forms.DialogResult;
-using XWin32WindowF = System.Windows.Forms.IWin32Window;
 using MessageBoxF = System.Windows.Forms.MessageBox;
 
 namespace GenshinSwitch
@@ -38,7 +37,7 @@ namespace GenshinSwitch
             {
                 if (e.ClickCount == 2)
                 {
-                    Process.Start("https://github.com/ema/genshin-switch");
+                    Process.Start("https://github.com/emako/genshin-switch");
                 }
             };
 

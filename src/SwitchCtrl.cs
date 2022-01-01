@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -47,7 +46,7 @@ namespace GenshinSwitch
             }
             else
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo
+                ProcessStartInfo startInfo = new ProcessStartInfo()
                 {
                     UseShellExecute = true,
                     WorkingDirectory = Environment.CurrentDirectory,
@@ -58,9 +57,6 @@ namespace GenshinSwitch
             }
         }
 
-        /// <summary>
-        /// 寻找原神安装路径
-        /// </summary>
         public static string FindInstallPath()
         {
             try

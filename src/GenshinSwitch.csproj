@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>genshin-switch</AssemblyName>
 	<LangVersion>8.0</LangVersion>
-    <ApplicationIcon>Resources\Sapphire.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Yunjin.ico</ApplicationIcon>
     <ApplicationManifest>App.manifest</ApplicationManifest>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
@@ -16,6 +16,10 @@
     <None Remove="Resources\miHoYo.png" />
     <None Remove="Resources\Sapphire.ico" />
     <None Remove="Resources\Sapphire.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Yunjin.ico" />
   </ItemGroup>
 
   <ItemGroup>

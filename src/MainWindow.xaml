@@ -68,7 +68,7 @@
                 </Border>
             </Grid>
             </materialDesign:Card>
-            <TextBlock Grid.Row="3" x:Name="textBlockVersion" HorizontalAlignment="Right" Foreground="Gray" Text="v1.0" Margin="10,5,10,10" ToolTip="双击访问程序主页"/>
+            <TextBlock Grid.Row="3" x:Name="textBlockVersion" HorizontalAlignment="Right" Foreground="Gray" Text="v1.1" Margin="10,5,10,10" ToolTip="双击访问程序主页"/>
         </Grid>
     </Grid>
 </Window>

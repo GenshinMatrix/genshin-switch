@@ -21,6 +21,17 @@ namespace GenshinSwitch
             CommandAction = () => Application.Current.MainWindow.Hide()
         };
 
+        public ICommand DoubleClickTrayCommand => new DelegateCommand
+        {
+            CommandAction = () =>
+            {
+                if (Application.Current.MainWindow.Visibility == Visibility.Visible)
+                    HideWindowCommand.Execute(null);
+                else
+                    ShowWindowCommand.Execute(null);
+            }
+        };
+
         public ICommand ExitApplicationCommand => new DelegateCommand
         { 
             CommandAction = () =>

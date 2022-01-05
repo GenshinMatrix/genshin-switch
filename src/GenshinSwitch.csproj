@@ -9,6 +9,7 @@
     <ApplicationIcon>Resources\Yunjin.ico</ApplicationIcon>
     <ApplicationManifest>App.manifest</ApplicationManifest>
     <Platforms>AnyCPU;x64</Platforms>
+	<StartupObject>GenshinSwitch.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 

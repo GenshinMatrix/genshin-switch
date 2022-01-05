@@ -19,7 +19,7 @@
             </ContextMenu>
             <tb:TaskbarIcon x:Key="Taskbar"
                     ToolTipText="Genshin Switch"
-                    DoubleClickCommand="{Binding ShowWindowCommand}"
+                    DoubleClickCommand="{Binding DoubleClickTrayCommand}"
                     ContextMenu="{StaticResource SysTrayMenu}"
                     IconSource="Resources/Sapphire.ico">
                 <tb:TaskbarIcon.DataContext>

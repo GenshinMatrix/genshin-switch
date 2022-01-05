@@ -14,6 +14,9 @@ namespace GenshinSwitch
         [YamlMember(Alias = "install_path")]
         public string InstallPath { get; set; } = string.Empty;
 
+        [YamlMember(Alias = "show_tooltip")]
+        public bool ShowTooltip { get; set; } = true;
+
         [YamlMember(Alias = "accounts")]
         public List<Account> Accounts { get; set; } = new List<Account>();
 

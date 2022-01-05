@@ -9,7 +9,7 @@ namespace GenshinSwitch
 {
     internal class SwitchCtrl
     {
-        public static void Switch(int index)
+        public static void Switch(int index, int? delayMs = null)
         {
             if (index < 0)
             {
@@ -53,6 +53,9 @@ namespace GenshinSwitch
                     FileName = Path.Combine(Config.Instance.InstallPath, "Genshin Impact Game", "YuanShen.exe"),
                     Verb = "runas",
                 };
+
+                if (delayMs != null)
+                    Thread.Sleep((int)delayMs);
                 Process.Start(startInfo);
             }
         }

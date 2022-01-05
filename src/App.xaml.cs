@@ -7,6 +7,11 @@ namespace GenshinSwitch
     {
         public static TaskbarIcon TaskbarIcon { get; set; }
 
+        public App()
+        {
+            InitializeComponent();
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);

@@ -25,6 +25,18 @@ namespace GenshinSwitch
                 listBoxAccount.Items.Add(item);
             }
 
+            if (!Config.Instance.ShowTooltip)
+            {
+                imageMiHoYo.ToolTip = null;
+                textBoxInstallPath.ToolTip = null;
+                buttonInstallPath.ToolTip = null;
+                buttonAdd.ToolTip = null;
+                buttonRemove.ToolTip = null;
+                buttonYaml.ToolTip = null;
+                listBoxAccount.ToolTip = null;
+                textBlockVersion.ToolTip = null;
+            }
+
             imageMiHoYo.MouseLeftButtonDown += (s, e) =>
             {
                 if(e.ClickCount == 3)
@@ -122,6 +134,15 @@ namespace GenshinSwitch
                 if (_closeHandler)
                     e.Cancel = true;
                 Hide();
+            };
+
+            menuItemSlowStart.Click += (s, e) =>
+            {
+                if (listBoxAccount.SelectedItem != null)
+                {
+                    int index = listBoxAccount.Items.IndexOf(listBoxAccount.SelectedItem);
+                    Task.Run(() => SwitchCtrl.Switch(index, 180000));
+                }
             };
         }
 

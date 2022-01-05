@@ -131,9 +131,11 @@ namespace GenshinSwitch
 
             Closing += (s, e) =>
             {
+#if false
                 if (_closeHandler)
                     e.Cancel = true;
                 Hide();
+#endif
             };
 
             menuItemSlowStart.Click += (s, e) =>

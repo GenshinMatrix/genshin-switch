@@ -1,5 +1,9 @@
 # <img src="src/Resources/YunjinSideFace.png" width = "56" height = "56" alt="" align="left" /> 原神账号快速切换工具
 
+[![GitHub downloads](https://img.shields.io/github/downloads/emako/genshin-switch/total)](https://github.com/emako/genshin-switch/releases)
+[![GitHub downloads](https://img.shields.io/github/downloads/emako/genshin-switch/latest/total)](https://github.com/emako/genshin-switch/releases)
+
+
 GenshinSwitch
 PC版国服原神账号切换工具
 

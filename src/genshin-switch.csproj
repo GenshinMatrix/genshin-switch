@@ -6,28 +6,30 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>genshin-switch</AssemblyName>
 	<LangVersion>8.0</LangVersion>
-    <ApplicationIcon>Resources\Yunjin.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\YunjinSideFace.ico</ApplicationIcon>
     <ApplicationManifest>App.manifest</ApplicationManifest>
     <Platforms>AnyCPU;x64</Platforms>
 	<StartupObject>GenshinSwitch.Program</StartupObject>
+	<RootNamespace>GenshinSwitch</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\GenshinImpact.png" />
     <None Remove="Resources\miHoYo.png" />
     <None Remove="Resources\Sapphire.ico" />
     <None Remove="Resources\Sapphire.png" />
+    <None Remove="Resources\Yunjin.ico" />
+    <None Remove="Resources\YunjinSideFace.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Yunjin.ico" />
+    <EmbeddedResource Include="Resources\YunjinSideFace.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\GenshinImpact.png" />
     <Resource Include="Resources\miHoYo.png" />
     <Resource Include="Resources\Sapphire.ico" />
     <Resource Include="Resources\Sapphire.png" />
+    <Resource Include="Resources\Yunjin.ico" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-
+*.7z
+*.exe
 src/obj/*
 src/bin/*
 src/.vs/*

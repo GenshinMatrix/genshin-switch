@@ -11,7 +11,9 @@ namespace GenshinSwitch
 {
     public partial class MainWindow : Window
     {
+#if false
         private bool _closeHandler = true;
+#endif
 
         public MainWindow()
         {
@@ -150,7 +152,9 @@ namespace GenshinSwitch
 
         public void ForceClose()
         {
+#if false
             _closeHandler = false;
+#endif
             Close();
         }
     }

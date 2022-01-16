@@ -46,11 +46,18 @@ namespace GenshinSwitch
             }
             else
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo()
+                string path = Config.Instance.InstallPath;
+
+                if (!path.EndsWith(".exe") && !path.EndsWith(".bat") && !path.EndsWith(".cmd"))
+                {
+                    path = Path.Combine(path, "Genshin Impact Game", "YuanShen.exe");
+                }
+
+                var startInfo = new ProcessStartInfo()
                 {
                     UseShellExecute = true,
                     WorkingDirectory = Environment.CurrentDirectory,
-                    FileName = Path.Combine(Config.Instance.InstallPath, "Genshin Impact Game", "YuanShen.exe"),
+                    FileName = path,
                     Verb = "runas",
                 };
 

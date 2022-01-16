@@ -1,5 +1,6 @@
 # <img src="src/Resources/YunjinSideFace.png" width = "56" height = "56" alt="" align="left" /> 原神账号快速切换工具
 
+GenshinSwitch
 PC版国服原神账号切换工具
 
 ## 截图
@@ -26,9 +27,9 @@ PC版国服原神账号切换工具
 
 ## 编译生成
 
-所需工具：`VS2022` `7z ` `dotNET_Reactor`
+所需工具：`VS2022` `7z` `dotNET_Reactor`
 
-注意要管理员权限编译。
+注意要管理员权限编译，推荐VS里编译后执行下面的参考脚本。
 
 其中dotNET_Reactor用于编译合成为单个exe的版本。
 

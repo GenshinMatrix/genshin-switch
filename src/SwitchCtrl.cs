@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Lnk;
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -47,8 +48,25 @@ namespace GenshinSwitch
             else
             {
                 string path = Config.Instance.InstallPath;
+                string arguments = string.Empty;
+                string workingDirectory = Environment.CurrentDirectory;
 
-                if (!path.EndsWith(".exe") && !path.EndsWith(".bat") && !path.EndsWith(".cmd"))
+                FileInfo fileInfo = new FileInfo(path);
+                string ext = fileInfo.Extension.ToLower();
+
+                if (ext == ".exe" || ext == ".bat" || ext == ".cmd")
+                {
+                    // 直接启动
+                }
+                else if (ext == ".lnk")
+                {
+                    var ll = LoadLnk(path);
+
+                    arguments = ll.Arguments;
+                    workingDirectory = ll.WorkingDirectory;
+                    path = ll.LocalPath;
+                }
+                else
                 {
                     path = Path.Combine(path, "Genshin Impact Game", "YuanShen.exe");
                 }
@@ -56,8 +74,9 @@ namespace GenshinSwitch
                 var startInfo = new ProcessStartInfo()
                 {
                     UseShellExecute = true,
-                    WorkingDirectory = Environment.CurrentDirectory,
                     FileName = path,
+                    Arguments = arguments,
+                    WorkingDirectory = workingDirectory,
                     Verb = "runas",
                 };
 
@@ -91,6 +110,18 @@ namespace GenshinSwitch
                 Trace.WriteLine(e.Message);
             }
             return null;
+        }
+
+        public static LnkFile LoadLnk(string lnkFile)
+        {
+            var raw = File.ReadAllBytes(lnkFile);
+
+            if (raw[0] != 0x4c)
+            {
+                throw new Exception($"Invalid signature!");
+            }
+
+            return new LnkFile(raw, lnkFile);
         }
     }
 }

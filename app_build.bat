@@ -36,7 +36,7 @@ set "path=%path%;D:\%binpath_rea%"
 set "path=%path%;E:\%binpath_rea%"
 set "path=%path%;F:\%binpath_rea%"
 cd net48
-dotNET_Reactor.Console.exe -file "genshin-switch.exe" -satellite_assemblies "Hardcodet.NotifyIcon.Wpf.dll -embed;MaterialDesignColors.dll -embed;MaterialDesignThemes.Wpf.dll -embed;YamlDotNet.dll -embed" -embed 1 -stringencryption 0 -suppressildasm 0 -obfuscation 0
+dotNET_Reactor.Console -file "genshin-switch.exe" -satellite_assemblies "ExtensionBlocks.dll -merge;GuidMapping.dll -merge;Lnk.dll -merge;Serilog.dll -merge;System.Buffers.dll -merge;System.Memory.dll -merge;System.Numerics.Vectors.dll -merge;System.Runtime.CompilerServices.Unsafe.dll -merge;System.Text.Encoding.CodePages.dll -merge;Hardcodet.NotifyIcon.Wpf.dll -merge;MaterialDesignColors.dll -merge;MaterialDesignThemes.Wpf.dll -merge;YamlDotNet.dll -merge" -merge 1 -stringencryption 0 -suppressildasm 0 -obfuscation 0
 cd genshin-switch_Secure
 7z a ..\..\..\..\..\genshin-switch_single_build%date:~,4%%date:~5,2%%date:~8,2%.7z .\* -t7z -mx=5 -r -y
 @pause

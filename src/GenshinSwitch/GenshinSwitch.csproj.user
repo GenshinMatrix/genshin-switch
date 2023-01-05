@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ActiveDebugProfile>GenshinSwitch (Package)</ActiveDebugProfile>
+    <_LastSelectedProfileId>D:\GitHub\genshin-switch\src\GenshinSwitch\Properties\PublishProfiles\win10-x64.pubxml</_LastSelectedProfileId>
+    <UapAppxPackageBuildMode>SideloadOnly</UapAppxPackageBuildMode>
+    <AppxShowAllApps>False</AppxShowAllApps>
+    <AppxBuildConfigurationSelection>x64</AppxBuildConfigurationSelection>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+    <Source>D:\GitHub\genshin-switch\src\GenshinSwitch\Resources\favicon.png</Source>
+    <SmallTileSource>D:\GitHub\genshin-switch\src\GenshinSwitch\Resources\favicon.png</SmallTileSource>
+    <MediumTileSource>D:\GitHub\genshin-switch\src\GenshinSwitch\Resources\favicon.png</MediumTileSource>
+    <WideTileSource>D:\GitHub\genshin-switch\src\GenshinSwitch\Resources\favicon.png</WideTileSource>
+    <LargeTileSource>D:\GitHub\genshin-switch\src\GenshinSwitch\Resources\favicon.png</LargeTileSource>
+    <AppIconSource>D:\GitHub\genshin-switch\src\GenshinSwitch\Resources\favicon.png</AppIconSource>
+    <SplashScreenSource>D:\GitHub\genshin-switch\src\GenshinSwitch\Resources\favicon.png</SplashScreenSource>
+    <BadgeLogoSource>D:\GitHub\genshin-switch\src\GenshinSwitch\Assets\favicon.png</BadgeLogoSource>
+    <PackageLogoSource>D:\GitHub\genshin-switch\src\GenshinSwitch\Resources\favicon.png</PackageLogoSource>
+    <DeployOptionalPackages>True</DeployOptionalPackages>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <ItemGroup>
+    <Page Update="Styles\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\FontStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\AddContactContentDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,180 @@
+﻿<Page
+    x:Class="GenshinSwitch.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:GenshinSwitch.Models"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:styles="using:GenshinSwitch.Styles"
+    mc:Ignorable="d" Background="Transparent">
+
+    <Page.Resources>
+        <converters:UriStringToImageSourceConverter x:Key="UriStringToImageSourceConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
+    </Page.Resources>
+
+    <Grid x:Name="ContentArea">
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0">
+            <Image Width="418" Opacity="0.3" Source="ms-appx:///Assets/Images/UI_SummerTime_ImgDecorate_01.png"/>
+        </Grid>
+        <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-2,5,0">
+            <Image Width="84" Opacity="0.3" Source="ms-appx:///Assets/Images/UI_Icon_GcgBossChallenges_Difficulty.png"/>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="3,3,3,0">
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{x:Bind ViewModel.AddContactCommand}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="{x:Bind styles:FontSymbols.AddFriend}" FontSize="16"/>
+                                <TextBlock Text="添加" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <ScrollViewer Grid.Row="1"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto">
+                <Grid
+                    Margin="3"
+                    Background="Transparent"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="0"
+                    ColumnSpacing="8"
+                    CornerRadius="4"
+                    RowSpacing="4">
+                    <ListView
+                        x:Name="ConcactListView"
+                        CornerRadius="5"
+                        BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                        IsItemClickEnabled="True"
+                        IsDoubleTapEnabled="True"
+                        CanDrag="True"
+                        CanDragItems="True"
+                        CanReorderItems="True"
+                        AllowDrop="True"
+                        DragItemsCompleted="{x:Bind ViewModel.OnConcactDragItemsCompleted}"
+                        ItemClick="{x:Bind ViewModel.OnContactListViewItemClick}"
+                        ItemsSource="{x:Bind ViewModel.Contacts}">
+                        <ListView.ContextFlyout>
+                            <MenuFlyout Placement="RightEdgeAlignedTop">
+                                <ToggleMenuFlyoutItem  Text="By rating" Tag="rating" Icon="Copy"/>
+                                <MenuFlyoutItem Text="By match" Tag="match"/>
+                                <MenuFlyoutItem Text="By distance" Tag="distance"/>
+                            </MenuFlyout>
+                        </ListView.ContextFlyout>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel VerticalAlignment="Top"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Contact">
+                                <Grid Margin="0,0,0,0" Height="60" Tag="{x:Bind Guid}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Margin="0,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <Grid>
+                                            <Image Width="40" Height="40" Opacity="1" Source="{x:Bind LocalIconUri,Converter={StaticResource UriStringToImageSourceConverter},Mode=OneWay}"/>
+                                        </Grid>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Margin="15,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Grid.Column="0" Text="{x:Bind AliasName}" x:Phase="1" FontSize="18" Margin="0"/>
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                            <Border Visibility="{x:Bind IsRunning,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" CornerRadius="3" BorderBrush="AliceBlue" BorderThickness="1" Background="#EA1D953F">
+                                                <TextBlock Text="正在游戏" Foreground="White" Opacity="1" FontSize="16" Margin="3,0,3,0"/>
+                                            </Border>
+                                            <TextBlock Text="{x:Bind AliasName}" Foreground="#AAA0A0A0" x:Phase="1" FontSize="16" Margin="0"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2" Margin="15,0,0,0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ResinInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter}}">
+                                                <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_210.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
+                                            <Grid Width="30" Height="30" HorizontalAlignment="Center" Visibility="{x:Bind SignInInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter}}">
+                                                <Image Width="24" Opacity="1" Source="ms-appx:///Assets/Images/miyoushe.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Visible">
+                                                <Image Width="30" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkQuest_Events_Proce.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
+                                                <Image Width="30" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
+                                                <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_220021.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
+                                                <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_204.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
+                                                <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_202.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
+                                                <Image Width="26" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkPoint_GcgZhanDou.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
+                                                <Image Width="26" Opacity="1" Source="ms-appx:///Assets/Images/UI_Icon_L.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
+                                                <Image Width="35" Opacity="1" Margin="0,2,0,0" Source="ms-appx:///Assets/Images/UI_Frame_Equipped.png"/>
+                                                <Image Width="16" Opacity="1" Margin="0,-2,0,0" Source="ms-appx:///Assets/Images/UI_Icon_Intee_Explore_1.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </Grid>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

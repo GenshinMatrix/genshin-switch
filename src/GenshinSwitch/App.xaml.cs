@@ -29,7 +29,6 @@ public partial class App : Application
     // https://docs.microsoft.com/dotnet/core/extensions/configuration
     // https://docs.microsoft.com/dotnet/core/extensions/logging
     public IHost Host { get; }
-    public static bool IsElevated { get; } = GetElevated();
 
     public static T GetService<T>()
         where T : class
@@ -47,42 +46,6 @@ public partial class App : Application
     public App()
     {
         Logger.Info("Startup...");
-
-        Task.Run(async () =>
-        {
-            var cookie = "account_mid_v2=01d2hootvp_mhy;cookie_token_v2=v2_prE4Gysvxm5PITJ96ymhcPhGdNtXUIUfyTBlKUXgwWVSZOsPnc056kmth6YWVqNVCycci62FHW1OsOOw7lfiViyvx3gi6o3J_J-u8hfvqZvFSKbmYdE=";
-            var client = new HoyolabClient();
-            //string s = await client.GetAppVersion();
-            return;
-            // 米游社账号
-            var user = await client.GetHoyolabUserInfoAsync(cookie);
-            // 原神账号
-            
-            var roles = await client.GetGenshinRoleInfosAsync(cookie);
-            var role = roles[0];
-            // 签到信息
-            var signInfo = await client.GetSignInInfoAsync(role);
-            // 开始签到
-            //var isSigned = await client.SignInAsync(role);
-            // 战绩
-            var summary = await client.GetGameRecordSummaryAsync(role);
-            // 角色
-            var details = await client.GetAvatarDetailsAsync(role);
-            // 角色技能
-            var skills = await client.GetAvatarSkillLevelAsync(role, details.FirstOrDefault()?.Id ?? 0);
-            // 活动
-            var act = await client.GetActivitiesAsync(role);
-            // 便笺
-            var dailynote = await client.GetDailyNoteAsync(role);
-            // 札记
-            var travelNotesSummary = await client.GetTravelNotesSummaryAsync(role);
-            // 深渊
-            var spirall = await client.GetSpiralAbyssInfoAsync(role, 1);
-            // 新闻列表
-            var newsList = await client.GetNewsListAsync(Xunkong.Hoyolab.News.NewsType.Announce);
-            // 新闻内容
-            var newsDetail = await client.GetNewsDetailAsync(newsList.FirstOrDefault()?.PostId ?? 0);
-        });
 
         InitializeComponent();
 
@@ -127,47 +90,9 @@ public partial class App : Application
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
         }).
         Build();
-        EnsureElevated();
-
         App.GetService<IAppNotificationService>().Initialize();
 
         UnhandledException += App_UnhandledException;
-    }
-
-    public static void RestartAsElevated(int? exitCode = null)
-    {
-        try
-        {
-            _ = Process.Start(new ProcessStartInfo()
-            {
-                Verb = "runas",
-                UseShellExecute = true,
-                FileName = Environment.ProcessPath,
-                WorkingDirectory = Environment.CurrentDirectory,
-            });
-        }
-        catch (Win32Exception)
-        {
-            return;
-        }
-        Environment.Exit(exitCode ?? 0);
-    }
-
-    public void EnsureElevated()
-    {
-#if !DEBUG
-        if (!IsElevated)
-        {
-            RestartAsElevated('r' + 'u' + 'n' + 'a' + 's');
-        }
-#endif
-    }
-
-    private static bool GetElevated()
-    {
-        using WindowsIdentity identity = WindowsIdentity.GetCurrent();
-        WindowsPrincipal principal = new(identity);
-        return principal.IsInRole(WindowsBuiltInRole.Administrator);
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)

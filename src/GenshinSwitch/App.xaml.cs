@@ -41,7 +41,7 @@ public partial class App : Application
         return service;
     }
 
-    public static MainWindow MainWindow { get; } = new MainWindow();
+    public static MainWindow MainWindow { get; } = new();
 
     public App()
     {

@@ -84,7 +84,9 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Margin="0,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                                         <Grid>
-                                            <Image Width="40" Height="40" Opacity="1" Source="{x:Bind LocalIconUri,Converter={StaticResource UriStringToImageSourceConverter},Mode=OneWay}"/>
+                                            <PersonPicture HorizontalAlignment="Left" PreferSmallImage="False" HighContrastAdjustment="Application"
+                                                           DisplayName="GS" Initials="G" Width="40" Height="40"
+                                                           ProfilePicture="{x:Bind LocalIconUri,Converter={StaticResource UriStringToImageSourceConverter},ConverterParameter=40,Mode=OneWay}"/>
                                         </Grid>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Margin="15,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">

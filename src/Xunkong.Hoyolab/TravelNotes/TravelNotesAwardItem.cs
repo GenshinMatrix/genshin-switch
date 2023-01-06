@@ -23,7 +23,7 @@ public class TravelNotesAwardItem
 
 
     [JsonPropertyName("action")]
-    public string ActionName { get; set; }
+    public string? ActionName { get; set; }
 
     /// <summary>
     /// 获取时间，UTC+8

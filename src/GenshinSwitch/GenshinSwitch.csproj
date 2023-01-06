@@ -34,6 +34,10 @@
     <StartupObject>GenshinSwitch.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="Assets\Images\LocalAvatars\CreateCSharp.py" />
+    <Content Remove="Assets\Images\UI_Rename.py" />
+  </ItemGroup>
+  <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -47,11 +51,15 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221209.1" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
     <PackageReference Include="Vanara.PInvoke.ComCtl32" Version="3.4.11" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.11" />
-    <PackageReference Include="WinUIEx" Version="2.0.0" />
-    <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.74" />
+    <PackageReference Include="WinUIEx" Version="2.1.0" />
+    <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.75" />
     <PackageReference Include="System.IO.Abstractions" Version="19.1.5" />
     <PackageReference Include="YamlDotNet" Version="12.3.1" />
   </ItemGroup>
@@ -91,10 +99,6 @@
     <Page Update="Views\AddContactContentDialog.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Assets\Images\" />
   </ItemGroup>
   
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">

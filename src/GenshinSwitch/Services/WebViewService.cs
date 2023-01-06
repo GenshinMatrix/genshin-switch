@@ -9,15 +9,15 @@ namespace GenshinSwitch.Services;
 
 public class WebViewService : IWebViewService
 {
-    private WebView2? _webView;
+    private WebView2? webView;
 
-    public Uri? Source => _webView?.Source;
+    public Uri? Source => webView?.Source;
 
-    [MemberNotNullWhen(true, nameof(_webView))]
-    public bool CanGoBack => _webView != null && _webView.CanGoBack;
+    [MemberNotNullWhen(true, nameof(webView))]
+    public bool CanGoBack => webView != null && webView.CanGoBack;
 
-    [MemberNotNullWhen(true, nameof(_webView))]
-    public bool CanGoForward => _webView != null && _webView.CanGoForward;
+    [MemberNotNullWhen(true, nameof(webView))]
+    public bool CanGoForward => webView != null && webView.CanGoForward;
 
     public event EventHandler<CoreWebView2WebErrorStatus>? NavigationCompleted;
 
@@ -25,24 +25,24 @@ public class WebViewService : IWebViewService
     {
     }
 
-    [MemberNotNull(nameof(_webView))]
+    [MemberNotNull(nameof(WebViewService.webView))]
     public void Initialize(WebView2 webView)
     {
-        _webView = webView;
-        _webView.NavigationCompleted += OnWebViewNavigationCompleted;
+        this.webView = webView;
+        this.webView.NavigationCompleted += OnWebViewNavigationCompleted;
     }
 
-    public void GoBack() => _webView?.GoBack();
+    public void GoBack() => webView?.GoBack();
 
-    public void GoForward() => _webView?.GoForward();
+    public void GoForward() => webView?.GoForward();
 
-    public void Reload() => _webView?.Reload();
+    public void Reload() => webView?.Reload();
 
     public void UnregisterEvents()
     {
-        if (_webView != null)
+        if (webView != null)
         {
-            _webView.NavigationCompleted -= OnWebViewNavigationCompleted;
+            webView.NavigationCompleted -= OnWebViewNavigationCompleted;
         }
     }
 

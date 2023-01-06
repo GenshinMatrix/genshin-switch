@@ -9,13 +9,13 @@ public class Expedition
     /// 角色侧面图
     /// </summary>
     [JsonPropertyName("avatar_side_icon")]
-    public string AvatarSideIcon { get; set; }
+    public string? AvatarSideIcon { get; set; }
 
     /// <summary>
     /// 状态 Ongoing:派遣中 Finished:已完成
     /// </summary>
     [JsonPropertyName("status")]
-    public string Status { get; set; }
+    public string? Status { get; set; }
 
     [JsonIgnore]
     public DateTimeOffset NowTime { get; init; } = DateTimeOffset.Now;

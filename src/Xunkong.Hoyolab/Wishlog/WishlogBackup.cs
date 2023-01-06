@@ -3,10 +3,10 @@
 public class WishlogBackup
 {
 
-    public string ExportApp { get; set; }
+    public string? ExportApp { get; set; }
 
 
-    public string AppVersion { get; set; }
+    public string? AppVersion { get; set; }
 
 
     public DateTimeOffset ExportTime { get; set; }
@@ -24,7 +24,7 @@ public class WishlogBackup
     public DateTimeOffset? LastItemTime { get; set; }
 
 
-    public List<WishlogItem> WishlogList { get; set; }
+    public List<WishlogItem>? WishlogList { get; set; }
 
 
 }

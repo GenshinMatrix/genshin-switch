@@ -1,52 +1,33 @@
 
 [*.{cs,vb}]
-#### Naming styles ####
-
-# Diagnostic rules
-
 dotnet_diagnostic.IDE0007.severity = silent
 dotnet_diagnostic.IDE0008.severity = silent
-
-# Naming rules
-
 dotnet_naming_rule.interface_should_be_begins_with_i.severity = suggestion
 dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface
 dotnet_naming_rule.interface_should_be_begins_with_i.style = begins_with_i
-
 dotnet_naming_rule.types_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.types_should_be_pascal_case.symbols = types
 dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
-
 dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
 dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
-
-# Symbol specifications
-
 dotnet_naming_symbols.interface.applicable_kinds = interface
 dotnet_naming_symbols.interface.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
 dotnet_naming_symbols.interface.required_modifiers = 
-
 dotnet_naming_symbols.types.applicable_kinds = class, struct, interface, enum
 dotnet_naming_symbols.types.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
 dotnet_naming_symbols.types.required_modifiers = 
-
 dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, method
 dotnet_naming_symbols.non_field_members.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
 dotnet_naming_symbols.non_field_members.required_modifiers = 
-
-# Naming styles
-
 dotnet_naming_style.begins_with_i.required_prefix = I
 dotnet_naming_style.begins_with_i.required_suffix = 
 dotnet_naming_style.begins_with_i.word_separator = 
 dotnet_naming_style.begins_with_i.capitalization = pascal_case
-
 dotnet_naming_style.pascal_case.required_prefix = 
 dotnet_naming_style.pascal_case.required_suffix = 
 dotnet_naming_style.pascal_case.word_separator = 
 dotnet_naming_style.pascal_case.capitalization = pascal_case
-
 dotnet_naming_style.pascal_case.required_prefix = 
 dotnet_naming_style.pascal_case.required_suffix = 
 dotnet_naming_style.pascal_case.word_separator = 
@@ -85,6 +66,8 @@ dotnet_style_qualification_for_field = false:suggestion
 dotnet_style_qualification_for_property = false:suggestion
 dotnet_style_qualification_for_method = false:suggestion
 dotnet_style_qualification_for_event = false:suggestion
+dotnet_diagnostic.CA1822.severity = suggestion
+dotnet_diagnostic.CA1027.severity = suggestion
 
 [*.cs]
 csharp_indent_labels = one_less_than_current
@@ -130,3 +113,27 @@ csharp_style_var_for_built_in_types = true:silent
 csharp_style_var_when_type_is_apparent = true:silent
 csharp_style_var_elsewhere = true:silent
 csharp_space_around_binary_operators = before_and_after
+dotnet_diagnostic.SA1633.severity = silent
+dotnet_diagnostic.SA1600.severity = silent
+dotnet_diagnostic.SA1101.severity = silent
+dotnet_diagnostic.SA1310.severity = silent
+dotnet_diagnostic.SA1201.severity = silent
+dotnet_diagnostic.SA1513.severity = silent
+dotnet_diagnostic.SA1516.severity = silent
+dotnet_diagnostic.SA1208.severity = silent
+dotnet_diagnostic.SA1202.severity = silent
+dotnet_diagnostic.SA1027.severity = suggestion
+dotnet_diagnostic.SA1601.severity = silent
+dotnet_diagnostic.SA1134.severity = suggestion
+dotnet_diagnostic.SA1404.severity = silent
+dotnet_diagnostic.SA1124.severity = silent
+dotnet_diagnostic.SA1629.severity = silent
+dotnet_diagnostic.SA1512.severity = silent
+dotnet_diagnostic.SA1414.severity = silent
+dotnet_diagnostic.SA1602.severity = silent
+dotnet_diagnostic.SA1005.severity = suggestion
+dotnet_diagnostic.CS8600.severity = silent
+dotnet_diagnostic.SA0001.severity = silent
+dotnet_diagnostic.SA1642.severity = silent
+dotnet_diagnostic.SA1204.severity = silent
+dotnet_diagnostic.SA1028.severity = silent

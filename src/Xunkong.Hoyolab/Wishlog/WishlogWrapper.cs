@@ -12,8 +12,8 @@ internal class WishlogWrapper
     public int Total { get; set; }
 
     [JsonPropertyName("list")]
-    public List<WishlogItem> List { get; set; }
+    public List<WishlogItem>? List { get; set; }
 
     [JsonPropertyName("region")]
-    public string Region { get; set; }
+    public string? Region { get; set; }
 }

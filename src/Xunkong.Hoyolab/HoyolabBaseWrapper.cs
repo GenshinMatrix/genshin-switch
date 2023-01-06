@@ -12,6 +12,6 @@ internal class HoyolabBaseWrapper<T> where T : class
 
 
     [JsonPropertyName("data")]
-    public T Data { get; set; }
+    public T? Data { get; set; }
 
 }

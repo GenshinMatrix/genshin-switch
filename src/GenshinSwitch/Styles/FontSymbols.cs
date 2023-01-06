@@ -1322,10 +1322,10 @@ public class FontSymbols
     public const string SIMError = "\xf618";
     public const string SIMMissing = "\xf619";
     public const string SIMLock = "\xf61a";
-    public const string eSIM = "\xf61b";
-    public const string eSIMNoProfile = "\xf61c";
-    public const string eSIMLocked = "\xf61d";
-    public const string eSIMBusy = "\xf61e";
+    public const string ESIM = "\xf61b";
+    public const string ESIMNoProfile = "\xf61c";
+    public const string ESIMLocked = "\xf61d";
+    public const string ESIMBusy = "\xf61e";
     public const string NoiseCancelation = "\xf61f";
     public const string NoiseCancelationOff = "\xf620";
     public const string MusicSharing = "\xf623";

@@ -39,7 +39,7 @@ public static class SettingsStorageExtensions
 
     public static async Task SaveAsync<T>(this ApplicationDataContainer settings, string key, T value)
     {
-        settings.SaveString(key, await Json.StringifyAsync(value));
+        settings.SaveString(key, await Json.StringifyAsync(value!));
     }
 
     public static void SaveString(this ApplicationDataContainer settings, string key, string value)

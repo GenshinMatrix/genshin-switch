@@ -24,7 +24,7 @@ public class AddContactViewModel : ObservableRecipient
         set => SetProperty(ref localIconUri, value);
     }
 
-    public ObservableCollection<AddContactSelectionViewModel> LocalIconSelectionUris = new();
+    public ObservableCollection<AddContactSelectionViewModel> LocalIconSelectionUris { get; } = new();
 
     private string? prod = null!;
     public string? Prod
@@ -83,17 +83,5 @@ public class AddContactViewModel : ObservableRecipient
         else
         {
         }
-    }
-}
-
-public class AddContactSelectionViewModel : ObservableRecipient
-{
-    public AddContactViewModel? Parent { get; set; }
-
-    private string? localIconUri = null!;
-    public string? LocalIconUri
-    {
-        get => localIconUri;
-        set => SetProperty(ref localIconUri, value);
     }
 }

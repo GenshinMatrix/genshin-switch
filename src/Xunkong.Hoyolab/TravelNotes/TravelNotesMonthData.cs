@@ -59,7 +59,7 @@ public class TravelNotesMonthData
     /// 原石获取来源分组统计
     /// </summary>
     [JsonPropertyName("group_by")]
-    public List<TravelNotesPrimogemsMonthGroupStats> PrimogemsGroupBy { get; set; }
+    public List<TravelNotesPrimogemsMonthGroupStats>? PrimogemsGroupBy { get; set; }
 
 
 }

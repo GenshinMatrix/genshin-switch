@@ -16,6 +16,6 @@ public class ReliquaryAffix
     /// 效果描述
     /// </summary>
     [JsonPropertyName("effect")]
-    public string Effect { get; set; }
+    public string? Effect { get; set; }
 
 }

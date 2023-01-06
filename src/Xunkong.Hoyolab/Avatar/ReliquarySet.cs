@@ -13,12 +13,12 @@ public class ReliquarySet
     /// 套装名称
     /// </summary>
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// 圣遗物套装效果
     /// </summary>
     [JsonPropertyName("affixes")]
-    public List<ReliquaryAffix> Affixes { get; set; }
+    public List<ReliquaryAffix>? Affixes { get; set; }
 
 }

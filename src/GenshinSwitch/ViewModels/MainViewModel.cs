@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using GenshinSwitch.Contracts.Services;
 using GenshinSwitch.Controls;
+using GenshinSwitch.Controls.Notice;
 using GenshinSwitch.Core;
 using GenshinSwitch.Core.Settings;
 using GenshinSwitch.Fetch.Launch;
@@ -10,7 +11,6 @@ using GenshinSwitch.Fetch.Regedit;
 using GenshinSwitch.Models;
 using GenshinSwitch.Models.Messages;
 using GenshinSwitch.Views;
-using GenshinWoodmen.Core;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.ObjectModel;
@@ -92,6 +92,46 @@ public class MainViewModel : ObservableRecipient
         });
     }
 
+    public void OnContactListViewItemClick(object sender, ItemClickEventArgs e)
+    {
+        if (ListViewHelper.TryRaiseItemDoubleClick(sender, e))
+        {
+            LaunchGameAsync((Contact)e.ClickedItem).ConfigureAwait(false);
+        }
+    }
+
+    public void OnConcactDragItemsCompleted(ListViewBase sender, DragItemsCompletedEventArgs e)
+    {
+        _ = sender;
+        _ = e;
+
+        Dictionary<string, Contact> dict = new();
+        Dictionary<string, Contact> contacts = Settings.Contacts.Get();
+
+        foreach (Contact contact in Contacts)
+        {
+            dict.Add(contact.Guid, contacts[contact.Guid]);
+        }
+        Settings.Contacts.Set(dict);
+        SettingsManager.Save();
+    }
+
+    public async Task LaunchGameAsync(Contact contact)
+    {
+        try
+        {
+            await LaunchCtrl.LaunchAsync(relaunchMethod: Settings.RelaunchMethod.Get(), launchParameter: new LaunchParameter()
+            {
+                Region = contact.Region,
+                Prod = contact.Prod,
+            });
+        }
+        catch (Exception e)
+        {
+            NoticeService.AddNotice(string.Empty, e.Message);
+        }
+    }
+
     private void AddOrUpdateContact(ContactMessage msg)
     {
         Dictionary<string, Contact> dict = Settings.Contacts.Get();
@@ -125,45 +165,5 @@ public class MainViewModel : ObservableRecipient
         Settings.Contacts.Set(dict);
         SettingsManager.Save();
         WeakReferenceMessenger.Default.Send(msg);
-    }
-
-    public void OnContactListViewItemClick(object sender, ItemClickEventArgs e)
-    {
-        if (ListViewHelper.TryRaiseItemDoubleClick(sender, e))
-        {
-            LaunchGame((Contact)e.ClickedItem);
-        }
-    }
-
-    public void OnConcactDragItemsCompleted(ListViewBase sender, DragItemsCompletedEventArgs e)
-    {
-        _ = sender;
-        _ = e;
-
-        Dictionary<string, Contact> dict = new();
-        Dictionary<string, Contact> contacts = Settings.Contacts.Get();
-
-        foreach (Contact contact in Contacts)
-        {
-            dict.Add(contact.Guid, contacts[contact.Guid]);
-        }
-        Settings.Contacts.Set(dict);
-        SettingsManager.Save();
-    }
-
-    public async void LaunchGame(Contact contact)
-    {
-        try
-        {
-            await LaunchCtrl.LaunchAsync(relaunchMethod: Settings.RelaunchMethod.Get(), launchParameter: new LaunchParameter()
-            {
-                Region = contact.Region,
-                Prod = contact.Prod,
-            });
-        }
-        catch (Exception e)
-        {
-            NoticeService.AddNotice(string.Empty, e.Message);
-        }
     }
 }

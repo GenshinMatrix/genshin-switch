@@ -13,14 +13,14 @@ public class AvatarReliquary
     /// 名称
     /// </summary>
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// 圣遗物图标
     /// <see href="https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_14001_4.png"/>
     /// </summary>
     [JsonPropertyName("icon")]
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 圣遗物位置，1-5花羽沙杯冠
@@ -44,13 +44,13 @@ public class AvatarReliquary
     /// 套装及效果
     /// </summary>
     [JsonPropertyName("set")]
-    public ReliquarySet ReliquarySet { get; set; }
+    public ReliquarySet? ReliquarySet { get; set; }
 
     /// <summary>
     /// 位置名称（生之花）
     /// </summary>
     [JsonPropertyName("pos_name")]
-    public string PositionName { get; set; }
+    public string? PositionName { get; set; }
 
 
 }

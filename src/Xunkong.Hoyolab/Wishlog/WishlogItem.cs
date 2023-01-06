@@ -45,26 +45,26 @@ public class WishlogItem : IEquatable<WishlogItem>, IJsonOnSerializing, IJsonOnD
 #if NativeAOT
     public string _TimeString { get; set; }
 #else
-    public string _TimeString { get; private set; }
+    public string? _TimeString { get; private set; }
 #endif
 
     /// <summary>
     /// 物品名称
     /// </summary>
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// 语言（如zh-cn）
     /// </summary>
     [JsonPropertyName("lang")]
-    public string Language { get; set; }
+    public string? Language { get; set; }
 
     /// <summary>
     /// 物品类型（角色、武器）
     /// </summary>
     [JsonPropertyName("item_type")]
-    public string ItemType { get; set; }
+    public string? ItemType { get; set; }
 
     /// <summary>
     /// 星级
@@ -115,7 +115,7 @@ public class WishlogItem : IEquatable<WishlogItem>, IJsonOnSerializing, IJsonOnD
             '7' => 1,
             _ => 8,
         };
-        var time = DateTime.Parse(_TimeString);
+        var time = DateTime.Parse(_TimeString!);
         Time = new DateTimeOffset(time, TimeSpan.FromHours(offset));
     }
 }

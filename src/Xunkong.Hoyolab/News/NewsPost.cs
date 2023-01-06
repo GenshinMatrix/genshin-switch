@@ -13,13 +13,13 @@ public class NewsPost
     /// 标题
     /// </summary>
     [JsonPropertyName("subject")]
-    public string Subject { get; set; }
+    public string? Subject { get; set; }
 
     /// <summary>
     /// 正文（html格式）
     /// </summary>
     [JsonPropertyName("content")]
-    public string Content { get; set; }
+    public string? Content { get; set; }
 
     /// <summary>
     /// 创建时间
@@ -31,13 +31,13 @@ public class NewsPost
     /// 图片，第一张为封面
     /// </summary>
     [JsonPropertyName("images")]
-    public List<string> Images { get; set; }
+    public List<string>? Images { get; set; }
 
     /// <summary>
     /// 结构化正文
     /// </summary>
     [JsonPropertyName("structured_content")]
-    public string StructuredContent { get; set; }
+    public string? StructuredContent { get; set; }
 
     /// <summary>
     /// 修改时间

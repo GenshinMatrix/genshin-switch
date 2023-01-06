@@ -6,28 +6,28 @@ namespace GenshinSwitch.Models;
 [Obfuscation]
 public class ContactProgress : ObservableRecipient
 {
-    protected bool isShown = true;
+    private bool isShown = true;
     public bool IsShown
     {
         get => isShown;
         set => SetProperty(ref isShown, value);
     }
 
-    protected double opacity = 1d;
+    private double opacity = 1d;
     public double Opacity
     {
         get => opacity;
         set => SetProperty(ref opacity, value);
     }
 
-    protected bool isRed = false;
+    private bool isRed = false;
     public bool IsRed
     {
         get => isRed;
         set => SetProperty(ref isRed, value);
     }
 
-    protected bool isYellow = false;
+    private bool isYellow = false;
     public bool IsYellow
     {
         get => isYellow;

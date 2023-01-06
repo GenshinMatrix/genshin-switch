@@ -7,7 +7,7 @@ public class WorldExplorationOffering
 {
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
 
     [JsonPropertyName("level")]
@@ -15,6 +15,6 @@ public class WorldExplorationOffering
 
 
     [JsonPropertyName("icon")]
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
 
 }

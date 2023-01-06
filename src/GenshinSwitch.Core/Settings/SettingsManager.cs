@@ -4,7 +4,7 @@ namespace GenshinSwitch.Core.Settings;
 
 internal class SettingsManager
 {
-    public static event Action Reloaded;
+    public static event Action? Reloaded;
     public static readonly string Path = SpecialPathService.Provider.GetPath("config.yaml");
     public static SettingsCache Cache = Init();
 

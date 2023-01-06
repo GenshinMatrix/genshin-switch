@@ -11,42 +11,42 @@ public class WishEventInfo
     [JsonIgnore]
     public WishType QueryType => WishTypeToQueryType(WishType);
 
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
-    public string Version { get; set; }
-
-
-    [JsonIgnore]
-    public DateTimeOffset StartTime => TimeStringToTimeOffset(_StartTimeString);
+    public string? Version { get; set; }
 
 
     [JsonIgnore]
-    public DateTimeOffset EndTime => TimeStringToTimeOffset(_EndTimeString);
+    public DateTimeOffset StartTime => TimeStringToTimeOffset(_StartTimeString!);
+
+
+    [JsonIgnore]
+    public DateTimeOffset EndTime => TimeStringToTimeOffset(_EndTimeString!);
 
 
     [JsonPropertyName("StartTime"), JsonInclude]
 #if NativeAOT
     public string _StartTimeString { get; private set; }
 #else
-    public string _StartTimeString { get; set; }
+    public string? _StartTimeString { get; set; }
 #endif
 
     [JsonPropertyName("EndTime"), JsonInclude]
 #if NativeAOT
     public string _EndTimeString { get; set; }
 #else
-    public string _EndTimeString { get; private set; }
+    public string? _EndTimeString { get; private set; }
 #endif
 
     /// <summary>
     /// Up5星物品，此值不要使用SQL查询
     /// </summary>
-    public List<string> Rank5UpItems { get; set; }
+    public List<string>? Rank5UpItems { get; set; }
 
     /// <summary>
     /// Up4星物品，此值不要使用SQL查询
     /// </summary>
-    public List<string> Rank4UpItems { get; set; }
+    public List<string>? Rank4UpItems { get; set; }
 
 
 

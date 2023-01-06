@@ -16,10 +16,10 @@ public class ActivityInfo
     /// 活动名称，「炉心机造」活动
     /// </summary>
     [JsonPropertyName("title")]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     [JsonPropertyName("ext")]
-    public string Ext { get; set; }
+    public string? Ext { get; set; }
 
     [JsonPropertyName("type")]
     public int Type { get; set; }
@@ -28,34 +28,34 @@ public class ActivityInfo
     /// 介绍网址
     /// </summary>
     [JsonPropertyName("url")]
-    public string Url { get; set; }
+    public string? Url { get; set; }
 
     /// <summary>
     /// 图标
     /// </summary>
     [JsonPropertyName("icon")]
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 起止日期，2022/06/29 10:00 ~ 2022/07/11 03:59
     /// </summary>
     [JsonPropertyName("abstract")]
-    public string Abstract { get; set; }
+    public string? Abstract { get; set; }
 
     [JsonPropertyName("article_user_name")]
-    public string ArticleUserName { get; set; }
+    public string? ArticleUserName { get; set; }
 
     [JsonPropertyName("avatar_url")]
-    public string AvatarUrl { get; set; }
+    public string? AvatarUrl { get; set; }
 
     [JsonPropertyName("article_time")]
-    public string ArticleTime { get; set; }
+    public string? ArticleTime { get; set; }
 
     /// <summary>
     /// 发布时间
     /// </summary>
     [JsonPropertyName("create_time")]
-    public string CreateTime { get; set; }
+    public string? CreateTime { get; set; }
 
 
 }

@@ -13,14 +13,14 @@ public class AvatarConstellation
     /// 名称
     /// </summary>
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// 名座图标（白色）
     /// <see href="https://upload-bbs.mihoyo.com/game_record/genshin/constellation_icon/UI_Talent_S_Ayaka_01.png"/>
     /// </summary>
     [JsonPropertyName("icon")]
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 名字效果（内容中会带上原神特有的 color 标签）
@@ -31,7 +31,7 @@ public class AvatarConstellation
     /// </remarks>
     /// </summary>
     [JsonPropertyName("effect")]
-    public string Effect { get; set; }
+    public string? Effect { get; set; }
 
     /// <summary>
     /// 是否激活

@@ -11,7 +11,7 @@ public class TravelNotesDetail : TravelNotesBase, IJsonOnDeserialized
 
 
     [JsonPropertyName("list")]
-    public List<TravelNotesAwardItem> List { get; set; }
+    public List<TravelNotesAwardItem>? List { get; set; }
 
 
     /// <summary>

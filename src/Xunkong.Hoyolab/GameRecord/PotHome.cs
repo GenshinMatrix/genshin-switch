@@ -34,26 +34,26 @@ public class PotHome
     /// 洞天名称
     /// </summary>
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// 洞天图片
     /// <see href="https://upload-bbs.mihoyo.com/game_record/genshin/home/UI_HomeworldModule_1_Pic.png"/>
     /// </summary>
     [JsonPropertyName("icon")]
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 仙力等级名称
     /// </summary>
     [JsonPropertyName("comfort_level_name")]
-    public string ComfortLevelName { get; set; }
+    public string? ComfortLevelName { get; set; }
 
     /// <summary>
     /// 仙力等级图标
     /// <see href="https://upload-bbs.mihoyo.com/game_record/genshin/home/UI_Homeworld_Comfort_10.png"/>
     /// </summary>
     [JsonPropertyName("comfort_level_icon")]
-    public string ComfortLevelIcon { get; set; }
+    public string? ComfortLevelIcon { get; set; }
 
 }

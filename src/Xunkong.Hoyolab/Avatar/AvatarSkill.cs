@@ -15,14 +15,14 @@ public class AvatarSkill
     /// 技能名称
     /// </summary>
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// 技能图标
     /// <see href="icon=https://uploadstatic.mihoyo.com/hk4e/e20200928calculate/skill_icon_ud09dc/8de9cdec361d437f820aeff8a39566aa.png"/>
     /// </summary>
     [JsonPropertyName("icon")]
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 当前等级（不计入名座加成）

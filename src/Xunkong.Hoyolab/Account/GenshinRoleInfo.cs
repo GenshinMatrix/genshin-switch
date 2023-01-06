@@ -6,7 +6,7 @@ public class GenshinRoleInfo
 {
 
     [JsonPropertyName("game_biz")]
-    public string GameBiz { get; set; }
+    public string? GameBiz { get; set; }
 
 
     [JsonPropertyName("region"), JsonConverter(typeof(JsonStringEnumConverter))]
@@ -18,7 +18,7 @@ public class GenshinRoleInfo
 
 
     [JsonPropertyName("nickname")]
-    public string Nickname { get; set; }
+    public string? Nickname { get; set; }
 
 
     [JsonPropertyName("level")]

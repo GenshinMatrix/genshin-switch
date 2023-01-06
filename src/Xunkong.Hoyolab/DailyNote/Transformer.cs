@@ -16,11 +16,11 @@ public class Transformer
     /// 剩余时间
     /// </summary>
     [JsonPropertyName("recovery_time")]
-    public TransformerRecoveryTime RecoveryTime { get; set; }
+    public TransformerRecoveryTime? RecoveryTime { get; set; }
 
     /// <summary>
     /// Wiki url
     /// </summary>
     [JsonPropertyName("wiki")]
-    public string Wiki { get; set; }
+    public string? Wiki { get; set; }
 }

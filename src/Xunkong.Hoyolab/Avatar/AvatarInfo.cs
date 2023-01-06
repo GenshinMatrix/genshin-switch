@@ -13,7 +13,7 @@ public class AvatarInfo
     /// 名称
     /// </summary>
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// 元素类型
@@ -26,14 +26,14 @@ public class AvatarInfo
     /// <see href="https://upload-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Ayaka.png"/>
     /// </summary>
     [JsonPropertyName("image")]
-    public string Image { get; set; }
+    public string? Image { get; set; }
 
     /// <summary>
     /// 半身肖像（带有卡片边框）
     /// <see href="https://upload-bbs.mihoyo.com/game_record/genshin/character_card_icon/UI_AvatarIcon_Ayaka_Card.png"/>
     /// </summary>
     [JsonPropertyName("card_image")]
-    public string CardImage { get; set; }
+    public string? CardImage { get; set; }
 
     /// <summary>
     /// 好感度

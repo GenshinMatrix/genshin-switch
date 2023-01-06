@@ -10,11 +10,11 @@ namespace GenshinSwitch.Notifications;
 
 public class AppNotificationService : IAppNotificationService
 {
-    private readonly INavigationService _navigationService;
+    private readonly INavigationService navigationService;
 
     public AppNotificationService(INavigationService navigationService)
     {
-        _navigationService = navigationService;
+        this.navigationService = navigationService;
     }
 
     ~AppNotificationService()

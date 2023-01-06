@@ -8,24 +8,26 @@ namespace GenshinSwitch.Controls;
 /// A custom WinUI Window with more convenience methods
 /// </summary>
 [ContentProperty(Name = "WindowContent")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1107:Code should not contain multiple statements on one line", Justification = "<Pending>")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:Braces should not be omitted", Justification = "<Pending>")]
 public partial class WindowX : Window
 {
     private readonly Grid titleBarArea;
     private readonly Image iconArea;
     private readonly ContentControl titleBarContainer;
     private readonly ContentControl windowArea;
-    private readonly WindowManager _manager;
+    private readonly WindowManager manager;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="WindowEx"/> class.
     /// </summary>
     public WindowX()
     {
-        _manager = WindowManager.Get(this);
+        manager = WindowManager.Get(this);
 
-        _manager.PresenterChanged += (s, e) => { OnPresenterChanged(Presenter); PresenterChanged?.Invoke(this, e); };
-        _manager.PositionChanged += (s, e) => { OnPositionChanged(e); PositionChanged?.Invoke(this, e); };
-        _manager.ZOrderChanged += (s, e) => { OnZOrderChanged(e); ZOrderChanged?.Invoke(this, e); };
+        manager.PresenterChanged += (s, e) => { OnPresenterChanged(Presenter); PresenterChanged?.Invoke(this, e); };
+        manager.PositionChanged += (s, e) => { OnPositionChanged(e); PositionChanged?.Invoke(this, e); };
+        manager.ZOrderChanged += (s, e) => { OnZOrderChanged(e); ZOrderChanged?.Invoke(this, e); };
         SizeChanged += (s, e) => { OnSizeChanged(e); };
 
         var rootContent = new Grid();
@@ -46,7 +48,7 @@ public partial class WindowX : Window
         windowArea = new ContentControl()
         {
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
-            VerticalContentAlignment = VerticalAlignment.Stretch
+            VerticalContentAlignment = VerticalAlignment.Stretch,
         };
         Grid.SetRow(windowArea, 1);
         rootContent.Children.Add(windowArea);
@@ -113,7 +115,7 @@ public partial class WindowX : Window
     /// <summary>
     /// Gets a reference to the AppWindow for the app
     /// </summary>
-    public Microsoft.UI.Windowing.AppWindow AppWindow => _manager.AppWindow;
+    public Microsoft.UI.Windowing.AppWindow AppWindow => manager.AppWindow;
 
     /// <summary>
     /// Brings the window to the front
@@ -121,17 +123,17 @@ public partial class WindowX : Window
     /// <returns></returns>
     public bool BringToFront() => WindowExtensions.SetForegroundWindow(this);
 
-    private Icon? _TaskBarIcon;
+    private Icon? taskBarIcon;
 
     /// <summary>
     /// Gets or sets the task bar icon.
     /// </summary>
     public Icon? TaskBarIcon
     {
-        get => _TaskBarIcon;
+        get => taskBarIcon;
         set
         {
-            _TaskBarIcon = value;
+            taskBarIcon = value;
             this.SetTaskBarIcon(value);
         }
     }
@@ -156,17 +158,20 @@ public partial class WindowX : Window
         set
         {
             if (Microsoft.UI.Windowing.AppWindowTitleBar.IsCustomizationSupported())
+            {
                 AppWindow.TitleBar.ResetToDefault();
+            }
+
             titleBarContainer.Content = value;
             if (value is null)
             {
                 titleBarArea.Visibility = Visibility.Collapsed;
-                base.ExtendsContentIntoTitleBar = false;
+                ExtendsContentIntoTitleBar = false;
             }
             else
             {
                 titleBarArea.Visibility = Visibility.Visible;
-                base.ExtendsContentIntoTitleBar = true;
+                ExtendsContentIntoTitleBar = true;
                 SetTitleBar(titleBarArea);
             }
         }
@@ -184,8 +189,8 @@ public partial class WindowX : Window
     /// </remarks>
     public string? PersistenceId
     {
-        get => _manager.PersistenceId;
-        set => _manager.PersistenceId = value;
+        get => manager.PersistenceId;
+        set => manager.PersistenceId = value;
     }
 
     /// <summary>
@@ -218,8 +223,8 @@ public partial class WindowX : Window
     /// </summary>
     public bool IsTitleBarVisible
     {
-        get => _manager.IsTitleBarVisible;
-        set => _manager.IsTitleBarVisible = value;
+        get => manager.IsTitleBarVisible;
+        set => manager.IsTitleBarVisible = value;
     }
 
     /// <summary>
@@ -227,8 +232,8 @@ public partial class WindowX : Window
     /// </summary>
     public bool IsMinimizable
     {
-        get => _manager.IsMinimizable;
-        set => _manager.IsMinimizable = value;
+        get => manager.IsMinimizable;
+        set => manager.IsMinimizable = value;
     }
 
     /// <summary>
@@ -236,8 +241,8 @@ public partial class WindowX : Window
     /// </summary>
     public bool IsMaximizable
     {
-        get => _manager.IsMaximizable;
-        set => _manager.IsMaximizable = value;
+        get => manager.IsMaximizable;
+        set => manager.IsMaximizable = value;
     }
 
     /// <summary>
@@ -245,8 +250,8 @@ public partial class WindowX : Window
     /// </summary>
     public bool IsResizable
     {
-        get => _manager.IsResizable;
-        set => _manager.IsResizable = value;
+        get => manager.IsResizable;
+        set => manager.IsResizable = value;
     }
 
     /*
@@ -265,8 +270,8 @@ public partial class WindowX : Window
     /// </summary>
     public bool IsShownInSwitchers
     {
-        get => _manager.AppWindow.IsShownInSwitchers;
-        set => _manager.AppWindow.IsShownInSwitchers = value;
+        get => manager.AppWindow.IsShownInSwitchers;
+        set => manager.AppWindow.IsShownInSwitchers = value;
     }
 
     /// <summary>
@@ -274,8 +279,8 @@ public partial class WindowX : Window
     /// </summary>
     public bool IsAlwaysOnTop
     {
-        get => _manager.IsAlwaysOnTop;
-        set => _manager.IsAlwaysOnTop = value;
+        get => manager.IsAlwaysOnTop;
+        set => manager.IsAlwaysOnTop = value;
     }
 
     /// <summary>
@@ -283,7 +288,7 @@ public partial class WindowX : Window
     /// </summary>
     /// <seealso cref="PresenterKind"/>
     /// <seealso cref="PresenterChanged"/>
-    public Microsoft.UI.Windowing.AppWindowPresenter Presenter => _manager.AppWindow.Presenter;
+    public Microsoft.UI.Windowing.AppWindowPresenter Presenter => manager.AppWindow.Presenter;
 
     /// <summary>
     /// Gets or sets the presenter kind for the current window
@@ -292,8 +297,8 @@ public partial class WindowX : Window
     /// <seealso cref="PresenterChanged"/>
     public Microsoft.UI.Windowing.AppWindowPresenterKind PresenterKind
     {
-        get => _manager.PresenterKind;
-        set => _manager.PresenterKind = value;
+        get => manager.PresenterKind;
+        set => manager.PresenterKind = value;
     }
 
     /// <summary>
@@ -301,8 +306,8 @@ public partial class WindowX : Window
     /// </summary>
     public double Width
     {
-        get => _manager.Width;
-        set => _manager.Width = value;
+        get => manager.Width;
+        set => manager.Width = value;
     }
 
     /// <summary>
@@ -310,8 +315,8 @@ public partial class WindowX : Window
     /// </summary>
     public double Height
     {
-        get => _manager.Height;
-        set => _manager.Height = value;
+        get => manager.Height;
+        set => manager.Height = value;
     }
 
     /// <summary>
@@ -320,8 +325,8 @@ public partial class WindowX : Window
     /// <remarks>A window is currently set to a minimum of 139 pixels.</remarks>
     public double MinWidth
     {
-        get => _manager.MinWidth;
-        set => _manager.MinWidth = value;
+        get => manager.MinWidth;
+        set => manager.MinWidth = value;
     }
 
     /// <summary>
@@ -330,8 +335,8 @@ public partial class WindowX : Window
     /// <remarks>A window is currently set to a minimum of 39 pixels.</remarks>
     public double MinHeight
     {
-        get => _manager.MinHeight;
-        set => _manager.MinHeight = value;
+        get => manager.MinHeight;
+        set => manager.MinHeight = value;
     }
 
     /// <summary>
@@ -342,8 +347,8 @@ public partial class WindowX : Window
     /// <seealso cref="AcrylicSystemBackdrop"/>
     public SystemBackdrop? Backdrop
     {
-        get => _manager.Backdrop;
-        set => _manager.Backdrop = value;
+        get => manager.Backdrop;
+        set => manager.Backdrop = value;
     }
 
     #region Window events and corresponding virtual methods

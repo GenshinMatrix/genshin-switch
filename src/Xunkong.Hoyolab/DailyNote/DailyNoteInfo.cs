@@ -13,7 +13,7 @@ public class DailyNoteInfo
     public int Uid { get; set; }
 
     [JsonIgnore]
-    public string Nickname { get; set; }
+    public string? Nickname { get; set; }
 
     /// <summary>
     /// 获取实时便笺时的时间
@@ -103,7 +103,7 @@ public class DailyNoteInfo
     /// 探索派遣
     /// </summary>
     [JsonPropertyName("expeditions")]
-    public List<Expedition> Expeditions { get; set; }
+    public List<Expedition>? Expeditions { get; set; }
 
     /// <summary>
     /// 当前洞天宝钱
@@ -127,7 +127,7 @@ public class DailyNoteInfo
     /// 参量质变仪
     /// </summary>
     [JsonPropertyName("transformer")]
-    public Transformer Transformer { get; set; }
+    public Transformer? Transformer { get; set; }
 
     /// <summary>
     /// 洞天宝钱是否已满

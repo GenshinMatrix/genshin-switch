@@ -12,7 +12,7 @@ internal class SettingsCache : ConcurrentDictionary<string, object>
 
         if (!TryGetValue(key, out object value))
         {
-            this[key] = defaultValue;
+            this[key] = defaultValue!;
             return defaultValue;
         }
         else

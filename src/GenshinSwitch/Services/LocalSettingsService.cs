@@ -12,38 +12,38 @@ namespace GenshinSwitch.Services;
 
 public class LocalSettingsService : ILocalSettingsService
 {
-    private const string _defaultLocalSettingsFile = "config.json";
+    private const string DefaultLocalSettingsFile = "config.json";
 
-    private readonly IFileService _fileService;
-    private readonly ISpecialPathService _specialPathService;
-    private readonly LocalSettingsOptions _options;
+    private readonly IFileService fileService;
+    private readonly ISpecialPathService specialPathService;
+    private readonly LocalSettingsOptions options;
 
-    private readonly string _applicationDataFolder;
-    private readonly string _localsettingsFile;
+    private readonly string applicationDataFolder;
+    private readonly string localsettingsFile;
 
-    private IDictionary<string, object> _settings;
+    private IDictionary<string, object> settings;
 
-    private bool _isInitialized;
+    private bool isInitialized;
 
     public LocalSettingsService(IFileService fileService, ISpecialPathService specialPathService, IOptions<LocalSettingsOptions> options)
     {
-        _fileService = fileService;
-        _specialPathService = specialPathService;
-        _options = options.Value;
+        this.fileService = fileService;
+        this.specialPathService = specialPathService;
+        this.options = options.Value;
 
-        _applicationDataFolder = _specialPathService.GetFolder(_options.ApplicationDataFolder!);
-        _localsettingsFile = _options.LocalSettingsFile ?? _defaultLocalSettingsFile;
+        applicationDataFolder = this.specialPathService.GetFolder(this.options.ApplicationDataFolder!);
+        localsettingsFile = this.options.LocalSettingsFile ?? DefaultLocalSettingsFile;
 
-        _settings = new Dictionary<string, object>();
+        settings = new Dictionary<string, object>();
     }
 
     private async Task InitializeAsync()
     {
-        if (!_isInitialized)
+        if (!isInitialized)
         {
-            _settings = await Task.Run(() => _fileService.Read<IDictionary<string, object>>(_applicationDataFolder, _localsettingsFile)) ?? new Dictionary<string, object>();
+            settings = await Task.Run(() => fileService.Read<IDictionary<string, object>>(applicationDataFolder, localsettingsFile)) ?? new Dictionary<string, object>();
 
-            _isInitialized = true;
+            isInitialized = true;
         }
     }
 
@@ -60,7 +60,7 @@ public class LocalSettingsService : ILocalSettingsService
         {
             await InitializeAsync();
 
-            if (_settings != null && _settings.TryGetValue(key, out object? obj))
+            if (settings != null && settings.TryGetValue(key, out object? obj))
             {
                 return await Json.ToObjectAsync<T>((string)obj);
             }
@@ -79,9 +79,9 @@ public class LocalSettingsService : ILocalSettingsService
         {
             await InitializeAsync();
 
-            _settings[key] = await Json.StringifyAsync(value!);
+            settings[key] = await Json.StringifyAsync(value!);
 
-            await Task.Run(() => _fileService.Save(_applicationDataFolder, _localsettingsFile, _settings));
+            await Task.Run(() => fileService.Save(applicationDataFolder, localsettingsFile, settings));
         }
     }
 }

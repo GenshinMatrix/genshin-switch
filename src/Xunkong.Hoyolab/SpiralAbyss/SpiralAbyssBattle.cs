@@ -19,7 +19,7 @@
 
 
         [JsonPropertyName("avatars")]
-        public List<SpiralAbyssAvatar> Avatars { get; set; }
+        public List<SpiralAbyssAvatar>? Avatars { get; set; }
 
 
     }

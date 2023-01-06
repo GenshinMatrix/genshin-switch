@@ -10,13 +10,13 @@ public class Announcement
     /// 完整标题
     /// </summary>
     [JsonPropertyName("title")]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     /// <summary>
     /// 字数少的标题
     /// </summary>
     [JsonPropertyName("subtitle")]
-    public string Subtitle { get; set; }
+    public string? Subtitle { get; set; }
 
     /// <summary>
     /// 图片，可能为空
@@ -28,25 +28,25 @@ public class Announcement
     /// 正文，特殊的 HTML 格式
     /// </summary>
     [JsonPropertyName("content")]
-    public string Content { get; set; }
+    public string? Content { get; set; }
 
     /// <summary>
     /// 游戏公告、活动公告
     /// </summary>
     [JsonPropertyName("type_label")]
-    public string TypeLabel { get; set; }
+    public string? TypeLabel { get; set; }
 
     /// <summary>
     /// 重要、活动
     /// </summary>
     [JsonPropertyName("tag_label")]
-    public string TagLabel { get; set; }
+    public string? TagLabel { get; set; }
 
     /// <summary>
     /// 左侧列表的小图标
     /// </summary>
     [JsonPropertyName("tag_icon")]
-    public string TagIcon { get; set; }
+    public string? TagIcon { get; set; }
 
     [JsonPropertyName("login_alert")]
     public int LoginAlert { get; set; }
@@ -55,19 +55,19 @@ public class Announcement
     /// zh-cn
     /// </summary>
     [JsonPropertyName("lang")]
-    public string Lang { get; set; }
+    public string? Lang { get; set; }
 
     /// <summary>
     /// 开始时间（不准确，有提前）
     /// </summary>
     [JsonPropertyName("start_time")]
-    public string StartTime { get; set; }
+    public string? StartTime { get; set; }
 
     /// <summary>
     /// 结束时间（准确，没时区）
     /// </summary>
     [JsonPropertyName("end_time")]
-    public string EndTime { get; set; }
+    public string? EndTime { get; set; }
 
     /// <summary>
     /// 1：活动公告、2：游戏公告
@@ -85,13 +85,13 @@ public class Announcement
     /// 没用
     /// </summary>
     [JsonPropertyName("tag_start_time")]
-    public string TagStartTime { get; set; }
+    public string? TagStartTime { get; set; }
 
     /// <summary>
     /// 没用
     /// </summary>
     [JsonPropertyName("tag_end_time")]
-    public string TagEndTime { get; set; }
+    public string? TagEndTime { get; set; }
 
     [JsonPropertyName("remind_ver")]
     public int RemindVer { get; set; }
@@ -150,17 +150,17 @@ internal class AnnouncementContent
     public int AnnId { get; set; }
 
     [JsonPropertyName("title")]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     [JsonPropertyName("subtitle")]
-    public string Subtitle { get; set; }
+    public string? Subtitle { get; set; }
 
     [JsonPropertyName("banner")]
-    public string Banner { get; set; }
+    public string? Banner { get; set; }
 
     [JsonPropertyName("content")]
-    public string Content { get; set; }
+    public string? Content { get; set; }
 
     [JsonPropertyName("lang")]
-    public string Lang { get; set; }
+    public string? Lang { get; set; }
 }

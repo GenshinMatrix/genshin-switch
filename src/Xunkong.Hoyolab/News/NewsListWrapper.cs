@@ -20,6 +20,6 @@ internal class NewsListWrapper
     /// 新闻
     /// </summary>
     [JsonPropertyName("list")]
-    public List<NewsItem> List { get; set; }
+    public List<NewsItem>? List { get; set; }
 
 }

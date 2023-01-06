@@ -2,9 +2,10 @@
 
 namespace GenshinSwitch.Helpers;
 
+[System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.NamingRules", "SA1311:Static readonly fields should begin with upper-case letter", Justification = "<Pending>")]
 public static class ResourceExtensions
 {
-    private static readonly ResourceLoader _resourceLoader = new();
+    private static readonly ResourceLoader resourceLoader = new();
 
-    public static string GetLocalized(this string resourceKey) => _resourceLoader.GetString(resourceKey);
+    public static string GetLocalized(this string resourceKey) => resourceLoader.GetString(resourceKey);
 }

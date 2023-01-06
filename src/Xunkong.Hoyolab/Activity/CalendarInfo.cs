@@ -6,83 +6,83 @@ public class CalendarInfo
     /// 角色名，武器名，活动名
     /// </summary>
     [JsonPropertyName("title")]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     /// <summary>
     /// 1: 活动，2：天赋武器材料，4：角色生日
     /// </summary>
     [JsonPropertyName("kind")]
-    public string Kind { get; set; }
+    public string? Kind { get; set; }
 
     /// <summary>
     /// 头像
     /// </summary>
     [JsonPropertyName("img_url")]
-    public string ImgUrl { get; set; }
+    public string? ImgUrl { get; set; }
 
     [JsonPropertyName("jump_type")]
-    public string JumpType { get; set; }
+    public string? JumpType { get; set; }
 
     [JsonPropertyName("jump_url")]
-    public string JumpUrl { get; set; }
+    public string? JumpUrl { get; set; }
 
     [JsonPropertyName("content_id")]
-    public string ContentId { get; set; }
+    public string? ContentId { get; set; }
 
     [JsonPropertyName("style")]
-    public string Style { get; set; }
+    public string? Style { get; set; }
 
     /// <summary>
     /// 活动开始时间戳
     /// </summary>
     [JsonPropertyName("start_time")]
-    public string StartTime { get; set; }
+    public string? StartTime { get; set; }
 
     /// <summary>
     /// 活动结束直接戳
     /// </summary>
     [JsonPropertyName("end_time")]
-    public string EndTime { get; set; }
+    public string? EndTime { get; set; }
 
     [JsonPropertyName("font_color")]
-    public string FontColor { get; set; }
+    public string? FontColor { get; set; }
 
     [JsonPropertyName("padding_color")]
-    public string PaddingColor { get; set; }
+    public string? PaddingColor { get; set; }
 
     /// <summary>
     /// 周几开放，1~7
     /// </summary>
     [JsonPropertyName("drop_day")]
-    public List<string> DropDay { get; set; }
+    public List<string>? DropDay { get; set; }
 
     /// <summary>
     /// 1：武器，2：角色
     /// </summary>
     [JsonPropertyName("break_type")]
-    public string BreakType { get; set; }
+    public string? BreakType { get; set; }
 
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     /// <summary>
     /// 天赋材料
     /// </summary>
     [JsonPropertyName("contentInfos")]
-    public List<ContentInfo> ContentInfos { get; set; }
+    public List<ContentInfo>? ContentInfos { get; set; }
 
     /// <summary>
     /// 此角色或武器在展示栏中的排序，左 int：星期（周日为0），右 int：排序号
     /// </summary>
     [JsonPropertyName("sort")]
     [JsonConverter(typeof(TalentCalendarSortJsonConverter))]
-    public Dictionary<int, int> Sort { get; set; }
+    public Dictionary<int, int>? Sort { get; set; }
 
     /// <summary>
     /// 天赋材料来源
     /// </summary>
     [JsonPropertyName("contentSource")]
-    public List<ContentSource> ContentSource { get; set; }
+    public List<ContentSource>? ContentSource { get; set; }
 
 }
 
@@ -95,13 +95,13 @@ public class ContentInfo : IEquatable<ContentInfo>
     public int ContentId { get; set; }
 
     [JsonPropertyName("title")]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     [JsonPropertyName("icon")]
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
 
     [JsonPropertyName("bbs_url")]
-    public string BbsUrl { get; set; }
+    public string? BbsUrl { get; set; }
 
     public bool Equals(ContentInfo? other)
     {
@@ -123,13 +123,13 @@ public class ContentSource
     public int ContentId { get; set; }
 
     [JsonPropertyName("title")]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     [JsonPropertyName("icon")]
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
 
     [JsonPropertyName("bbs_url")]
-    public string BbsUrl { get; set; }
+    public string? BbsUrl { get; set; }
 }
 
 

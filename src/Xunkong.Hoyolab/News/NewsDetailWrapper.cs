@@ -4,6 +4,6 @@ internal class NewsDetailWrapper
 {
 
     [JsonPropertyName("post")]
-    public NewsItem Post { get; set; }
+    public NewsItem? Post { get; set; }
 
 }

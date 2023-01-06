@@ -3,5 +3,5 @@
 internal class HoyolabUserInfoWrapper
 {
     [JsonPropertyName("user_info")]
-    public HoyolabUserInfo HoyolabUserInfo { get; set; }
+    public HoyolabUserInfo? HoyolabUserInfo { get; set; }
 }

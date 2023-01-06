@@ -8,7 +8,7 @@ public class SettingsDefinition<T>
     public T DefaultValue { get; }
     public Func<object, T> Converter { get; }
 
-    public SettingsDefinition(string name, T defaultValue, Func<object, T> converter = null)
+    public SettingsDefinition(string name, T defaultValue, Func<object, T> converter = null!)
     {
         Name = name;
         DefaultValue = defaultValue;
@@ -17,7 +17,7 @@ public class SettingsDefinition<T>
 
     public static T DefaultConverter(object value)
     {
-        if (value is null) return default;
+        if (value is null) return default!;
         try
         {
             return SettingsSerializer.DeserializeObject<T>(SettingsSerializer.SerializeObject(value));
@@ -26,11 +26,11 @@ public class SettingsDefinition<T>
         {
             try
             {
-                return (T)typeof(T).Assembly.CreateInstance(typeof(T).FullName!);
+                return (T)typeof(T).Assembly.CreateInstance(typeof(T).FullName!)!;
             }
             catch
             {
-                return default;
+                return default!;
             }
         }
     }
@@ -42,7 +42,7 @@ public class SettingsDefinition<T>
 
     public void Set(T value)
     {
-        Cache.Set(this, value);
+        Cache.Set(this, value!);
     }
 
     public static implicit operator T(SettingsDefinition<T> self)
@@ -52,6 +52,6 @@ public class SettingsDefinition<T>
 
     public void Relay()
     {
-        Cache.Set(this, Get());
+        Cache.Set(this, Get()!);
     }
 }

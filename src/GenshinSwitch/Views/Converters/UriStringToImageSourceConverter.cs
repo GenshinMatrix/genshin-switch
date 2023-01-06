@@ -15,9 +15,9 @@ internal class UriStringToImageSourceConverter : IValueConverter
             w = int.Parse(pixel);
         }
 
-        if (value is Uri _uri)
+        if (value is Uri uri0)
         {
-            uri = _uri;
+            uri = uri0;
         }
         else if (value is string uriString)
         {

@@ -3,7 +3,6 @@ using GenshinSwitch.Contracts.Services;
 using GenshinSwitch.Core;
 using GenshinSwitch.Core.Contracts.Services;
 using GenshinSwitch.Core.Services;
-using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Notifications;
 using GenshinSwitch.Services;
@@ -13,10 +12,6 @@ using GenshinSwitch.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Security.Principal;
-using Xunkong.Hoyolab;
 
 namespace GenshinSwitch;
 

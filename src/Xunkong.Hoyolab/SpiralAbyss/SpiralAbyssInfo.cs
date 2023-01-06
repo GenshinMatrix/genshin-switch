@@ -35,41 +35,41 @@ public class SpiralAbyssInfo
     /// 出战最多
     /// </summary>
     [JsonPropertyName("reveal_rank")]
-    public List<SpiralAbyssRank> RevealRank { get; set; }
+    public List<SpiralAbyssRank>? RevealRank { get; set; }
 
     /// <summary>
     /// 击破最多
     /// </summary>
     [JsonPropertyName("defeat_rank")]
-    public List<SpiralAbyssRank> DefeatRank { get; set; }
+    public List<SpiralAbyssRank>? DefeatRank { get; set; }
 
     /// <summary>
     /// 伤害最高
     /// </summary>
     [JsonPropertyName("damage_rank")]
-    public List<SpiralAbyssRank> DamageRank { get; set; }
+    public List<SpiralAbyssRank>? DamageRank { get; set; }
 
     /// <summary>
     /// 承伤最高
     /// </summary>
     [JsonPropertyName("take_damage_rank")]
-    public List<SpiralAbyssRank> TakeDamageRank { get; set; }
+    public List<SpiralAbyssRank>? TakeDamageRank { get; set; }
 
     /// <summary>
     /// 元素战技最多
     /// </summary>
     [JsonPropertyName("normal_skill_rank")]
-    public List<SpiralAbyssRank> NormalSkillRank { get; set; }
+    public List<SpiralAbyssRank>? NormalSkillRank { get; set; }
 
     /// <summary>
     /// 元素爆发最多
     /// </summary>
     [JsonPropertyName("energy_skill_rank")]
-    public List<SpiralAbyssRank> EnergySkillRank { get; set; }
+    public List<SpiralAbyssRank>? EnergySkillRank { get; set; }
 
 
     [JsonPropertyName("floors")]
-    public List<SpiralAbyssFloor> Floors { get; set; }
+    public List<SpiralAbyssFloor>? Floors { get; set; }
 
 
     [JsonPropertyName("total_star")]

@@ -13,13 +13,13 @@ public class AvatarCostume
     /// 服装名称
     /// </summary>
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// 服装图片
     /// <see href="https://upload-bbs.mihoyo.com/game_record/genshin/costume/UI_AvatarIcon_BarbaraCostumeSummertime@2x.png"/>
     /// </summary>
     [JsonPropertyName("icon")]
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
 
 }

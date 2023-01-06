@@ -17,28 +17,28 @@ namespace GenshinSwitch.ViewModels;
 public class WebViewViewModel : ObservableRecipient, INavigationAware
 {
     // TODO: Set the default URL to display.
-    private Uri _source = new("https://docs.microsoft.com/windows/apps/");
-    private bool _isLoading = true;
-    private bool _hasFailures;
+    private Uri source = new("https://docs.microsoft.com/windows/apps/");
+    private bool isLoading = true;
+    private bool hasFailures;
 
     public IWebViewService WebViewService { get; }
 
     public Uri Source
     {
-        get => _source;
-        set => SetProperty(ref _source, value);
+        get => source;
+        set => SetProperty(ref source, value);
     }
 
     public bool IsLoading
     {
-        get => _isLoading;
-        set => SetProperty(ref _isLoading, value);
+        get => isLoading;
+        set => SetProperty(ref isLoading, value);
     }
 
     public bool HasFailures
     {
-        get => _hasFailures;
-        set => SetProperty(ref _hasFailures, value);
+        get => hasFailures;
+        set => SetProperty(ref hasFailures, value);
     }
 
     public ICommand BrowserBackCommand { get; }

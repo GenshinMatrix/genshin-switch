@@ -95,7 +95,7 @@ public static class Logger
         StackTrace stackTrace = new();
 
         MethodBase methodName = stackTrace.GetFrame(3)?.GetMethod()!;
-        string className = methodName?.DeclaringType?.Name;
+        string? className = methodName?.DeclaringType?.Name;
         return className + "|" + methodName?.Name;
     }
 }

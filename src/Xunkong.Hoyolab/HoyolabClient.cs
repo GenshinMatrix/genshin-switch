@@ -92,7 +92,7 @@ public class HoyolabClient
         {
             throw new HoyolabException(responseData.ReturnCode, responseData.Message);
         }
-        return responseData.Data;
+        return responseData.Data!;
     }
 
 
@@ -116,7 +116,7 @@ public class HoyolabClient
         request.Headers.Add(x_rpc_device_id, DeviceId);
         request.Headers.Add(x_rpc_client_type, "5");
         var data = await CommonSendAsync<HoyolabUserInfoWrapper>(request, cancellationToken);
-        data.HoyolabUserInfo.Cookie = cookie;
+        data.HoyolabUserInfo!.Cookie = cookie;
         return data.HoyolabUserInfo;
     }
 
@@ -206,7 +206,7 @@ public class HoyolabClient
     /// </summary>
     /// <param name="role"></param>
     /// <returns></returns>
-    public async Task<GameRecordSummary> GetGameRecordSummaryAsync(GenshinRoleInfo role, CancellationToken? cancellationToken = null)
+    public async Task<GameRecordSummary> GetGameRecordSummaryAsync(GenshinRoleInfo role, CancellationToken? cancellationToken = null!)
     {
         var url = $"https://api-takumi-record.mihoyo.com/game_record/app/genshin/api/index?server={role.Region}&role_id={role.Uid}";
         var request = new HttpRequestMessage(HttpMethod.Get, url);
@@ -242,7 +242,7 @@ public class HoyolabClient
         request.Headers.Add(X_Reuqest_With, com_mihoyo_hyperion);
         request.Content = JsonContent.Create(obj);
         var data = await CommonSendAsync<AvatarDetailWrapper>(request);
-        return data.Avatars;
+        return data.Avatars!;
     }
 
 
@@ -260,7 +260,7 @@ public class HoyolabClient
         request.Headers.Add(X_Reuqest_With, com_mihoyo_hyperion);
         request.Headers.Add(Referer, "https://webstatic.mihoyo.com/ys/event/e20200923adopt_calculator/index.html?bbs_presentation_style=fullscreen&bbs_auth_required=true&utm_source=bbs&utm_medium=mys&utm_campaign=icon");
         var data = await CommonSendAsync<AvatarCalculate>(request);
-        return data.Skills;
+        return data.Skills!;
     }
 
 
@@ -343,7 +343,7 @@ public class HoyolabClient
         request.Headers.Add(Referer, "https://webstatic.mihoyo.com/ys/event/e20200709ysjournal/index.html?bbs_presentation_style=fullscreen&bbs_auth_required=true&utm_source=bbs&utm_medium=mys&utm_campaign=icon");
         request.Headers.Add(X_Reuqest_With, com_mihoyo_hyperion);
         var data = await CommonSendAsync<TravelNotesDetail>(request);
-        foreach (var item in data.List)
+        foreach (var item in data!.List!)
         {
             item.Type = type;
         }
@@ -363,15 +363,15 @@ public class HoyolabClient
     public async Task<TravelNotesDetail> GetTravelNotesDetailAsync(GenshinRoleInfo role, int month, TravelNotesAwardType type, int limit = 100, CancellationToken? cancellationToken = null)
     {
         var data = await GetTravelNotesDetailByPageAsync(role, month, type, 1, limit);
-        if (data.List.Count < limit)
+        if (data!.List!.Count < limit)
         {
             return data;
         }
         for (int i = 2; ; i++)
         {
             var addData = await GetTravelNotesDetailByPageAsync(role, month, type, i, limit);
-            data.List.AddRange(addData.List);
-            if (addData.List.Count < limit)
+            data.List.AddRange(addData.List!);
+            if (addData!.List!.Count < limit)
             {
                 break;
             }
@@ -418,7 +418,7 @@ public class HoyolabClient
         request.Headers.Add(Referer, "https://app.mihoyo.com");
         request.Headers.Add(x_rpc_app_version, AppVersion);
         var data = await CommonSendAsync<NewsListWrapper>(request);
-        return data.List.Select(x => x.Post).ToList();
+        return data!.List!.Select(x => x.Post)!.ToList()!;
     }
 
 
@@ -435,7 +435,7 @@ public class HoyolabClient
         request.Headers.Add(Referer, "https://app.mihoyo.com");
         request.Headers.Add(x_rpc_app_version, AppVersion);
         var data = await CommonSendAsync<NewsDetailWrapper>(request);
-        return data.Post.Post;
+        return data.Post!.Post!;
     }
 
 
@@ -448,7 +448,7 @@ public class HoyolabClient
     {
         var request = new HttpRequestMessage(HttpMethod.Get, "https://api-static.mihoyo.com/common/blackboard/ys_obc/v1/get_activity_calendar?app_sn=ys_obc");
         var data = await CommonSendAsync<ListWrapper<CalendarInfo>>(request);
-        return data.List.Where(x => x.Kind == "2").ToList();
+        return data!.List!.Where(x => x.Kind == "2").ToList();
     }
 
 

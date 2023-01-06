@@ -13,14 +13,14 @@ public class AvatarWeapon
     /// 名称
     /// </summary>
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// 武器图标
     /// <see href="https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Narukami.png"/>
     /// </summary>
     [JsonPropertyName("icon")]
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 武器类型，1单手，11双手，13长柄，10法器，12弓
@@ -50,13 +50,13 @@ public class AvatarWeapon
     /// 类型名称
     /// </summary>
     [JsonPropertyName("type_name")]
-    public string TypeName { get; set; }
+    public string? TypeName { get; set; }
 
     /// <summary>
     /// 描述
     /// </summary>
     [JsonPropertyName("desc")]
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     /// <summary>
     /// 精炼等级

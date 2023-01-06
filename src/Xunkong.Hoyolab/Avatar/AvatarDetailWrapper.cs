@@ -3,5 +3,5 @@
 internal class AvatarDetailWrapper
 {
     [JsonPropertyName("avatars")]
-    public List<AvatarDetail> Avatars { get; set; }
+    public List<AvatarDetail>? Avatars { get; set; }
 }

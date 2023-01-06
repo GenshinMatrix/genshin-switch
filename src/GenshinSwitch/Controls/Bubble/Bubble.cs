@@ -16,15 +16,15 @@ internal static class Bubble
     public const int NormalTime = 2000;
     public const int SlowTime = 3000;
 
-    private static readonly Timer timer = new(30000);
+    private static readonly Timer Timer = new(30000);
     private static StackPanel? container;
 
     public static void Initialize(StackPanel container)
     {
         Bubble.container = container;
-        timer.AutoReset = true;
-        timer.Elapsed += TimerElapsed;
-        timer.Start();
+        Timer.AutoReset = true;
+        Timer.Elapsed += TimerElapsed;
+        Timer.Start();
     }
 
     private static void TimerElapsed(object? sender, ElapsedEventArgs e)

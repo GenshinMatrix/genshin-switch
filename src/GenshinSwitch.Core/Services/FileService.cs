@@ -1,8 +1,6 @@
-﻿using System.Text;
-
-using GenshinSwitch.Core.Contracts.Services;
-
+﻿using GenshinSwitch.Core.Contracts.Services;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace GenshinSwitch.Core.Services;
 
@@ -11,13 +9,13 @@ public class FileService : IFileService
     public T Read<T>(string folderPath, string fileName)
     {
         string path = Path.Combine(folderPath, fileName);
+
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonConvert.DeserializeObject<T>(json)!;
         }
-
-        return default;
+        return default!;
     }
 
     public void Save<T>(string folderPath, string fileName, T content)

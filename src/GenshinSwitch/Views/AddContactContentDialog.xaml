@@ -34,7 +34,7 @@
                     <Button.Content>
                         <PersonPicture HorizontalAlignment="Left" PreferSmallImage="False"
                                        DisplayName="GS" Initials="G"
-                                       ProfilePicture="{x:Bind ViewModel.LocalIconUri,Converter={StaticResource UriStringToImageSourceConverter},Mode=OneWay}"/>
+                                       ProfilePicture="{x:Bind ViewModel.LocalIconUri,Converter={StaticResource UriStringToImageSourceConverter},ConverterParameter=100,Mode=OneWay}"/>
                     </Button.Content>
                     <Button.ContextFlyout>
                         <Flyout Placement="BottomEdgeAlignedLeft">
@@ -63,7 +63,7 @@
                                                 Width="80" Padding="5"
                                                 Style="{StaticResource DateTimePickerFlyoutButtonStyle}">
                                             <Button.Content>
-                                                <Image Width="64" Source="{x:Bind LocalIconUri,Converter={StaticResource UriStringToImageSourceConverter},Mode=OneWay}"/>
+                                                <Image Width="64" Source="{x:Bind LocalIconUri,Converter={StaticResource UriStringToImageSourceConverter},ConverterParameter=64,Mode=OneWay}"/>
                                             </Button.Content>
                                             <Button.ContextFlyout>
                                                 <Flyout Placement="BottomEdgeAlignedLeft">

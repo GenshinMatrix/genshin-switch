@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 
-namespace GenshinSwitch.Helpers;
+namespace GenshinSwitch.Views.Converters;
 
 public class EnumToBooleanConverter : IValueConverter
 {
@@ -18,7 +18,7 @@ public class EnumToBooleanConverter : IValueConverter
                 throw new ArgumentException("ExceptionEnumToBooleanConverterValueMustBeAnEnum");
             }
 
-            object enumValue = Enum.Parse(typeof(ElementTheme), enumString);
+            var enumValue = Enum.Parse(typeof(ElementTheme), enumString);
 
             return enumValue.Equals(value);
         }

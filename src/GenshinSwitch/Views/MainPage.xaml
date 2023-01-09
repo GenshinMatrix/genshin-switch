@@ -12,6 +12,7 @@
     <Page.Resources>
         <converters:UriStringToImageSourceConverter x:Key="UriStringToImageSourceConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
+        <converters:ResinBrushHintConverter x:Key="ResinBrushHintConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
     </Page.Resources>
 
     <Grid x:Name="ContentArea">
@@ -64,9 +65,11 @@
                         ItemsSource="{x:Bind ViewModel.Contacts}">
                         <ListView.ContextFlyout>
                             <MenuFlyout Placement="RightEdgeAlignedTop">
-                                <ToggleMenuFlyoutItem  Text="By rating" Tag="rating" Icon="Copy"/>
-                                <MenuFlyoutItem Text="By match" Tag="match"/>
-                                <MenuFlyoutItem Text="By distance" Tag="distance"/>
+                                <!--<ToggleMenuFlyoutItem  Text="By rating" Tag="Copy" Icon="Copy"/>-->
+                                <MenuFlyoutItem Text="刷新" Tag="Refresh" Icon="Refresh"/>
+                                <MenuFlyoutSeparator/>
+                                <MenuFlyoutItem Text="编辑" Tag="Edit" Icon="Edit"/>
+                                <MenuFlyoutItem Text="删除" Tag="Delete" Icon="Delete"/>
                             </MenuFlyout>
                         </ListView.ContextFlyout>
                         <ListView.ItemsPanel>
@@ -90,84 +93,108 @@
                                         </Grid>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Margin="15,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Grid.Column="0" Text="{x:Bind AliasName}" x:Phase="1" FontSize="18" Margin="0"/>
                                         <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                            <Border Visibility="{x:Bind IsRunning,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" CornerRadius="3" BorderBrush="AliceBlue" BorderThickness="1" Background="#EA1D953F">
+                                            <TextBlock Text="{x:Bind AliasName}" x:Phase="1" FontSize="18" Margin="0"/>
+                                            <Border Visibility="{x:Bind IsRunning,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"
+                                                    CornerRadius="3" BorderBrush="AliceBlue" BorderThickness="1" Background="#EA1D953F" Margin="3,0,0,0">
                                                 <TextBlock Text="正在游戏" Foreground="White" Opacity="1" FontSize="16" Margin="3,0,3,0"/>
                                             </Border>
-                                            <TextBlock Text="{x:Bind AliasName}" Foreground="#AAA0A0A0" x:Phase="1" FontSize="16" Margin="0"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <TextBlock Text="{x:Bind NickName,Mode=OneWay}" Margin="0" Foreground="#A0A0A0" x:Phase="1" FontSize="16"/>
+                                            <TextBlock Text="{x:Bind RegionName,Mode=OneWay}" Margin="5,0,0,0" Foreground="#A0A0A0" x:Phase="1" FontSize="16"/>
+                                            <TextBlock Text="Lv." Foreground="#A0A0A0" Margin="5,0,0,0" FontSize="16"/>
+                                            <TextBlock Text="{x:Bind Level,Mode=OneWay}" Foreground="#A0A0A0" x:Phase="1" FontSize="16"/>
                                         </StackPanel>
                                     </StackPanel>
                                     <StackPanel Grid.Column="2" Margin="15,0,0,0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                             <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ResinInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter}}">
                                                 <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_210.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Border BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}" CornerRadius="4" Background="{x:Bind ResinInfo.Value,Converter={StaticResource ResinBrushHintConverter},Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                                    <TextBlock Text="{x:Bind ResinInfo.Value,Mode=OneWay}" Margin="2,0,2,-1" FontSize="12" Foreground="#FFFFFF" FontWeight="Normal" FontFamily="{StaticResource DigitalClock}"/>
+                                                </Border>
                                             </Grid>
                                         </Button>
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
-                                            <Grid Width="30" Height="30" HorizontalAlignment="Center" Visibility="{x:Bind SignInInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Grid Width="30" Height="30" HorizontalAlignment="Center" Visibility="{x:Bind SignInInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="24" Opacity="1" Source="ms-appx:///Assets/Images/miyoushe.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind SignInInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind SignInInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind SignInInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
                                             </Grid>
                                         </Button>
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Visible">
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind FinishedTaskInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="30" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkQuest_Events_Proce.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind FinishedTaskInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind FinishedTaskInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind FinishedTaskInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
                                             </Grid>
                                         </Button>
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind LazyInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="30" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind LazyInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind LazyInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind LazyInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
                                             </Grid>
                                         </Button>
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
-                                                <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_220021.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                            </Grid>
-                                        </Button>
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
-                                                <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_204.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                            </Grid>
-                                        </Button>
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
-                                                <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_202.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                            </Grid>
-                                        </Button>
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
-                                                <Image Width="26" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkPoint_GcgZhanDou.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                            </Grid>
-                                        </Button>
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
-                                                <Image Width="26" Opacity="1" Source="ms-appx:///Assets/Images/UI_Icon_L.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                            </Grid>
-                                        </Button>
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="Collapsed">
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ExpeditionInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="35" Opacity="1" Margin="0,2,0,0" Source="ms-appx:///Assets/Images/UI_Frame_Equipped.png"/>
                                                 <Image Width="16" Opacity="1" Margin="0,-2,0,0" Source="ms-appx:///Assets/Images/UI_Icon_Intee_Explore_1.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ResinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ExpeditionInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ExpeditionInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ExpeditionInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind HomeCoinInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                                <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_204.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind HomeCoinInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind HomeCoinInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind HomeCoinInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind TransformerInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                                <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_220021.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind TransformerInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind TransformerInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind TransformerInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind GcgInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                                <Image Width="26" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkPoint_GcgZhanDou.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind GcgInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind GcgInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind GcgInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind LInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                                <Image Width="26" Opacity="1" Source="ms-appx:///Assets/Images/UI_Icon_L.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind LInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind LInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind LInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ExpeditionInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                                <Image Width="30" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkTower_Weekly.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ExpeditionInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ExpeditionInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ExpeditionInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind SpiralAbyssInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                                <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkTower_Tower.png"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind SpiralAbyssInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind SpiralAbyssInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind SpiralAbyssInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
                                             </Grid>
                                         </Button>
                                     </StackPanel>

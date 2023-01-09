@@ -122,7 +122,7 @@ public class MainViewModel : ObservableRecipient
         {
             await LaunchCtrl.LaunchAsync(relaunchMethod: Settings.RelaunchMethod.Get(), launchParameter: new LaunchParameter()
             {
-                Region = contact.Region,
+                Region = contact.RegionName,
                 Prod = contact.Prod,
             });
         }

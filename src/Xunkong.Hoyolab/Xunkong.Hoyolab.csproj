@@ -23,6 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\GenshinSwitch.Core\GenshinSwitch.Core.csproj" />
 	  <ProjectReference Include="..\Xunkong.Core\Xunkong.Core.csproj" />
 	</ItemGroup>
 

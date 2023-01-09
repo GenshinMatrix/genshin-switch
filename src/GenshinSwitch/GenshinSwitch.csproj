@@ -15,9 +15,10 @@
     <Company>GenshinMatrix</Company>
     <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
     <PublishProfile>Properties\PublishProfiles\win10-$(Platform).pubxml</PublishProfile>
-	<ImplicitUsings>enable</ImplicitUsings>
-	<Nullable>enable</Nullable>
-	<UseWinUI>true</UseWinUI>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWinUI>true</UseWinUI>
+    <LangVersion>11.0</LangVersion>
     <EnableMsixTooling>true</EnableMsixTooling>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <PackageCertificateThumbprint>A7C792A1E97C61397F171DFFDD4618D5B081B139</PackageCertificateThumbprint>

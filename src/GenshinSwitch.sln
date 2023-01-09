@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xunkong.Hoyolab", "Xunkong.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenshinSwitch.Fetch", "GenshinSwitch.Fetch\GenshinSwitch.Fetch.csproj", "{345169CA-B1E9-4CCB-9838-EE04FB5CC244}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenshinSwitch.Analytics", "GenshinSwitch.Analytics\GenshinSwitch.Analytics.csproj", "{4B32948A-E6A7-4BF4-AA1F-8B06A12CB7D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenshinSwitch.Analyze", "GenshinSwitch.Analyze\GenshinSwitch.Analyze.csproj", "{4B32948A-E6A7-4BF4-AA1F-8B06A12CB7D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

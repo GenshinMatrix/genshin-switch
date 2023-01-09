@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using GenshinSwitch.Core;
+using HtmlAgilityPack;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
@@ -36,6 +37,7 @@ public class HoyolabClient
     private const string x_rpc_client_type = "x-rpc-client_type";
     private static string UAContent => $"Mozilla/5.0 miHoYoBBS/{AppVersion}";
     private static string AppVersion = "2.41.2";
+    private static bool AppVersionFetch = false;
     private static readonly string DeviceId = Guid.NewGuid().ToString("D");
 
     #endregion
@@ -503,6 +505,15 @@ public class HoyolabClient
         return announces;
     }
 
+    public async Task FetchAppVersion(bool force = false)
+    {
+        if (!AppVersionFetch || force)
+        {
+            _ = await GetAppVersion();
+            Logger.Info($"[FetchAppVersion] {AppVersion}");
+        }
+    }
+
     public async Task<string> GetAppVersion()
     {
         var html = await CommonSendAsync(new(HttpMethod.Get, "https://m.miyoushe.com/download.html"));
@@ -524,6 +535,7 @@ public class HoyolabClient
                     if (ver.Minor > 0 || ver.MajorRevision > 0 || ver.Major > 0 || ver.Build > 0 || ver.MinorRevision > 0 || ver.Revision > 0)
                     {
                         AppVersion = match.Groups["version"].Value;
+                        AppVersionFetch = true;
                     }
                 }
                 break;

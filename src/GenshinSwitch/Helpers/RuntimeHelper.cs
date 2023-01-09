@@ -15,6 +15,7 @@ public class RuntimeHelper
     public static bool IsMSIX { get; } = GetMSIX();
     public static bool IsDebuggerAttached => Debugger.IsAttached;
     public static bool IsDesignMode { get; } = GetDesignMode();
+    public static bool IsWin11 => Environment.OSVersion.Version.Build >= 22000;
 
     private static bool GetMSIX()
     {

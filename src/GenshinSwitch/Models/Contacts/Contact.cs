@@ -19,6 +19,13 @@ public partial class Contact : ObservableRecipient
         set => SetProperty(ref aliasName, value);
     }
 
+    private string? nickName = null!;
+    public string? NickName
+    {
+        get => nickName;
+        set => SetProperty(ref nickName, value);
+    }
+
     private string? localIconUri = null!;
     public string? LocalIconUri
     {
@@ -40,11 +47,11 @@ public partial class Contact : ObservableRecipient
         set => SetProperty(ref server, value);
     }
 
-    private string? region = null!;
-    public string? Region
+    private string? regionName = null!;
+    public string? RegionName
     {
-        get => region;
-        set => SetProperty(ref region, value);
+        get => regionName;
+        set => SetProperty(ref regionName, value);
     }
 
     private string? cookie = null!;

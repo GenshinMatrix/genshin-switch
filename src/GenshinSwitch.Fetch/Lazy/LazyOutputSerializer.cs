@@ -1,8 +1,8 @@
 ﻿using YamlDotNet.Serialization;
 
-namespace GenshinSwitch.Core.Settings;
+namespace GenshinSwitch.Fetch.Lazy;
 
-internal class SettingsSerializer
+internal class LazyOutputSerializer
 {
     public static string SerializeObject<T>(T obj)
     {

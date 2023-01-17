@@ -40,6 +40,11 @@ internal class UriStringToImageSourceConverter : IValueConverter
                 return new BitmapImage(uri);
             }
         }
+        else if (value is BitmapImage image && w != null)
+        {
+            image.DecodePixelWidth = w.Value;
+            return image;
+        }
         return null!;
     }
 

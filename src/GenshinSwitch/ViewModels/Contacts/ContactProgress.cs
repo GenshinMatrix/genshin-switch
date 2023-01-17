@@ -1,8 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using GenshinSwitch.Models.Contacts;
 using System.Reflection;
 
-namespace GenshinSwitch.Models;
+namespace GenshinSwitch.ViewModels.Contacts;
 
 [Obfuscation]
 public class ContactProgress : ObservableRecipient

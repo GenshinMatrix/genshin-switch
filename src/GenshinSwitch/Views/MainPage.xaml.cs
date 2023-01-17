@@ -19,7 +19,7 @@ public sealed partial class MainPage : Page
 
             App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
             {
-                await kv.Value.FetchAllAsync();
+                await kv.Value.ViewModel.FetchAllAsync();
             });
         }
         InitializeComponent();

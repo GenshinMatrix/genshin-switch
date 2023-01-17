@@ -18,6 +18,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWinUI>true</UseWinUI>
+    <UseWpf>false</UseWpf>
+    <UseWindowsFrom>false</UseWindowsFrom>
     <LangVersion>11.0</LangVersion>
     <EnableMsixTooling>true</EnableMsixTooling>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
@@ -43,12 +45,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="CliWrap" Version="3.6.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
     <PackageReference Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Animations" Version="7.1.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Behaviors" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.1.2" />
+    <PackageReference Include="MediaInfoDLL" Version="22.12.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.14" />
+    <PackageReference Include="Microsoft.VisualStudio.Threading" Version="17.4.33" />
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.4.33">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221209.1" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
@@ -57,10 +69,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
-    <PackageReference Include="Vanara.PInvoke.ComCtl32" Version="3.4.11" />
-    <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.11" />
+    <PackageReference Include="Vanara.PInvoke.ComCtl32" Version="3.4.12" />
+    <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.12" />
     <PackageReference Include="WinUIEx" Version="2.1.0" />
-    <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.75" />
+    <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.77" />
     <PackageReference Include="System.IO.Abstractions" Version="19.1.5" />
     <PackageReference Include="YamlDotNet" Version="12.3.1" />
   </ItemGroup>
@@ -71,6 +83,7 @@
     <None Remove="Styles\ButtonStyle.xaml" />
     <None Remove="Styles\FontStyle.xaml" />
     <None Remove="Views\AddContactContentDialog.xaml" />
+    <None Remove="Views\LaunchWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -83,6 +96,9 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\LaunchWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Styles\ButtonStyle.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

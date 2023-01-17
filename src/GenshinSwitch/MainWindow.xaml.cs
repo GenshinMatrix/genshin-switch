@@ -2,7 +2,6 @@
 using GenshinSwitch.Models;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
-using Vanara.PInvoke;
 using WinRT.Interop;
 
 namespace GenshinSwitch;

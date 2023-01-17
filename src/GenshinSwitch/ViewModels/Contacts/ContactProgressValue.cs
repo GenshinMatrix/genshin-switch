@@ -1,4 +1,4 @@
-﻿namespace GenshinSwitch.Models.Contacts;
+﻿namespace GenshinSwitch.ViewModels.Contacts;
 
 public struct ContactProgressValue
 {

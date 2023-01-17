@@ -1,9 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Reflection;
-using Xunkong.Hoyolab.Account;
-using Xunkong.Hoyolab.SpiralAbyss;
-using Xunkong.Hoyolab.TravelNotes;
-using YamlDotNet.Serialization;
 
 namespace GenshinSwitch.Models;
 

@@ -8,11 +8,13 @@ using GenshinSwitch.Core;
 using GenshinSwitch.Core.Settings;
 using GenshinSwitch.Fetch.Launch;
 using GenshinSwitch.Fetch.Regedit;
+using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Models.Messages;
 using GenshinSwitch.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -48,11 +50,11 @@ public class MainViewModel : ObservableRecipient
 #endif
                     if (contact.Prod == runningProd)
                     {
-                        contact.IsRunning = true;
+                        contact.ViewModel.IsRunning = true;
                     }
                     else
                     {
-                        contact.IsRunning = false;
+                        contact.ViewModel.IsRunning = false;
                     }
                 }
             }
@@ -60,7 +62,7 @@ public class MainViewModel : ObservableRecipient
             {
                 foreach (Contact contact in Contacts)
                 {
-                    contact.IsRunning = false;
+                    contact.ViewModel.IsRunning = false;
                 }
             }
         };

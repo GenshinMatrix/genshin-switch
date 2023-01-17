@@ -1,7 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using GenshinSwitch.Controls.Notice;
-using GenshinSwitch.Fetch.Launch;
-using GenshinSwitch.Helpers;
 using Microsoft.UI.Xaml;
 using System.Windows.Input;
 using Windows.UI.Notifications;
@@ -17,17 +14,5 @@ public class GlobalCommandViewModel
 
         ToastNotificationManager.History.Clear();
         Application.Current.Exit();
-    });
-
-    public static ICommand LaunchHyperionCommand => new RelayCommand(async () =>
-    {
-        if (RuntimeHelper.IsWin11 && false)
-        {
-            await HyperionCtrl.LaunchAsync();
-        }
-        else
-        {
-            NoticeService.AddNotice("Windows Subsystem for Android™️ NOT installed", "Hoyolab application requested OS higher than Windows 11.");
-        }
     });
 }

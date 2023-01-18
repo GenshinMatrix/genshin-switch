@@ -158,12 +158,26 @@ public partial class ContactViewModel
         {
             if (string.IsNullOrEmpty(Settings.ComponentLazyPath.Get()))
             {
-                await LaunchLazy("folder");
-
-                if (string.IsNullOrEmpty(Settings.ComponentLazyPath.Get()))
+                if (await LazyProtocol.IsVaildProtocolAsync())
                 {
+                    await LazyProtocol.LaunchAsync();
                     return;
                 }
+                else
+                {
+                    await LaunchLazy("folder");
+
+                    if (string.IsNullOrEmpty(Settings.ComponentLazyPath.Get()))
+                    {
+                        return;
+                    }
+                }
+            }
+
+            if (!File.Exists(Settings.ComponentLazyPath.Get()))
+            {
+                NoticeService.AddNotice("组件文件不存在", $"{Settings.ComponentLazyPath.Get()}");
+                return;
             }
 
             try
@@ -432,6 +446,11 @@ public partial class ContactViewModel
         try
         {
             LazyInfoViewModel!.IsUnlocked = await LazyVerification.VerifyAssembly(Settings.ComponentLazyPath.Get());
+
+            if (!LazyInfoViewModel.IsUnlocked)
+            {
+                LazyInfoViewModel.IsUnlocked = await LazyProtocol.IsVaildProtocolAsync();
+            }
 
             if (Contact.Uid == null)
             {

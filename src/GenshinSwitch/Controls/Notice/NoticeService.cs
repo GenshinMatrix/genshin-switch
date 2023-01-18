@@ -1,7 +1,4 @@
 ﻿using CommunityToolkit.WinUI.Notifications;
-using GenshinSwitch;
-using GenshinSwitch.Core;
-using Microsoft.UI.Dispatching;
 
 namespace GenshinSwitch.Controls.Notice;
 

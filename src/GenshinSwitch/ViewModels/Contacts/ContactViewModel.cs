@@ -47,6 +47,9 @@ public partial class ContactViewModel
     [ObservableProperty]
     private LazyInfoViewModel? lazyInfoViewModel = new();
 
+    [ObservableProperty]
+    private SpiralAbyssInfoViewModel? spiralAbyssInfoViewModel = new();
+
     public ContactProgress ResinInfo { get; set; } = new();
     public ContactProgress SignInInfo { get; set; } = new();
     public ContactProgress FinishedTaskInfo { get; set; } = new();
@@ -165,12 +168,14 @@ public partial class ContactViewModel
                 }
                 else
                 {
+#if LEGACY // Only use UrlProtocol to launch
                     await LaunchLazy("folder");
 
                     if (string.IsNullOrEmpty(Settings.ComponentLazyPath.Get()))
                     {
                         return;
                     }
+#endif
                 }
             }
 
@@ -307,8 +312,9 @@ public partial class ContactViewModel
                 SignInInfo.IsGreen = signInInfoFetched!.IsSign;
                 SignInInfo.IsRed = !SignInInfo.IsGreen;
 
-                ContactMapperProvider.Map(signInInfoFetched, SignInViewModel);
                 SignInViewModel!.IsFetched = true;
+                ContactMapperProvider.Map(signInInfoFetched, SignInViewModel);
+                OnPropertyChanged(nameof(SignInViewModel));
             }
             catch (Exception e)
             {
@@ -317,6 +323,7 @@ public partial class ContactViewModel
                 SignInInfo.IsGreen = !SignInInfo.IsYellow;
                 SignInInfo.IsRed = !SignInInfo.IsYellow;
                 SignInViewModel!.IsFetched = false;
+                OnPropertyChanged(nameof(SignInViewModel));
             }
         }
     }
@@ -433,6 +440,9 @@ public partial class ContactViewModel
                     SpiralAbyssInfo.IsGreen = false;
                     SpiralAbyssInfo.IsRed = false;
                 }
+
+                ContactMapperProvider.Map(spiralAbyssInfoFetched, SpiralAbyssInfoViewModel);
+                OnPropertyChanged(nameof(SpiralAbyssInfoViewModel));
             }
             catch (Exception e)
             {

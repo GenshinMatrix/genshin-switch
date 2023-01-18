@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using GenshinSwitch.ViewModels.Contacts;
-using System.ComponentModel;
-using System.Reflection;
-using Vanara.Extensions.Reflection;
+using Xunkong.Hoyolab.Account;
 using Xunkong.Hoyolab.DailyNote;
+using Xunkong.Hoyolab.SpiralAbyss;
 
 namespace GenshinSwitch.Models.Contacts;
 
@@ -15,9 +14,15 @@ public class ContactMapperProvider
     {
         MapperConfiguration config = new(cfg =>
         {
+            cfg.CreateMap<SignInInfo, SignInInfoViewModel>();
             cfg.CreateMap<DailyNoteInfo, DailyNoteInfoViewModel>();
             cfg.CreateMap<Transformer, TransformerViewModel>();
             cfg.CreateMap<TransformerRecoveryTime, TransformerRecoveryTimeViewModel>();
+            cfg.CreateMap<SpiralAbyssInfo, SpiralAbyssInfoViewModel>();
+            cfg.CreateMap<SpiralAbyssRank, SpiralAbyssRankViewModel>();
+            cfg.CreateMap<SpiralAbyssFloor, SpiralAbyssFloorViewModel>();
+            cfg.CreateMap<SpiralAbyssLevel, SpiralAbyssLevelViewModel>();
+            cfg.CreateMap<SpiralAbyssBattle, SpiralAbyssBattleViewModel>();
         });
         Service = config.CreateMapper();
     }

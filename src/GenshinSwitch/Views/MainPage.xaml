@@ -135,7 +135,7 @@
                                                 <Flyout>
                                                     <StackPanel Margin="4,0,0,0" Orientation="Horizontal">
                                                         <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_ItemIcon_210.png" Stretch="Uniform" />
-                                                            <StackPanel Width="194" Margin="12,0,0,0">
+                                                            <StackPanel Margin="12,0,0,0">
                                                                 <TextBlock Text="原粹树脂" />
                                                                 <TextBlock Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsResinFull,Converter={StaticResource BoolToVisibilityReversedConverter},Mode=OneWay}"
                                                                            Foreground="{StaticResource TextFillColorSecondaryBrush}"
@@ -147,7 +147,7 @@
                                                                 </TextBlock>
                                                             <TextBlock Text="已全部恢复" Foreground="Green" Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsResinFull,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" />
                                                             </StackPanel>
-                                                            <TextBlock VerticalAlignment="Center" Margin="0,0,5,0">
+                                                            <TextBlock VerticalAlignment="Center" Margin="12,0,5,0">
                                                                 <Run Text="{x:Bind ViewModel.DailyNoteViewModel.CurrentResin,Mode=OneWay}" />
                                                                 <Run Text="/" />
                                                                 <Run Text="{x:Bind ViewModel.DailyNoteViewModel.MaxResin,Mode=OneWay}" />
@@ -235,18 +235,19 @@
                                                             <StackPanel Margin="12,0,0,0">
                                                                 <TextBlock Text="每日世界任务" />
                                                                 <TextBlock Foreground="{x:Bind ViewModel.LazyInfoViewModel,Converter={StaticResource QuestEventStatsColorConverter},Mode=OneWay}"
-                                                                       Style="{ThemeResource CaptionTextBlockStyle}"
-                                                                       Text="{x:Bind ViewModel.LazyInfoViewModel,Converter={StaticResource LazyInfoStatsStringConverter},Mode=OneWay}" />
+                                                                           Style="{ThemeResource CaptionTextBlockStyle}"
+                                                                           Text="{x:Bind ViewModel.LazyInfoViewModel,Converter={StaticResource LazyInfoStatsStringConverter},Mode=OneWay}" />
                                                             </StackPanel>
                                                             <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="10,0,0,0" Padding="0"
-                                                                Command="{x:Bind ViewModel.LaunchLazyCommand}"
-                                                                CommandParameter="launch"
-                                                                ToolTipService.ToolTip="启动自动化组件">
+                                                                    Command="{x:Bind ViewModel.LaunchLazyCommand}"
+                                                                    CommandParameter="launch"
+                                                                    ToolTipService.ToolTip="启动自动化组件">
                                                                 <Grid Width="30" Height="30" VerticalAlignment="Center">
                                                                     <FontIcon Glyph="{x:Bind styles:FontSymbols.Play}" FontSize="16"/>
                                                                 </Grid>
                                                             </Button>
-                                                            <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0,0,0,0" Padding="0"
+                                                            <Button Visibility="Collapsed"
+                                                                    Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0,0,0,0" Padding="0"
                                                                     Command="{x:Bind ViewModel.LaunchLazyCommand}"
                                                                     CommandParameter="folder"
                                                                     ToolTipService.ToolTip="选择组件所在路径">
@@ -255,9 +256,9 @@
                                                                 </Grid>
                                                             </Button>
                                                             <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0,0,0,0" Padding="0"
-                                                                Command="{x:Bind ViewModel.LaunchLazyCommand}"
-                                                                CommandParameter="web"
-                                                                ToolTipService.ToolTip="获取自动化组件（私有）">
+                                                                    Command="{x:Bind ViewModel.LaunchLazyCommand}"
+                                                                    CommandParameter="web"
+                                                                    ToolTipService.ToolTip="获取自动化组件（私有）">
                                                                 <Grid Width="30" Height="30" VerticalAlignment="Center">
                                                                     <FontIcon Glyph="{x:Bind styles:FontSymbols.Home}" FontSize="16"/>
                                                                 </Grid>
@@ -361,7 +362,7 @@
                                                                Height="28"
                                                                Source="ms-appx:///Assets/Images/UI_ItemIcon_204.png"
                                                                Stretch="Uniform" />
-                                                            <StackPanel Width="194" Margin="12,0,0,0">
+                                                            <StackPanel Margin="12,0,0,0">
                                                                 <TextBlock Text="洞天宝钱" />
                                                                 <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsHomeCoinFull,Converter={StaticResource BoolToVisibilityReversedConverter},Mode=OneWay}">
                                                                     <Run Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="将于" />
@@ -374,7 +375,7 @@
                                                                            Text="已达到存储上限"
                                                                            Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsHomeCoinFull,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" />
                                                             </StackPanel>
-                                                            <TextBlock Width="80" VerticalAlignment="Center">
+                                                            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center">
                                                                 <Run Text="{x:Bind ViewModel.DailyNoteViewModel.CurrentHomeCoin,Mode=OneWay}" />
                                                                 <Run Text="/" />
                                                                 <Run Text="{x:Bind ViewModel.DailyNoteViewModel.MaxHomeCoin,Mode=OneWay}" />
@@ -500,6 +501,34 @@
                                             </Grid>
                                             <Button.Flyout>
                                                 <Flyout>
+                                                    <StackPanel>
+                                                        <StackPanel Margin="4,0,0,0" Orientation="Horizontal">
+                                                            <Image Width="28"
+                                                               Height="28"
+                                                               Source="ms-appx:///Assets/Images/UI_MarkTower_Tower.png"
+                                                               Stretch="Uniform" />
+                                                            <StackPanel Margin="12,0,0,0">
+                                                                <TextBlock Text="深境螺旋" />
+                                                                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsHomeCoinFull,Converter={StaticResource BoolToVisibilityReversedConverter},Mode=OneWay}">
+                                                                    <Run Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="已到达" />
+                                                                    <Run Text="{x:Bind ViewModel.SpiralAbyssInfoViewModel.MaxFloor,Mode=OneWay}" />
+                                                                    <Run Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="层" />
+                                                                </TextBlock>
+                                                                <TextBlock Foreground="Green"
+                                                                           Style="{ThemeResource CaptionTextBlockStyle}"
+                                                                           Text="已达到存储上限"
+                                                                           Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsHomeCoinFull,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" />
+                                                            </StackPanel>
+                                                            <StackPanel Margin="12,0,0,0" Orientation="Horizontal">
+                                                                <Image Width="30"
+                                                                   Source="ms-appx:///Assets/Images/UI_Icon_Tower_Star.png"
+                                                                   Stretch="Uniform" />
+                                                                <TextBlock VerticalAlignment="Center">
+                                                                <Run Text="{x:Bind ViewModel.SpiralAbyssInfoViewModel.TotalStar,Mode=OneWay}" />
+                                                                </TextBlock>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </StackPanel>
                                                 </Flyout>
                                             </Button.Flyout>
                                         </Button>

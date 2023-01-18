@@ -17,10 +17,12 @@ public sealed partial class MainPage : Page
         {
             ViewModel.Contacts.Add(kv.Value);
 
-            App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
+#pragma warning disable VSTHRD101 // Avoid unsupported async delegates
+            _ = App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
             {
                 await kv.Value.ViewModel.FetchAllAsync();
             });
+#pragma warning restore VSTHRD101 // Avoid unsupported async delegates
         }
         InitializeComponent();
     }

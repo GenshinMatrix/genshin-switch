@@ -15,6 +15,7 @@
         <converters:StringFormatConverter x:Key="StringFormatConverter" xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"/>
         <converters:DateTimeOffsetToDayStringConverter x:Key="DateTimeOffsetToDayStringConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:DateTimeOffsetToTimeStringConverter x:Key="DateTimeOffsetToTimeStringConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
+        <converters:DateTimeToDayStringConverter x:Key="DateTimeToDayStringConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:UriStringToImageSourceConverter x:Key="UriStringToImageSourceConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:BoolToVisibilityReversedConverter x:Key="BoolToVisibilityReversedConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
@@ -440,35 +441,11 @@
                                             </Button.Flyout>
                                         </Button>
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.GcgInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-                                                <Image Width="26" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkPoint_GcgZhanDou.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.GcgInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.GcgInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.GcgInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
-                                            </Grid>
-                                            <Button.Flyout>
-                                                <Flyout>
-                                                </Flyout>
-                                            </Button.Flyout>
-                                        </Button>
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.LInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-                                                <Image Width="26" Opacity="1" Source="ms-appx:///Assets/Images/UI_Icon_L.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.LInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.LInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.LInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
-                                            </Grid>
-                                            <Button.Flyout>
-                                                <Flyout>
-                                                </Flyout>
-                                            </Button.Flyout>
-                                        </Button>
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.ExpeditionInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.ResinDiscountInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="30" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkTower_Weekly.png"/>
-                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.ExpeditionInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.ExpeditionInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
-                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.ExpeditionInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.ResinDiscountInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.ResinDiscountInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                                                <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.ResinDiscountInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
                                             </Grid>
                                             <Button.Flyout>
                                                 <Flyout>
@@ -509,22 +486,36 @@
                                                                Stretch="Uniform" />
                                                             <StackPanel Margin="12,0,0,0">
                                                                 <TextBlock Text="深境螺旋" />
-                                                                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsHomeCoinFull,Converter={StaticResource BoolToVisibilityReversedConverter},Mode=OneWay}">
-                                                                    <Run Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="已到达" />
+                                                                <TextBlock VerticalAlignment="Center"
+                                                                           Foreground="OrangeRed"
+                                                                           Text="未解锁"
+                                                                           Visibility="{x:Bind ViewModel.SpiralAbyssInfoViewModel.IsUnlock,Converter={StaticResource BoolToVisibilityReversedConverter},Mode=OneWay}" />
+                                                                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                                                                           Visibility="{x:Bind ViewModel.SpiralAbyssInfoViewModel.IsUnlock,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                                                    <Run Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="最深抵达" />
                                                                     <Run Text="{x:Bind ViewModel.SpiralAbyssInfoViewModel.MaxFloor,Mode=OneWay}" />
-                                                                    <Run Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="层" />
+                                                                    <Run Text=" "/>
+                                                                    <Run Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="战斗次数" />
+                                                                    <Run Text="{x:Bind ViewModel.SpiralAbyssInfoViewModel.TotalBattleCount,Mode=OneWay}" />
+                                                                    <Run Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="次" />
                                                                 </TextBlock>
-                                                                <TextBlock Foreground="Green"
-                                                                           Style="{ThemeResource CaptionTextBlockStyle}"
-                                                                           Text="已达到存储上限"
-                                                                           Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsHomeCoinFull,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" />
+                                                                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                                                                           Visibility="{x:Bind ViewModel.SpiralAbyssInfoViewModel.IsUnlock,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                                                    <Run Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="统计周期" />
+                                                                    <Run Text="{x:Bind ViewModel.SpiralAbyssInfoViewModel.StartTime,Converter={StaticResource DateTimeToDayStringConverter},Mode=OneWay}" />
+                                                                    <Run Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="-" />
+                                                                    <Run Text="{x:Bind ViewModel.SpiralAbyssInfoViewModel.EndTime,Converter={StaticResource DateTimeToDayStringConverter},Mode=OneWay}" />
+                                                                </TextBlock>
                                                             </StackPanel>
-                                                            <StackPanel Margin="12,0,0,0" Orientation="Horizontal">
+                                                            <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
                                                                 <Image Width="30"
-                                                                   Source="ms-appx:///Assets/Images/UI_Icon_Tower_Star.png"
-                                                                   Stretch="Uniform" />
-                                                                <TextBlock VerticalAlignment="Center">
-                                                                <Run Text="{x:Bind ViewModel.SpiralAbyssInfoViewModel.TotalStar,Mode=OneWay}" />
+                                                                       Source="ms-appx:///Assets/Images/UI_Icon_Tower_Star.png"
+                                                                       Stretch="Uniform">
+                                                                </Image>
+                                                                <TextBlock Margin="5,0,0,0" VerticalAlignment="Center">
+                                                                    <Run Text="{x:Bind ViewModel.SpiralAbyssInfoViewModel.TotalStar,Mode=OneWay}" />
+                                                                    <Run Text="/" />
+                                                                    <Run Text="36" />
                                                                 </TextBlock>
                                                             </StackPanel>
                                                         </StackPanel>

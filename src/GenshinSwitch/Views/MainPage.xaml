@@ -191,6 +191,14 @@
                                                                 <FontIcon Glyph="{x:Bind styles:FontSymbols.Home}" FontSize="16"/>
                                                             </Grid>
                                                         </Button>
+                                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0,0,0,0" Padding="0"
+                                                                Command="{x:Bind ViewModel.SignInCommand}"
+                                                                CommandParameter="web"
+                                                                ToolTipService.ToolTip="立即签到（存在风控）">
+                                                            <Grid Width="30" Height="30" VerticalAlignment="Center">
+                                                                <FontIcon Glyph="{x:Bind styles:FontSymbols.Favicon}" FontSize="16"/>
+                                                            </Grid>
+                                                        </Button>
                                                     </StackPanel>
                                                 </Flyout>
                                             </Button.Flyout>

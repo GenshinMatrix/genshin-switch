@@ -12,6 +12,7 @@ using GenshinSwitch.Models.Contacts;
 using GenshinSwitch.Views;
 using MediaInfoLib;
 using Microsoft.VisualStudio.Threading;
+using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -196,6 +197,32 @@ public partial class ContactViewModel
             {
                 Logger.Error(e);
             }
+        }
+    }
+
+    [RelayCommand]
+    [SuppressMessage("Style", "VSTHRD200:Use \"Async\" suffix for async methods", Justification = "<Pending>")]
+    private async Task SignIn()
+    {
+        if (roleFetched == null)
+        {
+            await FetchGenshinRoleInfosAsync();
+        }
+
+        try
+        {
+            bool isSigned = await client.SignInAsync(roleFetched!);
+
+            Logger.Info($"[SignIn] Result={isSigned}");
+            if (!isSigned)
+            {
+                NoticeService.AddNotice("米游社签到", $"账号 {roleFetched!.Nickname} 已签到。");
+            }
+        }
+        catch (Exception e)
+        {
+            NoticeService.AddNotice("米游社签到", e.Message);
+            Logger.Error(e);
         }
     }
 

@@ -1,31 +1,28 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using GenshinSwitch.Contracts.Services;
 using GenshinSwitch.Controls;
 using GenshinSwitch.Controls.Notice;
 using GenshinSwitch.Core;
 using GenshinSwitch.Core.Settings;
 using GenshinSwitch.Fetch.Launch;
 using GenshinSwitch.Fetch.Regedit;
-using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Models.Messages;
 using GenshinSwitch.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
+using Microsoft.VisualStudio.Threading;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Windows.Input;
+using System.Diagnostics.CodeAnalysis;
 
 namespace GenshinSwitch.ViewModels;
 
-public class MainViewModel : ObservableRecipient
+public partial class MainViewModel : ObservableRecipient
 {
     public DispatcherTimer DispatcherTimer { get; } = new();
     public ObservableCollection<Contact> Contacts { get; set; } = new();
-    public ICommand AddContactCommand { get; }
 
     public MainViewModel()
     {
@@ -67,38 +64,40 @@ public class MainViewModel : ObservableRecipient
             }
         };
         DispatcherTimer.Start();
+    }
 
-        AddContactCommand = new RelayCommand(async () =>
+    [RelayCommand]
+    [SuppressMessage("Style", "VSTHRD200:Use \"Async\" suffix for async methods", Justification = "<Pending>")]
+    private async Task AddContact()
+    {
+        string prop = GenshinRegedit.ProdCN;
+        var found = Settings.Contacts.Get().Where(kv => kv.Value.Prod == prop);
+
+        if (found.Any())
         {
-            string prop = GenshinRegedit.ProdCN;
-            var found = Settings.Contacts.Get().Where(kv => kv.Value.Prod == prop);
-
-            if (found.Any())
-            {
-                Bubble.Warning($"当前账号已被添加为 {found.First().Value.AliasName}");
+            Bubble.Warning($"当前账号已被添加为 {found.First().Value.AliasName}");
 #if !DEBUG
                 return;
 #endif
-            }
+        }
 
-            AddContactContentDialog dialog = new()
-            {
-                XamlRoot = App.MainWindow.XamlRoot,
-                RequestedTheme = App.MainWindow.ActualTheme,
-            };
+        AddContactContentDialog dialog = new()
+        {
+            XamlRoot = App.MainWindow.XamlRoot,
+            RequestedTheme = App.MainWindow.ActualTheme,
+        };
 
-            if (await dialog.ShowAsync() == ContentDialogResult.Secondary)
-            {
-                AddOrUpdateContact(dialog.ContactMessage);
-            }
-        });
+        if (await dialog.ShowAsync() == ContentDialogResult.Secondary)
+        {
+            AddOrUpdateContact(dialog.ContactMessage);
+        }
     }
 
     public void OnContactListViewItemClick(object sender, ItemClickEventArgs e)
     {
         if (ListViewHelper.TryRaiseItemDoubleClick(sender, e))
         {
-            LaunchGameAsync((Contact)e.ClickedItem).ConfigureAwait(false);
+            LaunchGameAsync((Contact)e.ClickedItem).Forget();
         }
     }
 

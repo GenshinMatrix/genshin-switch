@@ -130,7 +130,7 @@
                     <Run Text="需要包含 cookie_token_v2 值，否则会出现 HoyolabException (-100) 错误。" Foreground="#61666D"/>
                 </TextBlock.Inlines>
             </TextBlock>
-            <TextBox />
+            <TextBox Text="{x:Bind ViewModel.Cookie,Mode=TwoWay}"/>
         </StackPanel>
     </Grid>
 </ContentDialog>

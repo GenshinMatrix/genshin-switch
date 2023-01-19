@@ -37,7 +37,7 @@ public class HoyolabClient
     private const string x_rpc_client_type = "x-rpc-client_type";
     private static string UAContent => $"Mozilla/5.0 miHoYoBBS/{AppVersion}";
     private static string AppVersion = "2.43.1";
-    private static bool AppVersionFetch = false;
+    private static bool AppVersionFetch = true;
     private static readonly string DeviceId = Guid.NewGuid().ToString("D");
 
     #endregion
@@ -181,7 +181,8 @@ public class HoyolabClient
                 return false;
             }
         }
-        var obj = new { act_id = "e202009291139501", region = role.Region.ToString(), uid = role.Uid.ToString() };
+        const string actId = "e202009291139501";
+        var obj = new { act_id = actId, region = role.Region.ToString(), uid = role.Uid.ToString() };
         var request = new HttpRequestMessage(HttpMethod.Post, "https://api-takumi.mihoyo.com/event/bbs_sign_reward/sign");
         request.Headers.Add(Cookie, role.Cookie);
         request.Headers.Add(DS, DynamicSecret.CreateSecret());
@@ -189,7 +190,7 @@ public class HoyolabClient
         request.Headers.Add(x_rpc_device_id, DeviceId);
         request.Headers.Add(x_rpc_client_type, "5");
         request.Headers.Add(X_Reuqest_With, com_mihoyo_hyperion);
-        request.Headers.Add(Referer, "https://webstatic.mihoyo.com/bbs/event/signin-ys/index.html?bbs_auth_required=true&act_id=e202009291139501&utm_source=bbs&utm_medium=mys&utm_campaign=icon");
+        request.Headers.Add(Referer, $"https://webstatic.mihoyo.com/bbs/event/signin-ys/index.html?bbs_auth_required=true&act_id={actId}&utm_source=bbs&utm_medium=mys&utm_campaign=icon");
         request.Content = JsonContent.Create(obj);
         var risk = await CommonSendAsync<SignInRisk>(request, cancellationToken);
         if (risk is null or { RiskCode: 0, Success: 0 })

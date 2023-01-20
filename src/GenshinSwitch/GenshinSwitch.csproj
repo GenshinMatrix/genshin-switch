@@ -79,6 +79,7 @@
 
   <ItemGroup>
     <None Remove="Assets\Logos\Favicon.ico" />
+    <None Remove="Controls\SettingCard\SettingCard.xaml" />
     <None Remove="Strings\SegoeFluentIconsFontSymbol.xaml" />
     <None Remove="Styles\ButtonStyle.xaml" />
     <None Remove="Styles\FontStyle.xaml" />
@@ -96,6 +97,9 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Controls\SettingCard\SettingCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Views\LaunchWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

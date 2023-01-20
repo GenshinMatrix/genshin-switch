@@ -4,17 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:control="using:GenshinSwitch.Controls"
     xmlns:converter="using:GenshinSwitch.Views.Converters"
     xmlns:xaml="using:Microsoft.UI.Xaml"
     mc:Ignorable="d">
     <Page.Resources>
         <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     </Page.Resources>
-    <Grid Margin="28,8,0,0">
+    <Grid>
         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0">
             <Image Width="418" Opacity="0.3" Source="ms-appx:///Assets/Images/UI_SummerTime_ImgCharacter_01.png"/>
         </Grid>
-        <StackPanel
+        <StackPanel Margin="28,8,28,0"
             x:Name="ContentArea">
             <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
@@ -65,6 +66,43 @@
                     Style="{ThemeResource BodyTextBlockStyle}" />
                 <HyperlinkButton x:Uid="SettingsPage_PrivacyTermsLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
             </StackPanel>
+
+
+            <!--  检查更新  -->
+            <control:SettingCard>
+                <control:SettingCard.Icon>
+                    <Image Width="28"
+                                   Height="28"
+                                   Margin="-4"
+                                   Source="ms-appx:///Assets/Logos/StoreLogo.png">
+                        <ToolTipService.ToolTip>
+                            <ToolTip>
+                                <ToolTip.Style>
+                                    <Style BasedOn="{StaticResource DefaultToolTipStyle}" TargetType="ToolTip">
+                                        <Setter Property="MaxWidth" Value="480" />
+                                    </Style>
+                                </ToolTip.Style>
+                                <Image Source="ms-appx:///Assets/Images/102413942_p0.webp" />
+                            </ToolTip>
+                        </ToolTipService.ToolTip>
+                    </Image>
+                </control:SettingCard.Icon>
+                <control:SettingCard.Content>
+                    <TextBlock>
+                                <Run Text="{x:Bind ViewModel.AppName}" />
+                                <LineBreak />
+                                <Run FontSize="12"
+                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                     Text="{x:Bind ViewModel.AppVersion}" />
+                    </TextBlock>
+                </control:SettingCard.Content>
+                <control:SettingCard.Selector>
+                    <Button HorizontalAlignment="Right"
+                                    Command="{x:Bind ViewModel.CheckUpdateCommand, Mode=OneTime}"
+                                    Content="检查更新" />
+                </control:SettingCard.Selector>
+            </control:SettingCard>
+
         </StackPanel>
     </Grid>
 </Page>

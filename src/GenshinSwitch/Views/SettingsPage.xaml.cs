@@ -1,5 +1,4 @@
 ﻿using GenshinSwitch.ViewModels;
-
 using Microsoft.UI.Xaml.Controls;
 
 namespace GenshinSwitch.Views;

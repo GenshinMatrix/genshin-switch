@@ -4,11 +4,11 @@ namespace GenshinSwitch.Contracts.Services;
 
 public interface IThemeSelectorService
 {
-    ElementTheme Theme { get; }
+    public ElementTheme Theme { get; }
 
-    Task InitializeAsync();
+    public Task InitializeAsync();
 
-    Task SetThemeAsync(ElementTheme theme);
+    public Task SetThemeAsync(ElementTheme theme);
 
-    Task SetRequestedThemeAsync();
+    public Task SetRequestedThemeAsync();
 }

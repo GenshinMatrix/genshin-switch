@@ -9,13 +9,9 @@ using GenshinSwitch.Fetch.Lazy;
 using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Models.Contacts;
-using GenshinSwitch.Views;
-using MediaInfoLib;
 using Microsoft.VisualStudio.Threading;
-using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
@@ -107,8 +103,7 @@ public partial class ContactViewModel
     }
 
     [RelayCommand]
-    [SuppressMessage("Style", "VSTHRD200:Use \"Async\" suffix for async methods", Justification = "<Pending>")]
-    private async Task LaunchLazy(string type)
+    private async Task LaunchLazyAsync(string type)
     {
         if (type == "folder")
         {
@@ -201,8 +196,7 @@ public partial class ContactViewModel
     }
 
     [RelayCommand]
-    [SuppressMessage("Style", "VSTHRD200:Use \"Async\" suffix for async methods", Justification = "<Pending>")]
-    private async Task SignIn()
+    private async Task SignInAsync()
     {
         if (roleFetched == null)
         {
@@ -255,7 +249,6 @@ public partial class ContactViewModel
             {
                 await FetchLazyInfoAsync();
                 await FetchWeekendAsync();
-                await FetchAppVersion();
                 await FetchHoyolabUserInfoAsync();
                 await FetchGenshinRoleInfosAsync();
                 await FetchSignInInfoAsync();
@@ -271,8 +264,8 @@ public partial class ContactViewModel
         }
     }
 
-    [SuppressMessage("Style", "VSTHRD200:Use \"Async\" suffix for async methods", Justification = "<Pending>")]
-    public async Task FetchAppVersion()
+    [Obsolete]
+    public async Task FetchAppVersionAsync()
     {
         try
         {

@@ -1,21 +1,30 @@
 ﻿using GenshinSwitch.Contracts.Services;
+using GenshinSwitch.Core.Settings;
 using GenshinSwitch.Helpers;
-
+using GenshinSwitch.Models;
 using Microsoft.UI.Xaml;
 
 namespace GenshinSwitch.Services;
 
 public class ThemeSelectorService : IThemeSelectorService
 {
+#if LEGACY
     private const string SettingsKey = "AppBackgroundRequestedTheme";
+#endif
 
     public ElementTheme Theme { get; set; } = ElementTheme.Default;
 
+#if LEGACY
     private readonly ILocalSettingsService localSettingsService;
 
     public ThemeSelectorService(ILocalSettingsService localSettingsService)
     {
         this.localSettingsService = localSettingsService;
+    }
+#endif
+
+    public ThemeSelectorService()
+    {
     }
 
     public async Task InitializeAsync()
@@ -46,18 +55,26 @@ public class ThemeSelectorService : IThemeSelectorService
 
     private async Task<ElementTheme> LoadThemeFromSettingsAsync()
     {
+#if LEGACY
         string? themeName = await localSettingsService.ReadSettingAsync<string>(SettingsKey);
 
         if (Enum.TryParse(themeName, out ElementTheme cacheTheme))
         {
             return cacheTheme;
         }
-
         return ElementTheme.Default;
+#endif
+        await Task.CompletedTask;
+        return Settings.AppBackgroundRequestedTheme.Get();
     }
 
     private async Task SaveThemeInSettingsAsync(ElementTheme theme)
     {
+#if LEGACY
         await localSettingsService.SaveSettingAsync(SettingsKey, theme.ToString());
+#endif
+        await Task.CompletedTask;
+        Settings.AppBackgroundRequestedTheme.Set(theme);
+        SettingsManager.Save();
     }
 }

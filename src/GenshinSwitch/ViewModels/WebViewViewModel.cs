@@ -17,7 +17,7 @@ namespace GenshinSwitch.ViewModels;
 public class WebViewViewModel : ObservableRecipient, INavigationAware
 {
     // TODO: Set the default URL to display.
-    private Uri source = new("https://docs.microsoft.com/windows/apps/");
+    private Uri source = new("https://webstatic.mihoyo.com/ys/app/interactive-map/");
     private bool isLoading = true;
     private bool hasFailures;
 

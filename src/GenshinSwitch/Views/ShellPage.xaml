@@ -8,6 +8,7 @@
     xmlns:vm="using:GenshinSwitch.ViewModels"
     xmlns:base="using:GenshinSwitch"
     xmlns:helpers="using:GenshinSwitch.Helpers"
+    xmlns:styles="using:GenshinSwitch.Styles"
     xmlns:behaviors="using:GenshinSwitch.Behaviors"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     Loaded="OnLoaded">
@@ -62,12 +63,12 @@
                 TODO: Update item icons by updating FontIcon.Glyph properties.
                 https://docs.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font#icon-list
                 -->
-                <NavigationViewItem x:Uid="Shell_Main" helpers:NavigationHelper.NavigateTo="GenshinSwitch.ViewModels.MainViewModel">
+                <NavigationViewItem Content="主页" helpers:NavigationHelper.NavigateTo="GenshinSwitch.ViewModels.MainViewModel">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf0e2;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{x:Bind styles:FontSymbols.Contact}"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="Shell_WebView" helpers:NavigationHelper.NavigateTo="GenshinSwitch.ViewModels.WebViewViewModel">
+                <NavigationViewItem Content="观测大地图" helpers:NavigationHelper.NavigateTo="GenshinSwitch.ViewModels.WebViewViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe774;"/>
                     </NavigationViewItem.Icon>
@@ -75,7 +76,7 @@
             </NavigationView.MenuItems>
 
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="帮助" Tag="Help" helpers:NavigationHelper.NavigateTo="GenshinSwitch.ViewModels.MainViewModel">
+                <NavigationViewItem Content="帮助" Tag="Help" Visibility="Collapsed" helpers:NavigationHelper.NavigateTo="GenshinSwitch.ViewModels.MainViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE187;" />
                     </NavigationViewItem.Icon>

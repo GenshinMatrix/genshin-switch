@@ -1,12 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using GenshinSwitch.Contracts.Services;
 using GenshinSwitch.Core;
 using GenshinSwitch.Core.Services;
+using GenshinSwitch.Core.Settings;
 using GenshinSwitch.Helpers;
+using GenshinSwitch.Models;
+using GenshinSwitch.Models.Messages;
 using Microsoft.UI.Xaml;
+using Microsoft.VisualStudio.Threading;
 using System.Reflection;
-using System.Windows.Input;
 using Windows.ApplicationModel;
 using Windows.System;
 
@@ -27,30 +31,84 @@ public partial class SettingsViewModel : ObservableRecipient
         set => SetProperty(ref elementTheme, value);
     }
 
+    [ObservableProperty]
     private string versionDescription;
-    public string VersionDescription
+
+    [ObservableProperty]
+    private int selectedThemeIndex = (int)Settings.AppBackgroundRequestedTheme.Get();
+    partial void OnSelectedThemeIndexChanged(int value)
     {
-        get => versionDescription;
-        set => SetProperty(ref versionDescription, value);
+        async Task OnSelectedThemeIndexChangedAsync()
+        {
+            await SwitchThemeAsync((ElementTheme)value);
+        }
+        _ = OnSelectedThemeIndexChangedAsync();
+        Settings.AppBackgroundRequestedTheme.Set((ElementTheme)value);
+        SettingsManager.Save();
+        WeakReferenceMessenger.Default.Send(new ThemeChangedMessage() { Theme = (ElementTheme)value });
     }
 
-    public ICommand SwitchThemeCommand { get; }
+    [ObservableProperty]
+    private int windowBackdropIndex = Settings.Backdrop.Get() switch
+    {
+        "None" => 0,
+        "Acrylic" => 1,
+        "Mica" or _ => 2,
+    };
+    partial void OnWindowBackdropIndexChanged(int value)
+    {
+        Settings.Backdrop.Set(value switch
+        {
+            0 => "None",
+            1 => "Acrylic",
+            2 or _=> "Mica",
+        });
+        SettingsManager.Save();
+        WeakReferenceMessenger.Default.Send(new ThemeChangedMessage() { Backdrop = Settings.Backdrop.Get() });
+    }
+
+    [ObservableProperty]
+    private bool alwaysActiveBackdrop = false;
+    partial void OnAlwaysActiveBackdropChanged(bool value)
+    {
+        throw new NotImplementedException();
+    }
+
+    [ObservableProperty]
+    private bool apiResinOnOff = false;
+    partial void OnApiResinOnOffChanged(bool value)
+    {
+
+    }
 
     public SettingsViewModel(IThemeSelectorService themeSelectorService)
     {
         this.themeSelectorService = themeSelectorService;
         elementTheme = this.themeSelectorService.Theme;
         versionDescription = GetVersionDescription();
+    }
 
-        SwitchThemeCommand = new RelayCommand<ElementTheme>(
-            async (param) =>
-            {
-                if (ElementTheme != param)
-                {
-                    ElementTheme = param;
-                    await this.themeSelectorService.SetThemeAsync(param);
-                }
-            });
+    [RelayCommand]
+    private async Task SwitchThemeAsync(ElementTheme param)
+    {
+        if (ElementTheme != param)
+        {
+            ElementTheme = param;
+            await themeSelectorService.SetThemeAsync(param);
+        }
+    }
+
+    [RelayCommand]
+    private async Task CheckUpdateAsync()
+    {
+        try
+        {
+            await Launcher.LaunchUriAsync(new Uri("https://github.com/genshin-matrix/genshin-switch/releases"));
+        }
+        catch (Exception e)
+        {
+            Logger.Error(e);
+        }
     }
 
     private static string GetVersionDescription()
@@ -69,19 +127,5 @@ public partial class SettingsViewModel : ObservableRecipient
         }
 
         return $"{"AppDisplayName".GetLocalized()} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
-    }
-
-    [RelayCommand]
-    private async Task CheckUpdateAsync()
-    {
-        try
-        {
-            Uri uri = new("https://github.com/genshin-matrix/genshin-switch/releases");
-            await Launcher.LaunchUriAsync(uri);
-        }
-        catch (Exception e)
-        {
-            Logger.Error(e);
-        }
     }
 }

@@ -11,7 +11,7 @@ internal class ResinBrushHintConverter : IValueConverter
     {
         if (value != null)
         {
-            parameter ??= $"{Settings.ResinHintLimit.Get()};80FF0000;803C8CF0";
+            parameter ??= $"{Settings.HintResinLimit.Get()};80FF0000;803C8CF0";
 
             if (parameter is string ps)
             {

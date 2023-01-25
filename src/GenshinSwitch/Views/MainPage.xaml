@@ -125,6 +125,7 @@
                                         </StackPanel>
                                     </StackPanel>
                                     <controls:WrapPanel Grid.Column="2" Margin="15,0,0,0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                        <!-- 原粹树脂 -->
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                             <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.ResinInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter}}">
                                                 <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_210.png"/>
@@ -157,6 +158,7 @@
                                                 </Flyout>
                                             </Button.Flyout>
                                         </Button>
+                                        <!-- 米游社 -->
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                             <Grid Width="30" Height="30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.SignInInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="24" Opacity="1" Source="ms-appx:///Assets/Images/miyoushe.png"/>
@@ -191,7 +193,7 @@
                                                                 <FontIcon Glyph="{x:Bind styles:FontSymbols.Home}" FontSize="16"/>
                                                             </Grid>
                                                         </Button>
-                                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0,0,0,0" Padding="0"
+                                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0,0,0,0" Padding="0" IsEnabled="False"
                                                                 Command="{x:Bind ViewModel.SignInCommand}"
                                                                 CommandParameter="web"
                                                                 ToolTipService.ToolTip="立即签到（存在风控）">
@@ -203,6 +205,7 @@
                                                 </Flyout>
                                             </Button.Flyout>
                                         </Button>
+                                        <!-- 每日委托任务 -->
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                             <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.FinishedTaskInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="30" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkQuest_Events_Proce.png"/>
@@ -229,6 +232,7 @@
                                                 </Flyout>
                                             </Button.Flyout>
                                         </Button>
+                                        <!-- 每日世界任务 -->
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                             <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.LazyInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="30" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png"/>
@@ -293,6 +297,7 @@
                                                 </Flyout>
                                             </Button.Flyout>
                                         </Button>
+                                        <!-- 探索派遣 -->
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                             <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.ExpeditionInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="35" Opacity="1" Margin="0,2,0,0" Source="ms-appx:///Assets/Images/UI_Frame_Equipped.png"/>
@@ -356,6 +361,7 @@
                                                 </Flyout>
                                             </Button.Flyout>
                                         </Button>
+                                        <!-- 洞天宝钱 -->
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                             <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.HomeCoinInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_204.png"/>
@@ -405,6 +411,7 @@
                                                 </Flyout>
                                             </Button.Flyout>
                                         </Button>
+                                        <!-- 参量质变仪 -->
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                             <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.TransformerInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_220021.png"/>
@@ -448,6 +455,7 @@
                                                 </Flyout>
                                             </Button.Flyout>
                                         </Button>
+                                        <!-- 值得铭记的强敌 -->
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                             <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.ResinDiscountInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="30" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkTower_Weekly.png"/>
@@ -477,6 +485,7 @@
                                                 </Flyout>
                                             </Button.Flyout>
                                         </Button>
+                                        <!-- 深境螺旋 -->
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                             <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.SpiralAbyssInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                                 <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkTower_Tower.png"/>

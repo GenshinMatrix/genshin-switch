@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:control="using:GenshinSwitch.Controls"
     xmlns:converter="using:GenshinSwitch.Views.Converters"
     xmlns:xaml="using:Microsoft.UI.Xaml"
@@ -15,11 +16,392 @@
         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0">
             <Image Width="418" Opacity="0.3" Source="ms-appx:///Assets/Images/UI_SummerTime_ImgCharacter_01.png"/>
         </Grid>
-        <StackPanel Margin="28,8,28,0"
-            x:Name="ContentArea">
-            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
-                <TextBlock x:Uid="Settings_Theme" />
+        <ScrollViewer>
+            <Grid>
+                <StackPanel Margin="28,8,28,0" x:Name="ContentArea">
+                    <TextBlock Margin="0,0,0,4"
+                       FontSize="20"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       Text="主题设置" />
+
+                    <control:SettingCard Margin="0,10,0,0">
+                        <control:SettingCard.Icon>
+                            <Image Width="28"
+                            Height="28"
+                            Margin="-4"
+                            Source="ms-appx:///Assets/Logos/StoreLogo.png">
+                            </Image>
+                        </control:SettingCard.Icon>
+                        <control:SettingCard.Content>
+                            <TextBlock>
+                        <Run Text="{x:Bind ViewModel.AppName}" />
+                        <LineBreak />
+                        <Run FontSize="12"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.AppVersion}" />
+                            </TextBlock>
+                        </control:SettingCard.Content>
+                        <control:SettingCard.Selector>
+                            <Button HorizontalAlignment="Right"
+                            Command="{x:Bind ViewModel.CheckUpdateCommand, Mode=OneTime}"
+                            Content="检查更新" />
+                        </control:SettingCard.Selector>
+                    </control:SettingCard>
+
+                    <control:SettingCard Margin="0,5,0,0">
+                        <control:SettingCard.Icon>
+                            <FontIcon FontSize="20"
+                              Glyph="&#xE793;" />
+                        </control:SettingCard.Icon>
+                        <control:SettingCard.Content>
+                            <TextBlock VerticalAlignment="Center">
+                                <Run Text="应用主题" />
+                                <LineBreak />
+                                <Run FontSize="12"
+                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                     Text="跟随系统选项在应用重启后生效" />
+                            </TextBlock>
+                        </control:SettingCard.Content>
+                        <control:SettingCard.Selector>
+                            <ComboBox SelectedIndex="{x:Bind ViewModel.SelectedThemeIndex,Mode=TwoWay}">
+                                <ComboBoxItem Content="跟随系统" />
+                                <ComboBoxItem Content="浅色模式" />
+                                <ComboBoxItem Content="深色模式" />
+                            </ComboBox>
+                        </control:SettingCard.Selector>
+                    </control:SettingCard>
+
+                    <Expander Margin="0,5,0,0"
+                      HorizontalAlignment="Stretch"
+                      HorizontalContentAlignment="Stretch">
+                        <Expander.Header>
+                            <Grid>
+                                <StackPanel Padding="4,16,0,16" Orientation="Horizontal">
+                                    <FontIcon FontSize="20" Glyph="&#xE7F8;" />
+                                    <TextBlock Margin="20,0,0,0">
+                                        <Run Text="窗口背景材质" />
+                                        <LineBreak />
+                                        <Run FontSize="12"
+                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                             Text="推荐 Acrylic 材质" />
+                                    </TextBlock>
+                                </StackPanel>
+                                <ComboBox MinWidth="104"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        SelectedIndex="{x:Bind ViewModel.WindowBackdropIndex, Mode=TwoWay}">
+                                    <ComboBoxItem Content="None" />
+                                    <ComboBoxItem Content="Mica" />
+                                    <ComboBoxItem Content="Acrylic" />
+                                </ComboBox>
+                            </Grid>
+                        </Expander.Header>
+                        <Expander.Content>
+                            <StackPanel Margin="0,-16,44,-16">
+                                <Grid Padding="44,12,0,12">
+                                    <TextBlock>
+                                <Run Text="始终激活背景" />
+                                <LineBreak />
+                                <Run FontSize="12"
+                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                     Text="窗口失去焦点时不会回退为纯色" />
+                                    </TextBlock>
+                                    <ToggleSwitch HorizontalAlignment="Right" MinWidth="0" IsEnabled="False"
+                                          IsOn="{x:Bind ViewModel.AlwaysActiveBackdrop,Mode=TwoWay}"/>
+                                </Grid>
+                            </StackPanel>
+                        </Expander.Content>
+                    </Expander>
+
+                    <TextBlock Margin="0,10,0,4"
+                       FontSize="20"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       Text="个性化设置" />
+
+                    <Expander Margin="0,5,0,0"
+                      HorizontalAlignment="Stretch"
+                      HorizontalContentAlignment="Stretch">
+                        <Expander.Header>
+                            <Grid>
+                                <StackPanel Padding="4,16,0,16" Orientation="Horizontal">
+                                    <FontIcon FontSize="20" Glyph="&#xe74c;" />
+                                    <TextBlock Margin="20,0,0,0">
+                                <Run Text="接口提醒" />
+                                <LineBreak />
+                                <Run FontSize="12"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Text="按需调整米游社等接口提醒" />
+                                    </TextBlock>
+                                </StackPanel>
+                                <Button HorizontalAlignment="Right"
+                            Command="{x:Bind ViewModel.CheckUpdateCommand, Mode=OneTime}"
+                            Content="重置设置" />
+                            </Grid>
+                        </Expander.Header>
+                        <Expander.Content>
+                            <StackPanel Margin="0,-16,4,-16">
+                                <!-- 原粹树脂 -->
+                                <Grid Padding="44,12,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_ItemIcon_210.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
+                                        <CheckBox Content="原粹树脂" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示原粹树脂"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Text="达到" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,5,0"/>
+                                        <NumberBox SpinButtonPlacementMode="Compact" MinWidth="100"/>
+                                        <TextBlock Text="提醒" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="5,0,0,0"/>
+                                    </StackPanel>
+                                </Grid>
+                                <!-- 米游社 -->
+                                <Grid Padding="44,12,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/miyoushe.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
+                                        <CheckBox Content="米游社" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示米游社"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal" ToolTipService.ToolTip="晚上10点后未签到消息提醒" HorizontalAlignment="Right">
+                                            <TextBlock Text="签到提醒" VerticalAlignment="Center" Padding="0,0,5,0"/>
+                                            <ToggleSwitch OnContent="" OffContent="" MinWidth="0"/>
+                                        </StackPanel>
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                            <ToolTipService.ToolTip>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
+                                                    <Image Width="20" Margin="0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </ToolTipService.ToolTip>
+                                        </CheckBox>
+                                    </StackPanel>
+                                </Grid>
+                                <!-- 每日委托任务 -->
+                                <Grid Padding="44,12,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkQuest_Events_Proce.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
+                                        <CheckBox Content="每日委托任务" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示每日委托任务"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                            <ToolTipService.ToolTip>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
+                                                    <Image Width="20" Margin="0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </ToolTipService.ToolTip>
+                                        </CheckBox>
+                                    </StackPanel>
+                                </Grid>
+                                <!-- 每日世界任务 -->
+                                <Grid Padding="44,12,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Button HorizontalAlignment="Left" Margin="-44,0,0,0" Padding="0"
+                                                Style="{StaticResource DateTimePickerFlyoutButtonStyle}">
+                                            <Button.Content>
+                                                <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png" Stretch="Uniform" HorizontalAlignment="Left"/>
+                                            </Button.Content>
+                                            <Button.Flyout>
+                                                <Flyout Placement="Right">
+                                                    <controls:WrapPanel ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                                        ScrollViewer.HorizontalScrollMode="Auto"
+                                                                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                                                        ScrollViewer.VerticalScrollMode="Auto">
+                                                        <Button Width="40" Padding="5"
+                                                                Style="{StaticResource DateTimePickerFlyoutButtonStyle}">
+                                                            <Button.Content>
+                                                                <Image Width="30" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png"/>
+                                                            </Button.Content>
+                                                            <Button.ContextFlyout>
+                                                                <Flyout Placement="BottomEdgeAlignedLeft">
+                                                                    <Image Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png"/>
+                                                                </Flyout>
+                                                            </Button.ContextFlyout>
+                                                        </Button>
+                                                        <Button Width="40" Padding="5"
+                                                                Style="{StaticResource DateTimePickerFlyoutButtonStyle}">
+                                                            <Button.Content>
+                                                                <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/UI_ItemIcon_100064.png" control:ImageHelper.Width="30"/>
+                                                            </Button.Content>
+                                                            <Button.ContextFlyout>
+                                                                <Flyout Placement="BottomEdgeAlignedLeft">
+                                                                    <Image Width="53" Source="ms-appx:///Assets/Images/UI_ItemIcon_100064.png" control:ImageHelper.Width="53"/>
+                                                                </Flyout>
+                                                            </Button.ContextFlyout>
+                                                        </Button>
+                                                    </controls:WrapPanel>
+                                                </Flyout>
+                                            </Button.Flyout>
+                                        </Button>
+                                        <CheckBox Content="每日世界任务" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示每日世界任务"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                            <ToolTipService.ToolTip>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
+                                                    <Image Width="20" Margin="0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </ToolTipService.ToolTip>
+                                        </CheckBox>
+                                    </StackPanel>
+                                </Grid>
+                                <!-- 探索派遣 -->
+                                <Grid Padding="44,12,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Grid Margin="-44,0,0,0">
+                                            <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_Frame_Equipped.png" Stretch="Uniform" HorizontalAlignment="Left"/>
+                                            <Image Width="16" Opacity="1" Margin="7,-4,0,0" Source="ms-appx:///Assets/Images/UI_Icon_Intee_Explore_1.png" Stretch="Uniform" HorizontalAlignment="Left"/>
+                                        </Grid>
+                                        <CheckBox Content="探索派遣" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示探索派遣"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <ComboBox MinWidth="104"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center">
+                                            <ComboBoxItem Content="任意完成提醒" />
+                                            <ComboBoxItem Content="全部完成提醒" />
+                                        </ComboBox>
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                            <ToolTipService.ToolTip>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
+                                                    <Image Width="20" Margin="0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </ToolTipService.ToolTip>
+                                        </CheckBox>
+                                    </StackPanel>
+                                </Grid>
+                                <!-- 洞天宝钱 -->
+                                <Grid Padding="44,12,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_ItemIcon_204.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
+                                        <CheckBox Content="洞天宝钱" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示洞天宝钱"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Text="达到" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,5,0"/>
+                                        <NumberBox SpinButtonPlacementMode="Compact" MinWidth="100"/>
+                                        <TextBlock Text="提醒" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="5,0,0,0"/>
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                            <ToolTipService.ToolTip>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
+                                                    <Image Width="20" Margin="0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </ToolTipService.ToolTip>
+                                        </CheckBox>
+                                    </StackPanel>
+                                </Grid>
+                                <!-- 参量质变仪 -->
+                                <Grid Padding="44,12,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_ItemIcon_220021.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
+                                        <CheckBox Content="参量质变仪" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示参量质变仪"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                            <ToolTipService.ToolTip>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
+                                                    <Image Width="20" Margin="0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </ToolTipService.ToolTip>
+                                        </CheckBox>
+                                    </StackPanel>
+                                </Grid>
+                                <!-- 值得铭记的强敌 -->
+                                <Grid Padding="44,12,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkTower_Weekly.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
+                                        <CheckBox Content="值得铭记的强敌" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示值得铭记的强敌"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Text="最后" VerticalAlignment="Center" Padding="0,0,5,0"/>
+                                        <ComboBox SelectedIndex="0" Width="70" MinWidth="70"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center">
+                                            <ComboBoxItem Content="1" />
+                                            <ComboBoxItem Content="2" />
+                                            <ComboBoxItem Content="3" />
+                                            <ComboBoxItem Content="7" />
+                                        </ComboBox>
+                                        <TextBlock Text="天" VerticalAlignment="Center" Padding="5,0,0,0"/>
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                            <ToolTipService.ToolTip>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
+                                                    <Image Width="20" Margin="0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </ToolTipService.ToolTip>
+                                        </CheckBox>
+                                    </StackPanel>
+                                </Grid>
+                                <!-- 深境螺旋 -->
+                                <Grid Padding="44,12,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkTower_Tower.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
+                                        <CheckBox Content="深境螺旋" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示深境螺旋"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Text="最后" VerticalAlignment="Center" Padding="0,0,5,0"/>
+                                        <ComboBox SelectedIndex="0" Width="70" MinWidth="70"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center">
+                                            <ComboBoxItem Content="1" />
+                                            <ComboBoxItem Content="2" />
+                                            <ComboBoxItem Content="3" />
+                                            <ComboBoxItem Content="7" />
+                                        </ComboBox>
+                                        <TextBlock Text="天" VerticalAlignment="Center" Padding="5,0,0,0"/>
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                            <ToolTipService.ToolTip>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
+                                                    <Image Width="20" Margin="0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </ToolTipService.ToolTip>
+                                        </CheckBox>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Expander.Content>
+                    </Expander>
+
+                    <!--<StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                <TextBlock x:Uid="Settings_Theme" Text="主题" />
 
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
                     <RadioButton
@@ -53,9 +435,9 @@
                         </RadioButton.CommandParameter>
                     </RadioButton>
                 </StackPanel>
-            </StackPanel>
+            </StackPanel>-->
 
-            <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                    <!--<TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
             <StackPanel Margin="{StaticResource XSmallTopMargin}">
                 <TextBlock Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" Style="{ThemeResource BodyTextBlockStyle}" />
@@ -65,44 +447,10 @@
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{ThemeResource BodyTextBlockStyle}" />
                 <HyperlinkButton x:Uid="SettingsPage_PrivacyTermsLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
-            </StackPanel>
+            </StackPanel>-->
 
-
-            <!--  检查更新  -->
-            <control:SettingCard>
-                <control:SettingCard.Icon>
-                    <Image Width="28"
-                                   Height="28"
-                                   Margin="-4"
-                                   Source="ms-appx:///Assets/Logos/StoreLogo.png">
-                        <ToolTipService.ToolTip>
-                            <ToolTip>
-                                <ToolTip.Style>
-                                    <Style BasedOn="{StaticResource DefaultToolTipStyle}" TargetType="ToolTip">
-                                        <Setter Property="MaxWidth" Value="480" />
-                                    </Style>
-                                </ToolTip.Style>
-                                <Image Source="ms-appx:///Assets/Images/102413942_p0.webp" />
-                            </ToolTip>
-                        </ToolTipService.ToolTip>
-                    </Image>
-                </control:SettingCard.Icon>
-                <control:SettingCard.Content>
-                    <TextBlock>
-                                <Run Text="{x:Bind ViewModel.AppName}" />
-                                <LineBreak />
-                                <Run FontSize="12"
-                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                     Text="{x:Bind ViewModel.AppVersion}" />
-                    </TextBlock>
-                </control:SettingCard.Content>
-                <control:SettingCard.Selector>
-                    <Button HorizontalAlignment="Right"
-                                    Command="{x:Bind ViewModel.CheckUpdateCommand, Mode=OneTime}"
-                                    Content="检查更新" />
-                </control:SettingCard.Selector>
-            </control:SettingCard>
-
-        </StackPanel>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

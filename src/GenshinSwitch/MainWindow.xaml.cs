@@ -1,5 +1,7 @@
-﻿using GenshinSwitch.Helpers;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
+using GenshinSwitch.Models.Messages;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using WinRT.Interop;
@@ -16,23 +18,21 @@ public sealed partial class MainWindow : WindowEx
     {
         Hwnd = WindowNative.GetWindowHandle(this);
         InitializeComponent();
+        AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/Logos/Favicon.ico"));
+        Content = null;
+        SetupBackdrop();
+        Title = "AppDisplayName".GetLocalized();
+
+        WeakReferenceMessenger.Default.Register<ThemeChangedMessage>(this, (_, _) => SetupBackdrop());
+    }
+
+    private void SetupBackdrop()
+    {
         Backdrop = Settings.Backdrop.Get() switch
         {
             "None" => null,
             "Acrylic" => new AcrylicSystemBackdrop(),
             "Mica" or _ => new MicaSystemBackdrop(),
         };
-        AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/Logos/Favicon.ico"));
-        Content = null;
-        Title = "AppDisplayName".GetLocalized();
-
-        //VisibilityChanged += (_, _) =>
-        //{
-        //    IntPtr result = User32.SendMessage(WindowNative.GetWindowHandle(this), (uint)User32.ButtonMessage.BCM_SETSHIELD, IntPtr.Zero, (IntPtr)1);
-
-        //    if (result != IntPtr.Zero)
-        //    {
-        //    }
-        //};
     }
 }

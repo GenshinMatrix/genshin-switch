@@ -7,11 +7,38 @@ public static class LazyOutputHelper
 {
     public static readonly string Path = LazySpecialPathProvider.GetPath("genshin-lazy.yaml");
 
-    public static void Save(string uid, string prod = null!, DateTime? dateTime = null!)
+    public static async Task Save(string uid, string prod = null!, DateTime? dateTime = null!)
     {
         try
         {
             string fileIn = File.Exists(Path) ? File.ReadAllText(Path) : string.Empty;
+            string fileOut = await SaveFile(fileIn, uid, prod, dateTime);
+            if (fileOut == null) return;
+
+            await File.WriteAllTextAsync(Path, fileOut);
+            if (await LazyRepository.SetupToken())
+            {
+                string content = await LazyRepository.GetFile();
+
+                if (content != null)
+                {
+                    string contentNew = await SaveFile(content, uid, prod, dateTime);
+                    if (contentNew == null) return;
+                    _ = await LazyRepository.UpdateFile(contentNew);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.Info(e.ToString());
+        }
+    }
+
+    public static async Task<string> SaveFile(string fileIn, string uid, string prod = null!, DateTime? dateTime = null!)
+    {
+        await Task.CompletedTask;
+        try
+        {
             Dictionary<string, object> paramDict = LazyOutputSerializer.DeserializeObject<Dictionary<string, object>>(fileIn);
             List<LazyOutput> outputs = null!;
 
@@ -74,24 +101,50 @@ public static class LazyOutputHelper
             paramDict["Completed"] = outputs;
 
             string fileOut = LazyOutputSerializer.SerializeObject(paramDict);
-            File.WriteAllText(Path, fileOut);
+            return fileOut;
         }
         catch (Exception e)
         {
-            Logger.Error(e.ToString());
+            Logger.Info(e.ToString());
         }
+        return null!;
     }
 
-    public static bool Check(string uid, string prod = null!)
+    public static async Task<bool> Check(string uid, string prod = null!)
     {
         try
         {
-            if (!File.Exists(Path))
+            if (File.Exists(Path))
             {
-                return false;
+                string fileIn = await File.ReadAllTextAsync(Path);
+                if (await CheckFile(fileIn, uid, prod))
+                {
+                    return true;
+                }
             }
+        }
+        catch (Exception e)
+        {
+            Logger.Info(e.ToString());
+        }
 
-            string fileIn = File.ReadAllText(Path);
+        if (await LazyRepository.SetupToken())
+        {
+            string content = await LazyRepository.GetFile();
+
+            if (await CheckFile(content, uid, prod))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static async Task<bool> CheckFile(string fileIn, string uid, string prod = null!)
+    {
+        await Task.CompletedTask;
+        try
+        {
             Dictionary<string, object> paramDict = LazyOutputSerializer.DeserializeObject<Dictionary<string, object>>(fileIn);
 
             uid ??= "0000000000";
@@ -133,7 +186,7 @@ public static class LazyOutputHelper
         }
         catch (Exception e)
         {
-            Logger.Error(e.ToString());
+            Logger.Info(e.ToString());
         }
         return false;
     }

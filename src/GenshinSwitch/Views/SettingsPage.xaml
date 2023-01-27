@@ -134,8 +134,8 @@
                                     </TextBlock>
                                 </StackPanel>
                                 <Button HorizontalAlignment="Right"
-                            Command="{x:Bind ViewModel.CheckUpdateCommand, Mode=OneTime}"
-                            Content="重置设置" />
+                                        Command="{x:Bind ViewModel.CheckUpdateCommand, Mode=OneTime}"
+                                        Content="重置设置" />
                             </Grid>
                         </Expander.Header>
                         <Expander.Content>

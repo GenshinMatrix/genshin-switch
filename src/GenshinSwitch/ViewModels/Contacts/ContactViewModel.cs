@@ -487,7 +487,7 @@ public partial class ContactViewModel
                 await FetchGenshinRoleInfosAsync();
             }
 
-            bool hasLazyToday = await Task.Run(() => LazyOutputHelper.Check(Contact.Uid?.ToString()!));
+            bool hasLazyToday = await LazyOutputHelper.Check(Contact.Uid?.ToString()!);
 
             LazyInfo.IsGreen = hasLazyToday;
             LazyInfo.IsRed = !LazyInfo.IsGreen;

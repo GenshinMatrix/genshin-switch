@@ -65,7 +65,7 @@ public class ThemeSelectorService : IThemeSelectorService
         return ElementTheme.Default;
 #endif
         await Task.CompletedTask;
-        return Settings.AppBackgroundRequestedTheme.Get();
+        return Settings.Theme.Get();
     }
 
     private async Task SaveThemeInSettingsAsync(ElementTheme theme)
@@ -74,7 +74,7 @@ public class ThemeSelectorService : IThemeSelectorService
         await localSettingsService.SaveSettingAsync(SettingsKey, theme.ToString());
 #endif
         await Task.CompletedTask;
-        Settings.AppBackgroundRequestedTheme.Set(theme);
+        Settings.Theme.Set(theme);
         SettingsManager.Save();
     }
 }

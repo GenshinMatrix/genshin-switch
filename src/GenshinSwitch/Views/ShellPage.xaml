@@ -63,12 +63,12 @@
                 TODO: Update item icons by updating FontIcon.Glyph properties.
                 https://docs.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font#icon-list
                 -->
-                <NavigationViewItem Content="主页" helpers:NavigationHelper.NavigateTo="GenshinSwitch.ViewModels.MainViewModel">
+                <NavigationViewItem Content="角色账号" helpers:NavigationHelper.NavigateTo="GenshinSwitch.ViewModels.MainViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{x:Bind styles:FontSymbols.Contact}"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="观测大地图" helpers:NavigationHelper.NavigateTo="GenshinSwitch.ViewModels.WebViewViewModel">
+                <NavigationViewItem Content="观测地图" helpers:NavigationHelper.NavigateTo="GenshinSwitch.ViewModels.WebViewViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe774;"/>
                     </NavigationViewItem.Icon>

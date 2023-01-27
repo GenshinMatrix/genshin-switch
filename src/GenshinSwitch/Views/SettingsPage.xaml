@@ -6,11 +6,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:control="using:GenshinSwitch.Controls"
-    xmlns:converter="using:GenshinSwitch.Views.Converters"
     xmlns:xaml="using:Microsoft.UI.Xaml"
     mc:Ignorable="d">
     <Page.Resources>
-        <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
+        <converter:LazyNetstatIconConverter x:Key="LazyNetstatIconConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
+        <converter:IsNullOrEmptyToVisibilityConverter x:Key="IsNullOrEmptyToVisibilityConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
+        <converter:QuestRandomProceIconConverter x:Key="QuestRandomProceIconConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
     </Page.Resources>
     <Grid>
         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0">
@@ -43,8 +45,8 @@
                         </control:SettingCard.Content>
                         <control:SettingCard.Selector>
                             <Button HorizontalAlignment="Right"
-                            Command="{x:Bind ViewModel.CheckUpdateCommand, Mode=OneTime}"
-                            Content="检查更新" />
+                                    Command="{x:Bind ViewModel.CheckUpdateCommand}"
+                                    Content="检查更新" />
                         </control:SettingCard.Selector>
                     </control:SettingCard>
 
@@ -87,9 +89,9 @@
                                     </TextBlock>
                                 </StackPanel>
                                 <ComboBox MinWidth="104"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Center"
-                                        SelectedIndex="{x:Bind ViewModel.WindowBackdropIndex, Mode=TwoWay}">
+                                          HorizontalAlignment="Right"
+                                          VerticalAlignment="Center"
+                                          SelectedIndex="{x:Bind ViewModel.WindowBackdropIndex, Mode=TwoWay}">
                                     <ComboBoxItem Content="None" />
                                     <ComboBoxItem Content="Mica" />
                                     <ComboBoxItem Content="Acrylic" />
@@ -126,20 +128,43 @@
                                 <StackPanel Padding="4,16,0,16" Orientation="Horizontal">
                                     <FontIcon FontSize="20" Glyph="&#xe74c;" />
                                     <TextBlock Margin="20,0,0,0">
-                                <Run Text="接口提醒" />
-                                <LineBreak />
-                                <Run FontSize="12"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Text="按需调整米游社等接口提醒" />
+                                        <Run Text="接口提醒" />
+                                        <LineBreak />
+                                        <Run FontSize="12"
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                Text="按需调整米游社等接口提醒" />
                                     </TextBlock>
                                 </StackPanel>
                                 <Button HorizontalAlignment="Right"
-                                        Command="{x:Bind ViewModel.CheckUpdateCommand, Mode=OneTime}"
+                                        Command="{x:Bind ViewModel.ResetCommand}"
                                         Content="重置设置" />
                             </Grid>
                         </Expander.Header>
                         <Expander.Content>
                             <StackPanel Margin="0,-16,4,-16">
+                                <!-- 自动刷新 -->
+                                <Grid Padding="44,12,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/UI_TouchIcon_Auto.png" Stretch="Uniform" HorizontalAlignment="Left" Margin="-44,0,0,0"/>
+                                        <CheckBox Content="自动刷新" VerticalAlignment="Center" ToolTipService.ToolTip="勾选启用自动刷新"
+                                                  IsChecked="{x:Bind ViewModel.HintRefreshEnable,Mode=TwoWay}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal" ToolTipService.ToolTip="启用静默模式后将会错过下列所有推送提醒" HorizontalAlignment="Right">
+                                            <TextBlock Text="静默模式" VerticalAlignment="Center" />
+                                            <ToggleSwitch OnContent="" OffContent="" MinWidth="0" Margin="5,-8,0,0" MaxHeight="30"
+                                                          IsOn="{x:Bind ViewModel.HintSilentMode,Mode=TwoWay}"/>
+                                        </StackPanel>
+                                        <TextBlock Text="间隔" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,5,0"/>
+                                        <NumberBox SpinButtonPlacementMode="Compact" MinWidth="100" Minimum="3" Maximum="999"
+                                                   Value="{x:Bind ViewModel.HintRefreshMins,Mode=TwoWay}"/>
+                                        <TextBlock Text="分钟" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="5,0,0,0"/>
+                                    </StackPanel>
+                                </Grid>
                                 <!-- 原粹树脂 -->
                                 <Grid Padding="44,12,0,12">
                                     <Grid.ColumnDefinitions>
@@ -148,11 +173,13 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal">
                                         <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_ItemIcon_210.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
-                                        <CheckBox Content="原粹树脂" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示原粹树脂"/>
+                                        <CheckBox Content="原粹树脂" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示原粹树脂"
+                                                  IsChecked="{x:Bind ViewModel.HintResinEnable,Mode=TwoWay}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
                                         <TextBlock Text="达到" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,5,0"/>
-                                        <NumberBox SpinButtonPlacementMode="Compact" MinWidth="100"/>
+                                        <NumberBox SpinButtonPlacementMode="Compact" MinWidth="100" Minimum="10" Maximum="160"
+                                                   Value="{x:Bind ViewModel.HintResinLimit,Mode=TwoWay}"/>
                                         <TextBlock Text="提醒" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="5,0,0,0"/>
                                     </StackPanel>
                                 </Grid>
@@ -163,15 +190,18 @@
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                        <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/miyoushe.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
-                                        <CheckBox Content="米游社" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示米游社"/>
+                                        <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/miyoushe.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
+                                        <CheckBox Content="米游社" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示米游社"
+                                                  IsChecked="{x:Bind ViewModel.HintHoyolabEnable,Mode=TwoWay}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
-                                        <StackPanel Orientation="Horizontal" ToolTipService.ToolTip="晚上10点后未签到消息提醒" HorizontalAlignment="Right">
+                                        <StackPanel Orientation="Horizontal" ToolTipService.ToolTip="启用后晚上10点后未签到消息推送提醒" HorizontalAlignment="Right">
                                             <TextBlock Text="签到提醒" VerticalAlignment="Center" Padding="0,0,5,0"/>
-                                            <ToggleSwitch OnContent="" OffContent="" MinWidth="0"/>
+                                            <ToggleSwitch OnContent="" OffContent="" MinWidth="0" Margin="5,-8,0,0" MaxHeight="30"
+                                                          IsOn="{x:Bind ViewModel.HintHoyolabSign,Mode=TwoWay}"/>
                                         </StackPanel>
-                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0"
+                                                  IsChecked="{x:Bind ViewModel.HintHoyolabRed,Mode=TwoWay}">
                                             <ToolTipService.ToolTip>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
@@ -189,10 +219,12 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal">
                                         <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkQuest_Events_Proce.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
-                                        <CheckBox Content="每日委托任务" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示每日委托任务"/>
+                                        <CheckBox Content="每日委托任务" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示每日委托任务"
+                                                  IsChecked="{x:Bind ViewModel.HintQuestEventsProceEnable,Mode=TwoWay}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
-                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0"
+                                                  IsChecked="{x:Bind ViewModel.HintQuestEventsProceRed,Mode=TwoWay}">
                                             <ToolTipService.ToolTip>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
@@ -210,17 +242,23 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal">
                                         <Button HorizontalAlignment="Left" Margin="-44,0,0,0" Padding="0"
+                                                ToolTipService.ToolTip="切换图标"
                                                 Style="{StaticResource DateTimePickerFlyoutButtonStyle}">
                                             <Button.Content>
-                                                <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png" Stretch="Uniform" HorizontalAlignment="Left"/>
+                                                <Grid>
+                                                    <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png" Visibility="{x:Bind ViewModel.HintQuestRandomProceIcon,Converter={StaticResource QuestRandomProceIconConverter},ConverterParameter=0,Mode=OneWay}" Stretch="Uniform" HorizontalAlignment="Left"/>
+                                                    <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/UI_ItemIcon_100064.png" Visibility="{x:Bind ViewModel.HintQuestRandomProceIcon,Converter={StaticResource QuestRandomProceIconConverter},ConverterParameter=1,Mode=OneWay}" Stretch="Uniform" HorizontalAlignment="Left"/>
+                                                </Grid>
                                             </Button.Content>
                                             <Button.Flyout>
-                                                <Flyout Placement="Right">
+                                                <Flyout Placement="Top">
                                                     <controls:WrapPanel ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                                         ScrollViewer.HorizontalScrollMode="Auto"
                                                                         ScrollViewer.VerticalScrollBarVisibility="Visible"
                                                                         ScrollViewer.VerticalScrollMode="Auto">
                                                         <Button Width="40" Padding="5"
+                                                                Command="{x:Bind ViewModel.ChangeHintQuestRandomProceIconCommand}"
+                                                                CommandParameter="0"
                                                                 Style="{StaticResource DateTimePickerFlyoutButtonStyle}">
                                                             <Button.Content>
                                                                 <Image Width="30" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png"/>
@@ -232,6 +270,8 @@
                                                             </Button.ContextFlyout>
                                                         </Button>
                                                         <Button Width="40" Padding="5"
+                                                                Command="{x:Bind ViewModel.ChangeHintQuestRandomProceIconCommand}"
+                                                                CommandParameter="1"
                                                                 Style="{StaticResource DateTimePickerFlyoutButtonStyle}">
                                                             <Button.Content>
                                                                 <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/UI_ItemIcon_100064.png" control:ImageHelper.Width="30"/>
@@ -246,10 +286,33 @@
                                                 </Flyout>
                                             </Button.Flyout>
                                         </Button>
-                                        <CheckBox Content="每日世界任务" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示每日世界任务"/>
+                                        <CheckBox Content="每日世界任务" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示每日世界任务"
+                                                  IsChecked="{x:Bind ViewModel.HintQuestRandomProceEnable,Mode=TwoWay}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
-                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                        <Button HorizontalAlignment="Right"
+                                                ToolTipService.ToolTip="测试服务器">
+                                            <Button.Content>
+                                                <FontIcon FontSize="18" Glyph="&#xe753;" />
+                                            </Button.Content>
+                                            <Button.Flyout>
+                                                <Flyout>
+                                                    <StackPanel>
+                                                        <Button HorizontalAlignment="Right"
+                                                                Content="测试服务器"
+                                                                Command="{x:Bind ViewModel.TestLazyServerCommand,Mode=OneTime}"/>
+                                                        <Grid Margin="0,5,0,0" ToolTipService.ToolTip="{x:Bind ViewModel.TestLazyMessage,Mode=OneWay}" Visibility="{x:Bind ViewModel.TestLazyMessage,Converter={StaticResource IsNullOrEmptyToVisibilityConverter},Mode=OneWay}">
+                                                            <Image Width="28" Height="24" Source="ms-appx:///Assets/Images/UI_NetstatIcon_1.png" Visibility="{x:Bind ViewModel.TestLazyElapsedMilliseconds,Converter={StaticResource LazyNetstatIconConverter},ConverterParameter=1,Mode=OneWay}"/>
+                                                            <Image Width="28" Height="24" Source="ms-appx:///Assets/Images/UI_NetstatIcon_2.png" Visibility="{x:Bind ViewModel.TestLazyElapsedMilliseconds,Converter={StaticResource LazyNetstatIconConverter},ConverterParameter=2,Mode=OneWay}"/>
+                                                            <Image Width="28" Height="24" Source="ms-appx:///Assets/Images/UI_NetstatIcon_2.png" Visibility="{x:Bind ViewModel.TestLazyElapsedMilliseconds,Converter={StaticResource LazyNetstatIconConverter},ConverterParameter=3,Mode=OneWay}"/>
+                                                            <Image Width="15" Source="ms-appx:///Assets/Images/UI_Icon_Close.png" VerticalAlignment="Bottom" Margin="18,13,0,0" Visibility="{x:Bind ViewModel.TestLazyElapsedMilliseconds,Converter={StaticResource LazyNetstatIconConverter},ConverterParameter=x,Mode=OneWay}"/>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Flyout>
+                                            </Button.Flyout>
+                                        </Button>
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0"
+                                                  IsChecked="{x:Bind ViewModel.HintQuestRandomProceRed,Mode=TwoWay}">
                                             <ToolTipService.ToolTip>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
@@ -270,16 +333,19 @@
                                             <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_Frame_Equipped.png" Stretch="Uniform" HorizontalAlignment="Left"/>
                                             <Image Width="16" Opacity="1" Margin="7,-4,0,0" Source="ms-appx:///Assets/Images/UI_Icon_Intee_Explore_1.png" Stretch="Uniform" HorizontalAlignment="Left"/>
                                         </Grid>
-                                        <CheckBox Content="探索派遣" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示探索派遣"/>
+                                        <CheckBox Content="探索派遣" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示探索派遣"
+                                                  IsChecked="{x:Bind ViewModel.HintInteeExploreEnable,Mode=TwoWay}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
                                         <ComboBox MinWidth="104"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Center">
+                                                  SelectedIndex="{x:Bind ViewModel.HintInteeExploreType,Mode=TwoWay}"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center">
                                             <ComboBoxItem Content="任意完成提醒" />
                                             <ComboBoxItem Content="全部完成提醒" />
                                         </ComboBox>
-                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0"
+                                                  IsChecked="{x:Bind ViewModel.HintInteeExploreRed,Mode=TwoWay}">
                                             <ToolTipService.ToolTip>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
@@ -297,13 +363,16 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal">
                                         <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_ItemIcon_204.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
-                                        <CheckBox Content="洞天宝钱" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示洞天宝钱"/>
+                                        <CheckBox Content="洞天宝钱" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示洞天宝钱"
+                                                  IsChecked="{x:Bind ViewModel.HintHomeCoinEnable,Mode=TwoWay}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
                                         <TextBlock Text="达到" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,5,0"/>
-                                        <NumberBox SpinButtonPlacementMode="Compact" MinWidth="100"/>
+                                        <NumberBox SpinButtonPlacementMode="Compact" MinWidth="100" Minimum="10" Maximum="2400"
+                                                   Value="{x:Bind ViewModel.HintHomeCoinLimit,Mode=TwoWay}"/>
                                         <TextBlock Text="提醒" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="5,0,0,0"/>
-                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0"
+                                                  IsChecked="{x:Bind ViewModel.HintHomeCoinRed,Mode=TwoWay}">
                                             <ToolTipService.ToolTip>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
@@ -320,11 +389,13 @@
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                        <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_ItemIcon_220021.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
-                                        <CheckBox Content="参量质变仪" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示参量质变仪"/>
+                                        <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/UI_ItemIcon_220021.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
+                                        <CheckBox Content="参量质变仪" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示参量质变仪"
+                                                  IsChecked="{x:Bind ViewModel.HintTransformerEnable,Mode=TwoWay}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
-                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0"
+                                                  IsChecked="{x:Bind ViewModel.HintTransformerRed,Mode=TwoWay}">
                                             <ToolTipService.ToolTip>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
@@ -342,20 +413,23 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal">
                                         <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkTower_Weekly.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
-                                        <CheckBox Content="值得铭记的强敌" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示值得铭记的强敌"/>
+                                        <CheckBox Content="值得铭记的强敌" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示值得铭记的强敌"
+                                                  IsChecked="{x:Bind ViewModel.HintResinDiscountEnable,Mode=TwoWay}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
                                         <TextBlock Text="最后" VerticalAlignment="Center" Padding="0,0,5,0"/>
-                                        <ComboBox SelectedIndex="0" Width="70" MinWidth="70"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Center">
+                                        <ComboBox Width="70" MinWidth="70"
+                                                  SelectedIndex="{x:Bind ViewModel.HintResinDiscountDeadline,Mode=TwoWay}"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center">
                                             <ComboBoxItem Content="1" />
                                             <ComboBoxItem Content="2" />
                                             <ComboBoxItem Content="3" />
                                             <ComboBoxItem Content="7" />
                                         </ComboBox>
                                         <TextBlock Text="天" VerticalAlignment="Center" Padding="5,0,0,0"/>
-                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0"
+                                                  IsChecked="{x:Bind ViewModel.HintResinDiscountRed,Mode=TwoWay}">
                                             <ToolTipService.ToolTip>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
@@ -373,20 +447,23 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal">
                                         <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkTower_Tower.png" Stretch="Uniform" Margin="-44,0,0,0" HorizontalAlignment="Left"/>
-                                        <CheckBox Content="深境螺旋" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示深境螺旋"/>
+                                        <CheckBox Content="深境螺旋" VerticalAlignment="Center" ToolTipService.ToolTip="勾选显示深境螺旋"
+                                                  IsChecked="{x:Bind ViewModel.HintAbyssEnable,Mode=TwoWay}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
                                         <TextBlock Text="最后" VerticalAlignment="Center" Padding="0,0,5,0"/>
-                                        <ComboBox SelectedIndex="0" Width="70" MinWidth="70"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Center">
+                                        <ComboBox Width="70" MinWidth="70"
+                                                  SelectedIndex="{x:Bind ViewModel.HintAbyssDeadline,Mode=TwoWay}"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center">
                                             <ComboBoxItem Content="1" />
                                             <ComboBoxItem Content="2" />
                                             <ComboBoxItem Content="3" />
                                             <ComboBoxItem Content="7" />
                                         </ComboBox>
                                         <TextBlock Text="天" VerticalAlignment="Center" Padding="5,0,0,0"/>
-                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0">
+                                        <CheckBox Content="小红点" MinWidth="0" Margin="15,0,0,0"
+                                                  IsChecked="{x:Bind ViewModel.HintAbyssRed,Mode=TwoWay}">
                                             <ToolTipService.ToolTip>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="勾选显示人类的敌人小红点" FontSize="12" VerticalAlignment="Center"/>
@@ -400,7 +477,9 @@
                         </Expander.Content>
                     </Expander>
 
-                    <!--<StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                    <Frame Margin="0,20,0,0"/>
+                    
+                <!--<StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Theme" Text="主题" />
 
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">

@@ -50,6 +50,11 @@ public class SettingsDefinition<T>
         return self.Get();
     }
 
+    public void Reset()
+    {
+        Set(DefaultValue);
+    }
+
     public void Relay()
     {
         Cache.Set(this, Get()!);

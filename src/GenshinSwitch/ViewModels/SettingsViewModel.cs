@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using GenshinSwitch.Contracts.Services;
+using GenshinSwitch.Controls;
 using GenshinSwitch.Controls.Notice;
 using GenshinSwitch.Core;
 using GenshinSwitch.Core.Services;
@@ -10,7 +11,9 @@ using GenshinSwitch.Fetch.Lazy;
 using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Models.Messages;
+using GenshinSwitch.Views;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.VisualStudio.Threading;
 using System.Diagnostics;
 using System.Reflection;
@@ -428,6 +431,63 @@ public partial class SettingsViewModel : ObservableRecipient
     [RelayCommand]
     private async Task ResetAsync()
     {
-        // TODO
+        if (await new MessageBoxX("是否确定要重置接口提醒设置？", "重置接口提醒设置").ShowAsync() == ContentDialogResult.Secondary)
+        {
+            Settings.HintSilentMode.Reset();
+            HintSilentMode = Settings.HintSilentMode;
+            Settings.HintRefreshEnable.Reset();
+            HintRefreshEnable = Settings.HintRefreshEnable;
+            Settings.HintRefreshMins.Reset();
+            HintRefreshMins = Settings.HintRefreshMins;
+            Settings.HintResinEnable.Reset();
+            HintResinEnable = Settings.HintResinEnable;
+            Settings.HintResinLimit.Reset();
+            HintResinLimit = Settings.HintResinLimit;
+            Settings.HintHoyolabEnable.Reset();
+            HintHoyolabEnable = Settings.HintHoyolabEnable;
+            Settings.HintHoyolabSign.Reset();
+            HintHoyolabSign = Settings.HintHoyolabSign;
+            Settings.HintHoyolabRed.Reset();
+            HintHoyolabRed = Settings.HintHoyolabRed;
+            Settings.HintQuestEventsProceEnable.Reset();
+            HintQuestEventsProceEnable = Settings.HintQuestEventsProceEnable;
+            Settings.HintQuestEventsProceRed.Reset();
+            HintQuestEventsProceRed = Settings.HintQuestEventsProceRed;
+            Settings.HintQuestRandomProceEnable.Reset();
+            HintQuestRandomProceEnable = Settings.HintQuestRandomProceEnable;
+            Settings.HintQuestRandomProceIcon.Reset();
+            HintQuestRandomProceIcon = Settings.HintQuestRandomProceIcon;
+            Settings.HintQuestRandomProceRed.Reset();
+            HintQuestRandomProceRed = Settings.HintQuestRandomProceRed;
+            Settings.HintInteeExploreEnable.Reset();
+            HintInteeExploreEnable = Settings.HintInteeExploreEnable;
+            Settings.HintInteeExploreType.Reset();
+            HintInteeExploreType = Settings.HintInteeExploreType;
+            Settings.HintInteeExploreRed.Reset();
+            HintInteeExploreRed = Settings.HintInteeExploreRed;
+            Settings.HintHomeCoinEnable.Reset();
+            HintHomeCoinEnable = Settings.HintHomeCoinEnable;
+            Settings.HintHomeCoinLimit.Reset();
+            HintHomeCoinLimit = Settings.HintHomeCoinLimit;
+            Settings.HintHomeCoinRed.Reset();
+            HintHomeCoinRed = Settings.HintHomeCoinRed;
+            Settings.HintTransformerEnable.Reset();
+            HintTransformerEnable = Settings.HintTransformerEnable;
+            Settings.HintTransformerRed.Reset();
+            HintTransformerRed = Settings.HintTransformerRed;
+            Settings.HintResinDiscountEnable.Reset();
+            HintResinDiscountEnable = Settings.HintResinDiscountEnable;
+            Settings.HintResinDiscountDeadline.Reset();
+            HintResinDiscountDeadline = Settings.HintResinDiscountDeadline;
+            Settings.HintResinDiscountRed.Reset();
+            HintResinDiscountRed = Settings.HintResinDiscountRed;
+            Settings.HintAbyssEnable.Reset();
+            HintAbyssEnable = Settings.HintAbyssEnable;
+            Settings.HintAbyssDeadline.Reset();
+            HintAbyssDeadline = Settings.HintAbyssDeadline;
+            Settings.HintAbyssRed.Reset();
+            HintAbyssRed = Settings.HintAbyssRed;
+            SettingsManager.Save();
+        }
     }
 }

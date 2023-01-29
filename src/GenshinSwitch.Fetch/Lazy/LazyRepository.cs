@@ -114,7 +114,8 @@ public static class LazyRepository
 
         try
         {
-            await File.WriteAllTextAsync(path, token);
+            string tokenEncrypted = LazyCrypto.Encrypt(token);
+            await File.WriteAllTextAsync(path, tokenEncrypted);
             return true;
         }
         catch (Exception e)
@@ -132,7 +133,8 @@ public static class LazyRepository
         {
             if (File.Exists(path))
             {
-                return await File.ReadAllTextAsync(path);
+                string tokenUncrypted = await File.ReadAllTextAsync(path);
+                return LazyCrypto.Decrypt(tokenUncrypted);
             }
         }
         catch (Exception e)

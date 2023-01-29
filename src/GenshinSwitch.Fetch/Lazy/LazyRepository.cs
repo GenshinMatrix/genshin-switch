@@ -1,6 +1,5 @@
 ﻿using GenshinSwitch.Core;
 using Octokit;
-using System;
 
 namespace GenshinSwitch.Fetch.Lazy;
 
@@ -154,6 +153,8 @@ public static class LazyRepository
 
         if (args.Length >= 2)
         {
+            Logger.Info($"[LazyRepository] GetCommandLineArgs: {string.Join(' ', args)}");
+
             if (File.Exists(args[1]))
             {
                 string token = File.ReadAllText(args[1]);
@@ -168,7 +169,7 @@ public static class LazyRepository
             {
                 string token = args[1];
 
-                if (token.StartsWith("g"))
+                if (token.StartsWith("g") && !token.StartsWith(LazyProtocol.ProtocolName) && !token.StartsWith(LazyProtocol.GetUrl()))
                 {
                     _ = SaveToken(token);
                     Logger.Info($"[LazyRepository] Token '{token}' saved.");

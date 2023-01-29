@@ -242,12 +242,12 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal">
                                         <Button HorizontalAlignment="Left" Margin="-44,0,0,0" Padding="0"
-                                                ToolTipService.ToolTip="切换图标"
+                                                ToolTipService.ToolTip="切换图标（关爱色弱）"
                                                 Style="{StaticResource DateTimePickerFlyoutButtonStyle}">
                                             <Button.Content>
                                                 <Grid>
                                                     <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png" Visibility="{x:Bind ViewModel.HintQuestRandomProceIcon,Converter={StaticResource QuestRandomProceIconConverter},ConverterParameter=0,Mode=OneWay}" Stretch="Uniform" HorizontalAlignment="Left"/>
-                                                    <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/UI_ItemIcon_100064.png" Visibility="{x:Bind ViewModel.HintQuestRandomProceIcon,Converter={StaticResource QuestRandomProceIconConverter},ConverterParameter=1,Mode=OneWay}" Stretch="Uniform" HorizontalAlignment="Left"/>
+                                                    <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/UI_ItemIcon_100064.png" control:ImageHelper.Width="28" Visibility="{x:Bind ViewModel.HintQuestRandomProceIcon,Converter={StaticResource QuestRandomProceIconConverter},ConverterParameter=1,Mode=OneWay}" Stretch="Uniform" HorizontalAlignment="Left"/>
                                                 </Grid>
                                             </Button.Content>
                                             <Button.Flyout>
@@ -274,7 +274,7 @@
                                                                 CommandParameter="1"
                                                                 Style="{StaticResource DateTimePickerFlyoutButtonStyle}">
                                                             <Button.Content>
-                                                                <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/UI_ItemIcon_100064.png" control:ImageHelper.Width="30"/>
+                                                                <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/UI_ItemIcon_100064.png" control:ImageHelper.Width="28"/>
                                                             </Button.Content>
                                                             <Button.ContextFlyout>
                                                                 <Flyout Placement="BottomEdgeAlignedLeft">

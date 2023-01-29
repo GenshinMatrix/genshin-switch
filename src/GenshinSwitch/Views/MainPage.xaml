@@ -8,6 +8,7 @@
     xmlns:dn="using:Xunkong.Hoyolab.DailyNote"
     xmlns:models="using:GenshinSwitch.Models"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:control="using:GenshinSwitch.Controls"
     xmlns:styles="using:GenshinSwitch.Styles"
     mc:Ignorable="d" Background="Transparent">
 
@@ -28,6 +29,7 @@
         <converters:ExpeditionStatusToColorConverter x:Key="ExpeditionStatusToColorConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:TreasurebowCoinsIconConverter x:Key="TreasurebowCoinsIconConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:TreasurebowCoinsMarginConverter x:Key="TreasurebowCoinsMarginConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
+        <converter:QuestRandomProceIconConverter x:Key="QuestRandomProceIconConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
     </Page.Resources>
 
     <Grid x:Name="ContentArea">
@@ -236,7 +238,10 @@
                                         <!-- 每日世界任务 -->
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0" Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
                                             <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.LazyInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-                                                <Image Width="30" Opacity="1" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png"/>
+                                                <Grid>
+                                                    <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png" Visibility="{x:Bind ViewModel.HintQuestRandomProceIcon,Converter={StaticResource QuestRandomProceIconConverter},ConverterParameter=0,Mode=OneWay}" Stretch="Uniform" HorizontalAlignment="Left"/>
+                                                    <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/UI_ItemIcon_100064.png" control:ImageHelper.Width="28" Visibility="{x:Bind ViewModel.HintQuestRandomProceIcon,Converter={StaticResource QuestRandomProceIconConverter},ConverterParameter=1,Mode=OneWay}" Stretch="Uniform" HorizontalAlignment="Left"/>
+                                                </Grid>
                                                 <Image Width="15" Opacity="1" Margin="0,-3,-3,0" Source="ms-appx:///Assets/Images/UI_Img_Red.png" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.LazyInfo.IsRed,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
                                                 <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Complete.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.LazyInfo.IsGreen,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
                                                 <Image Width="15" Opacity="1" Margin="0" Source="ms-appx:///Assets/Images/UI_Tips_Item_Warning.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{x:Bind ViewModel.LazyInfo.IsYellow,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
@@ -245,7 +250,10 @@
                                                 <Flyout>
                                                     <StackPanel>
                                                         <StackPanel Margin="4,0,0,0" Orientation="Horizontal">
-                                                            <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png" Stretch="Uniform" />
+                                                            <Grid>
+                                                                <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_MarkQuest_Random_Proce.png" Visibility="{x:Bind ViewModel.HintQuestRandomProceIcon,Converter={StaticResource QuestRandomProceIconConverter},ConverterParameter=0,Mode=OneWay}" Stretch="Uniform" HorizontalAlignment="Left"/>
+                                                                <Image Width="28" Height="28" Source="ms-appx:///Assets/Images/UI_ItemIcon_100064.png" control:ImageHelper.Width="28" Visibility="{x:Bind ViewModel.HintQuestRandomProceIcon,Converter={StaticResource QuestRandomProceIconConverter},ConverterParameter=1,Mode=OneWay}" Stretch="Uniform" HorizontalAlignment="Left"/>
+                                                            </Grid>
                                                             <StackPanel Margin="12,0,0,0">
                                                                 <TextBlock Text="每日世界任务" />
                                                                 <TextBlock Foreground="{x:Bind ViewModel.LazyInfoViewModel,Converter={StaticResource QuestEventStatsColorConverter},Mode=OneWay}"

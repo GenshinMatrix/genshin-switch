@@ -75,6 +75,9 @@ public partial class ContactViewModel
 
     public Contact Contact { get; }
 
+    [ObservableProperty]
+    private int hintQuestRandomProceIcon = Settings.HintQuestRandomProceIcon;
+
     public ContactViewModel(Contact contact)
     {
         Contact = contact;

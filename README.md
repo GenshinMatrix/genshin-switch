@@ -39,3 +39,12 @@
 
 -  若安装包无法安装，请确保你的系统已安装应用商店，安装包依赖商店架构 (MSIX)。
 -  运行环境是net6.0-windows10.0.19041.0。
+
+## 许可证
+
+[MIT License](https://github.com/genshin-matrix/genshin-switch/blob/main/LICENSE)
+
+## 特别鸣谢
+
+[xunkong](https://github.com/xunkong/xunkong)
+

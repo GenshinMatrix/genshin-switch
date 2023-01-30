@@ -3,9 +3,14 @@
 [![GitHub downloads](https://img.shields.io/github/downloads/emako/genshin-switch/total)](https://github.com/emako/genshin-switch/releases)
 [![GitHub downloads](https://img.shields.io/github/downloads/emako/genshin-switch/latest/total)](https://github.com/emako/genshin-switch/releases)
 
+> GenshinSwitch
+> PC版国服原神账号切换工具
 
-GenshinSwitch
-PC版国服原神账号切换工具
+## 迁移
+
+本项目分支已设为遗产级，正迁移到WinUI3框架，全新重构界面并支持米游社功能。
+
+[此处查看main分支](https://github.com/genshin-matrix/genshin-switch/tree/main)
 
 ## 截图
 
@@ -38,29 +43,4 @@ PC版国服原神账号切换工具
 其中dotNET_Reactor用于编译合成为单个exe的版本。
 
 参考：[app_build.bat](app_build.bat)
-
-## 更新日志
-
-- **v1.3**  `2022-01-23`
-
->1. 增加支持快捷方式lnk格式
->
->   ※手动输入原神快捷方式路劲即可，这样可用于自定义启动命令
-
-- **v1.2**  `2022-01-16`
-
-> 1. 追加单文件编译版本
-> 1. 修改容易被小盾牌遮挡的程序图标
-> 1. 支持安装路劲填写具体exe、bat、cmd后缀文件（可用于解锁FPS等方式的启动）
-
-- **v1.1**  `2022-01-05`
-
->1. 修改托盘按钮双击命令
->2. 程序现在只能启动一个单例
->3. 关闭按钮不再自动最小化到托盘
->4. 选中账号右键可以使用缓启动（自动3分钟后启动，方便循环打大世界Boss材料）
-
-- **v1.0**  `2022-01-01`
-
->1. 初版
 

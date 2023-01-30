@@ -1,66 +1,41 @@
-# <img src="src/Resources/YunjinSideFace.png" width = "56" height = "56" alt="" align="left" /> 原神账号快速切换工具
+# GenshinSwitch
+
+![UI_Tab_GachaShowPanel_Default](src/GenshinSwitch/Assets/Images/UI_Tab_GachaShowPanel_Default.png)
+
+<img src="src/GenshinSwitch/Assets/Logos/Square44x44Logo.altform-unplated_targetsize-256.png" alt="Square44x44Logo.altform-unplated_targetsize-256" style="zoom:50%;" />
 
 [![GitHub downloads](https://img.shields.io/github/downloads/emako/genshin-switch/total)](https://github.com/emako/genshin-switch/releases)
 [![GitHub downloads](https://img.shields.io/github/downloads/emako/genshin-switch/latest/total)](https://github.com/emako/genshin-switch/releases)
 
+> GenshinSwitch 2.x系列 for Windows
+>
+> - [x] 原神账号快速切换工具（国服／国际服）
+> - [x] 米游社实时便签等接口支持（国服）
 
-GenshinSwitch
-PC版国服原神账号切换工具
+**当前施工进度：2.x首版已完成75%**
 
 ## 截图
 
-![main](screen-shot/main.png)
+![](assets/main.png)
 
-## 运行环境
+![](assets/account.png)
 
--  Windows7及以上
-- .NET Framework 4.8
+![](assets/settings.png)
 
 ## 使用方法
 
-1. 登录游戏账号1点击保存，比如保存为大号
-2. 再登录游戏账号2点击保存，比如保存为小号
+1. 登录游戏账号1点击「添加」，比如添加保存为大号
+2. 再登录游戏账号2点击「添加」，比如添加保存为小号
 3. 双击保存的大号或小号即可自动登录
+4. 可添加Cookie支持米游社接口的实时便签提醒
 
 ## 其他说明
 
+- 本程序的1.x系列已停止维护并转入[legacy](https://github.com/genshin-matrix/genshin-switch/tree/legacy)仓库
 - 需要管理员权限是因为游戏要管理员权限启动
-- 鼠标悬浮可以看到操作提示（如要关闭自行修改配置文件）
-- 选中账号右键可以使用缓启动（自动3分钟后启动，方便循环打大世界Boss材料）
-- 配置文件请更新版本前自行备份
+- 选中账号右键可以使用「缓启动」（自动3分钟后启动，方便循环打大世界BOSS材料）
 
-## 编译生成
+## 常见问题
 
-所需工具：`VS2022` `7z` `dotNET_Reactor`
-
-注意要管理员权限编译，推荐VS里编译后执行下面的参考脚本。
-
-其中dotNET_Reactor用于编译合成为单个exe的版本。
-
-参考：[app_build.bat](app_build.bat)
-
-## 更新日志
-
-- **v1.3**  `2022-01-23`
-
->1. 增加支持快捷方式lnk格式
->
->   ※手动输入原神快捷方式路劲即可，这样可用于自定义启动命令
-
-- **v1.2**  `2022-01-16`
-
-> 1. 追加单文件编译版本
-> 1. 修改容易被小盾牌遮挡的程序图标
-> 1. 支持安装路劲填写具体exe、bat、cmd后缀文件（可用于解锁FPS等方式的启动）
-
-- **v1.1**  `2022-01-05`
-
->1. 修改托盘按钮双击命令
->2. 程序现在只能启动一个单例
->3. 关闭按钮不再自动最小化到托盘
->4. 选中账号右键可以使用缓启动（自动3分钟后启动，方便循环打大世界Boss材料）
-
-- **v1.0**  `2022-01-01`
-
->1. 初版
-
+-  若安装包无法安装，请确保你的系统已安装应用商店，安装包依赖商店架构 (MSIX)。
+-  运行环境是net6.0-windows10.0.19041.0。

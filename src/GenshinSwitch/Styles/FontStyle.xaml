@@ -4,7 +4,6 @@
     <FontFamily x:Key="FluentSystemIcons">ms-appx:///Assets/Fonts/FluentSystemIcons-Regular.ttf#FluentSystemIcons-Regular</FontFamily>
     <FontFamily x:Key="HanyiAndHarmonyOSSans">SDK_SC_Web 85W, ms-appx:///Assets/Fonts/HarmonyOS_Sans_SC_Regular.ttf#HarmonyOS Sans SC</FontFamily>
     <FontFamily x:Key="HarmonyOSSans">ms-appx:///Assets/Fonts/HarmonyOS_Sans_SC_Regular.ttf#HarmonyOS Sans SC</FontFamily>
-    <FontFamily x:Key="DigitalNumbers">ms-appx:///Assets/Fonts/sa-digital-number.ttf#Digital Numbers</FontFamily>
     <FontFamily x:Key="DigitalClock">ms-appx:///Assets/Fonts/DigitalClock.ttf#Helios Virtual Cockpit</FontFamily>
     <StaticResource x:Key="CustomFont" ResourceKey="HarmonyOSSans" />
 

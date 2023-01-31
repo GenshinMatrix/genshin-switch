@@ -1,14 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GenshinSwitch.Controls;
 using GenshinSwitch.Fetch.Regedit;
 using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
+using Microsoft.UI.Xaml.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace GenshinSwitch.ViewModels;
 
-public class AddContactViewModel : ObservableRecipient
+public partial class AddContactViewModel : ObservableRecipient
 {
     private string? aliasName = null!;
     public string? AliasName
@@ -33,7 +35,9 @@ public class AddContactViewModel : ObservableRecipient
         set => SetProperty(ref prod, value?.Replace("\n", string.Empty));
     }
 
+    [Obsolete]
     private string? region = null!;
+    [Obsolete]
     public string? Region
     {
         get => region;
@@ -82,6 +86,19 @@ public class AddContactViewModel : ObservableRecipient
         }
         else
         {
+            AliasName = contact.AliasName;
+            LocalIconUri = contact.LocalIconUri;
+            Prod = contact.Prod;
+            Cookie = contact.Cookie;
+        }
+    }
+
+    [RelayCommand]
+    private async Task RegetProdAsync()
+    {
+        if (await new MessageBoxX("是否确定要从注册表重新获取账号？", "重新获取账号").ShowAsync() == ContentDialogResult.Secondary)
+        {
+            Prod = GenshinRegedit.ProdCN;
         }
     }
 }

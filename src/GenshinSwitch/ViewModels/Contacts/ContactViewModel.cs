@@ -12,6 +12,7 @@ using GenshinSwitch.Models.Contacts;
 using Microsoft.VisualStudio.Threading;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
@@ -21,6 +22,7 @@ using Xunkong.Hoyolab.DailyNote;
 using Xunkong.Hoyolab.GameRecord;
 using Xunkong.Hoyolab.SpiralAbyss;
 using Xunkong.Hoyolab.TravelNotes;
+using YamlDotNet.Core.Tokens;
 
 namespace GenshinSwitch.ViewModels.Contacts;
 
@@ -220,6 +222,30 @@ public partial class ContactViewModel
         {
             NoticeService.AddNotice("米游社签到", e.Message);
             Logger.Error(e);
+        }
+    }
+
+    [RelayCommand]
+    private void CopyUid()
+    {
+        string uid = roleFetched?.Uid.ToString();
+
+        if (!string.IsNullOrWhiteSpace(uid))
+        {
+            ClipboardHelper.SetText(uid);
+            Bubble.Information($"角色UID:{uid}已复制到剪贴板");
+        }
+    }
+
+    [RelayCommand]
+    private void CopyCookie()
+    {
+        string cookie = Contact?.Cookie;
+
+        if (!string.IsNullOrWhiteSpace(cookie))
+        {
+            ClipboardHelper.SetText(cookie);
+            Bubble.Information($"Cookie 已复制到剪贴板");
         }
     }
 

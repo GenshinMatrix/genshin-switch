@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GenshinSwitch.Helpers;
 using GenshinSwitch.ViewModels.Contacts;
 using Xunkong.Hoyolab.Account;
 using Xunkong.Hoyolab.DailyNote;
@@ -23,6 +24,7 @@ public class ContactMapperProvider
             cfg.CreateMap<SpiralAbyssFloor, SpiralAbyssFloorViewModel>();
             cfg.CreateMap<SpiralAbyssLevel, SpiralAbyssLevelViewModel>();
             cfg.CreateMap<SpiralAbyssBattle, SpiralAbyssBattleViewModel>();
+            cfg.CreateMap<Contact, Contact>().ForAllMembersStringClone().IgnoreAllNotMappedAttribute().Forget();
         });
         Service = config.CreateMapper();
     }

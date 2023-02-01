@@ -523,12 +523,14 @@ public partial class ContactViewModel
 
             LazyInfoViewModel!.IsFinished = hasLazyToday;
             LazyInfoViewModel!.IsFetched = true;
+            OnPropertyChanged(nameof(LazyInfoViewModel));
         }
         catch (Exception e)
         {
             Logger.Error(e);
             LazyInfoViewModel!.IsFinished = false;
             LazyInfoViewModel!.IsFetched = false;
+            OnPropertyChanged(nameof(LazyInfoViewModel));
         }
     }
 

@@ -86,6 +86,7 @@
     <None Remove="Styles\FontStyle.xaml" />
     <None Remove="Views\AddContactContentDialog.xaml" />
     <None Remove="Views\LaunchWindow.xaml" />
+    <None Remove="Views\ShowLazyContentDialog.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -104,6 +105,10 @@
     </Page>
     <Page Update="Controls\SettingCard\SettingCard.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\ShowLazyContentDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\LaunchWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

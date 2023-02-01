@@ -1,0 +1,42 @@
+﻿<ContentDialog
+    x:Class="GenshinSwitch.Views.ShowLazyContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    Style="{StaticResource DefaultContentDialogStyle}"
+    Title="查看记录"
+    SecondaryButtonText="好的"
+    DefaultButton="Secondary"
+    mc:Ignorable="d">
+    <Grid>
+        <controls:DataGrid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                HorizontalScrollBarVisibility="Visible"
+                VerticalScrollBarVisibility="Visible"
+                AlternatingRowBackground="Transparent"
+                AlternatingRowForeground="Gray"
+                AreRowDetailsFrozen="False"
+                AreRowGroupHeadersFrozen="True"
+                AutoGenerateColumns="False"
+                CanUserSortColumns="False"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                ColumnHeaderHeight="32"
+                MaxColumnWidth="400"
+                FrozenColumnCount="0"
+                GridLinesVisibility="None"
+                HeadersVisibility="Column"
+                IsReadOnly="True"
+                RowDetailsVisibilityMode="Collapsed"
+                SelectionMode="Single"
+                ItemsSource="{x:Bind ViewModel.Lazys}"
+                RowGroupHeaderPropertyNameAlternative="Range">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="UID" Binding="{Binding Uid}"/>
+                <controls:DataGridTextColumn Header="记录时间" Binding="{Binding DateTime}"/>
+                <controls:DataGridCheckBoxColumn Header="今天记录" Binding="{Binding Today}"/>
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+    </Grid>
+</ContentDialog>

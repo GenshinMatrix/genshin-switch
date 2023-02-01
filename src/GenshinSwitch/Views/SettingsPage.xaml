@@ -298,9 +298,24 @@
                                             <Button.Flyout>
                                                 <Flyout>
                                                     <StackPanel>
-                                                        <Button HorizontalAlignment="Right"
-                                                                Content="测试服务器"
-                                                                Command="{x:Bind ViewModel.TestLazyServerCommand,Mode=OneTime}"/>
+                                                        <Button HorizontalAlignment="Center" MinWidth="130"
+                                                                Command="{x:Bind ViewModel.ShowLazyServerCommand,Mode=OneTime}">
+                                                            <Button.Content>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <FontIcon FontSize="18" Glyph="&#xede4;"/>
+                                                                    <TextBlock Text="查看记录" Margin="5,0,0,0"/>
+                                                                </StackPanel>
+                                                            </Button.Content>
+                                                        </Button>
+                                                        <Button HorizontalAlignment="Center" Margin="0,5,0,0" MinWidth="130"
+                                                                Command="{x:Bind ViewModel.TestLazyServerCommand,Mode=OneTime}">
+                                                            <Button.Content>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <FontIcon FontSize="18" Glyph="&#xe88a;"/>
+                                                                    <TextBlock Text="测试服务器" Margin="5,0,0,0"/>
+                                                                </StackPanel>
+                                                            </Button.Content>
+                                                        </Button>
                                                         <Grid Margin="0,5,0,0" ToolTipService.ToolTip="{x:Bind ViewModel.TestLazyMessage,Mode=OneWay}" Visibility="{x:Bind ViewModel.TestLazyMessage,Converter={StaticResource IsNullOrEmptyToVisibilityConverter},Mode=OneWay}">
                                                             <Image Width="28" Height="24" Source="ms-appx:///Assets/Images/UI_NetstatIcon_1.png" Visibility="{x:Bind ViewModel.TestLazyElapsedMilliseconds,Converter={StaticResource LazyNetstatIconConverter},ConverterParameter=1,Mode=OneWay}"/>
                                                             <Image Width="28" Height="24" Source="ms-appx:///Assets/Images/UI_NetstatIcon_2.png" Visibility="{x:Bind ViewModel.TestLazyElapsedMilliseconds,Converter={StaticResource LazyNetstatIconConverter},ConverterParameter=2,Mode=OneWay}"/>

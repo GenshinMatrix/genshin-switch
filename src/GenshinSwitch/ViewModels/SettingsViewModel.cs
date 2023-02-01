@@ -429,6 +429,39 @@ public partial class SettingsViewModel : ObservableRecipient
     }
 
     [RelayCommand]
+    private async Task ShowLazyServerAsync()
+    {
+        try
+        {
+            if (await LazyRepository.SetupToken())
+            {
+                string file = await LazyRepository.GetFile();
+
+                if (!string.IsNullOrEmpty(file))
+                {
+                    _ = await new ShowLazyContentDialog(file)
+                    {
+                        XamlRoot = App.MainWindow.XamlRoot,
+                        RequestedTheme = App.MainWindow.ActualTheme,
+                    }.ShowAsync();
+                }
+                else
+                {
+                    NoticeService.AddNotice("查看记录失败", "请保证服务器令牌路径正确后重试");
+                }
+            }
+            else
+            {
+                NoticeService.AddNotice("未探测到接入服务器令牌", "请查阅组件使用说明设定好令牌后重试");
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.Error(e);
+        }
+    }
+
+    [RelayCommand]
     private async Task ResetAsync()
     {
         if (await new MessageBoxX("是否确定要重置接口提醒设置？", "重置接口提醒设置").ShowAsync() == ContentDialogResult.Secondary)

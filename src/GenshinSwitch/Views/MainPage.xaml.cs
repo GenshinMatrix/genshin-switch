@@ -2,9 +2,11 @@
 using GenshinSwitch.ViewModels;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Controls;
+using System.Diagnostics.CodeAnalysis;
 
 namespace GenshinSwitch.Views;
 
+[SuppressMessage("Usage", "VSTHRD101:Avoid unsupported async delegates", Justification = "<Pending>")]
 public sealed partial class MainPage : Page
 {
     public MainViewModel ViewModel { get; }
@@ -17,12 +19,10 @@ public sealed partial class MainPage : Page
         {
             ViewModel.Contacts.Add(kv.Value);
 
-#pragma warning disable VSTHRD101 // Avoid unsupported async delegates
             _ = App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
             {
                 await kv.Value.ViewModel.FetchAllAsync();
             });
-#pragma warning restore VSTHRD101 // Avoid unsupported async delegates
         }
         InitializeComponent();
     }

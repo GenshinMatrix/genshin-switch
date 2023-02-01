@@ -86,9 +86,7 @@ public partial class ContactViewModel
     }
 
     [RelayCommand]
-    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
-    [SuppressMessage("Usage", "VSTHRD100:Avoid async void methods", Justification = "<Pending>")]
-    private async void LaunchHoyolab(string type)
+    private async Task LaunchHoyolabAsync(string type)
     {
         if (type == "android")
         {
@@ -130,7 +128,7 @@ public partial class ContactViewModel
                         Settings.ComponentLazyPath.Set(file.Path);
                         SettingsManager.Save();
                         LazyInfoViewModel!.IsUnlocked = true;
-                        Bubble.Success($"组件添加成功");
+                        Bubble.Success("组件添加成功");
                     }
                     else
                     {
@@ -166,17 +164,6 @@ public partial class ContactViewModel
                 {
                     await LazyProtocol.LaunchAsync();
                     return;
-                }
-                else
-                {
-#if LEGACY // Only use UrlProtocol to launch
-                    await LaunchLazy("folder");
-
-                    if (string.IsNullOrEmpty(Settings.ComponentLazyPath.Get()))
-                    {
-                        return;
-                    }
-#endif
                 }
             }
 
@@ -246,6 +233,47 @@ public partial class ContactViewModel
         {
             ClipboardHelper.SetText(cookie);
             Bubble.Information($"Cookie 已复制到剪贴板");
+        }
+    }
+
+    [RelayCommand]
+    private void CancelRed(string icon)
+    {
+        switch (icon)
+        {
+            case "Resin":
+                ResinInfo.CancelRed();
+                break;
+            case "SignIn":
+                SignInInfo.CancelRed();
+                break;
+            case "FinishedTask":
+                FinishedTaskInfo.CancelRed();
+                break;
+            case "Lazy":
+                LazyInfo.CancelRed();
+                break;
+            case "ResinDiscount":
+                ResinDiscountInfo.CancelRed();
+                break;
+            case "Transformer":
+                TransformerInfo.CancelRed();
+                break;
+           case "Expedition":
+                ExpeditionInfo.CancelRed();
+                break;
+            case "HomeCoin":
+                HomeCoinInfo.CancelRed();
+                break;
+            case "SpiralAbyss":
+                SpiralAbyssInfo.CancelRed();
+                break;
+            case "Gcg":
+                GcgInfo.CancelRed();
+                break;
+            case "L":
+                LInfo.CancelRed();
+                break;
         }
     }
 
@@ -358,8 +386,7 @@ public partial class ContactViewModel
                 signInInfoFetched = await client.GetSignInInfoAsync(roleFetched!);
 
                 Logger.Info($"[SignInInfoAsync] IsSign=\"{signInInfoFetched!.IsSign}\"");
-                SignInInfo.IsGreen = signInInfoFetched!.IsSign;
-                SignInInfo.IsRed = !SignInInfo.IsGreen;
+                SignInInfo.SetGreen(signInInfoFetched!.IsSign);
 
                 SignInViewModel!.IsFetched = true;
                 ContactMapperProvider.Map(signInInfoFetched, SignInViewModel);
@@ -368,9 +395,7 @@ public partial class ContactViewModel
             catch (Exception e)
             {
                 Logger.Error(e);
-                SignInInfo.IsYellow = true;
-                SignInInfo.IsGreen = !SignInInfo.IsYellow;
-                SignInInfo.IsRed = !SignInInfo.IsYellow;
+                SignInInfo.SetYellow(true);
                 SignInViewModel!.IsFetched = false;
                 OnPropertyChanged(nameof(SignInViewModel));
             }
@@ -419,36 +444,28 @@ public partial class ContactViewModel
                 Logger.Info($"[DailyNote] FinishedTaskNumber=\"{dailyNoteFetched!.FinishedTaskNumber}\" IsExtraTaskRewardReceived=\"{dailyNoteFetched!.IsExtraTaskRewardReceived}\"");
                 FinishedTaskInfo.ValueMax = dailyNoteFetched!.TotalTaskNumber;
                 FinishedTaskInfo.Value = dailyNoteFetched.FinishedTaskNumber;
-                FinishedTaskInfo.IsGreen = dailyNoteFetched.IsExtraTaskRewardReceived;
-                FinishedTaskInfo.IsRed = !FinishedTaskInfo.IsGreen;
+                FinishedTaskInfo.SetGreen(dailyNoteFetched.IsExtraTaskRewardReceived);
 
                 ResinDiscountInfo.ValueMax = dailyNoteFetched!.ResinDiscountLimitedNumber;
                 ResinDiscountInfo.Value = dailyNoteFetched!.RemainResinDiscountNumber;
-                ResinDiscountInfo.IsGreen = dailyNoteFetched!.RemainResinDiscountNumber == 0;
-                ResinDiscountInfo.IsRed = !ResinDiscountInfo.IsGreen;
+                ResinDiscountInfo.SetGreen(dailyNoteFetched!.RemainResinDiscountNumber == 0);
 
                 if (dailyNoteFetched.Transformer!.Obtained)
                 {
-                    TransformerInfo.IsYellow = false;
-                    TransformerInfo.IsGreen = !dailyNoteFetched.Transformer.RecoveryTime!.Reached;
-                    TransformerInfo.IsRed = !TransformerInfo.IsGreen;
+                    TransformerInfo.SetGreen(!dailyNoteFetched.Transformer.RecoveryTime!.Reached);
                 }
                 else
                 {
-                    TransformerInfo.IsYellow = true;
-                    TransformerInfo.IsGreen = false;
-                    TransformerInfo.IsRed = false;
+                    TransformerInfo.SetYellow(true);
                 }
 
                 ExpeditionInfo.Value = dailyNoteFetched!.CurrentExpeditionNumber;
                 ExpeditionInfo.ValueMax = dailyNoteFetched!.MaxExpeditionNumber;
-                ExpeditionInfo.IsGreen = dailyNoteFetched!.FinishedExpeditionNumber <= 0;
-                ExpeditionInfo.IsRed = !ExpeditionInfo.IsGreen;
+                ExpeditionInfo.SetGreen(dailyNoteFetched!.FinishedExpeditionNumber <= 0);
 
                 HomeCoinInfo.Value = dailyNoteFetched!.CurrentHomeCoin;
                 HomeCoinInfo.ValueMax = dailyNoteFetched!.MaxHomeCoin;
-                HomeCoinInfo.IsGreen = (HomeCoinInfo.Value.ValueInt32 / HomeCoinInfo!.ValueMax.ValueInt32) < 0.8d;
-                HomeCoinInfo.IsRed = !HomeCoinInfo.IsGreen;
+                HomeCoinInfo.SetGreen((HomeCoinInfo.Value.ValueInt32 / HomeCoinInfo!.ValueMax.ValueInt32) < 0.8d);
 
                 ContactMapperProvider.Map(dailyNoteFetched, DailyNoteViewModel);
                 OnPropertyChanged(nameof(DailyNoteViewModel));
@@ -479,15 +496,11 @@ public partial class ContactViewModel
                 {
                     SpiralAbyssInfo.ValueMax = 36;
                     SpiralAbyssInfo.Value = spiralAbyssInfoFetched!.TotalStar;
-                    SpiralAbyssInfo.IsYellow = false;
-                    SpiralAbyssInfo.IsGreen = SpiralAbyssInfo.Value >= SpiralAbyssInfo.ValueMax;
-                    SpiralAbyssInfo.IsRed = !SpiralAbyssInfo.IsGreen;
+                    SpiralAbyssInfo.SetGreen(SpiralAbyssInfo.Value >= SpiralAbyssInfo.ValueMax);
                 }
                 else
                 {
-                    SpiralAbyssInfo.IsYellow = true;
-                    SpiralAbyssInfo.IsGreen = false;
-                    SpiralAbyssInfo.IsRed = false;
+                    SpiralAbyssInfo.SetYellow(true);
                 }
 
                 ContactMapperProvider.Map(spiralAbyssInfoFetched, SpiralAbyssInfoViewModel);
@@ -518,8 +531,7 @@ public partial class ContactViewModel
 
             bool hasLazyToday = await LazyOutputHelper.Check(Contact.Uid?.ToString()!);
 
-            LazyInfo.IsGreen = hasLazyToday;
-            LazyInfo.IsRed = !LazyInfo.IsGreen;
+            LazyInfo.SetGreen(hasLazyToday);
 
             LazyInfoViewModel!.IsFinished = hasLazyToday;
             LazyInfoViewModel!.IsFetched = true;
@@ -528,6 +540,7 @@ public partial class ContactViewModel
         catch (Exception e)
         {
             Logger.Error(e);
+            LazyInfo.SetYellow(true);
             LazyInfoViewModel!.IsFinished = false;
             LazyInfoViewModel!.IsFetched = false;
             OnPropertyChanged(nameof(LazyInfoViewModel));

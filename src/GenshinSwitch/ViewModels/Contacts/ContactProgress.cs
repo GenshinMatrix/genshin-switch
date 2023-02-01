@@ -76,4 +76,38 @@ public class ContactProgress : ObservableRecipient
         get => isGreen;
         set => SetProperty(ref isGreen, value);
     }
+
+    private bool isRedCanceled = false;
+    public bool IsRedCanceled
+    {
+        get => isRedCanceled;
+        set => SetProperty(ref isRedCanceled, value);
+    }
+
+    public void CancelRed()
+    {
+        IsRedCanceled = true;
+        IsRed = false;
+    }
+
+    public void SetGreen(bool value)
+    {
+        IsGreen = value;
+        IsRed = IsRedCanceled ? false : !value;
+        IsYellow = false;
+    }
+
+    public void SetYellow(bool value)
+    {
+        IsYellow = value;
+        IsRed = IsRedCanceled ? false : !value;
+        IsGreen = !value;
+    }
+
+    public void SetRed(bool value)
+    {
+        IsRed = IsRedCanceled ? false : value;
+        IsGreen = !value;
+        IsYellow = false;
+    }
 }

@@ -12,7 +12,6 @@ using GenshinSwitch.Models.Contacts;
 using Microsoft.VisualStudio.Threading;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Net;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
@@ -22,7 +21,7 @@ using Xunkong.Hoyolab.DailyNote;
 using Xunkong.Hoyolab.GameRecord;
 using Xunkong.Hoyolab.SpiralAbyss;
 using Xunkong.Hoyolab.TravelNotes;
-using YamlDotNet.Core.Tokens;
+using static GenshinSwitch.ViewModels.SettingsViewModel;
 
 namespace GenshinSwitch.ViewModels.Contacts;
 
@@ -83,6 +82,16 @@ public partial class ContactViewModel
     public ContactViewModel(Contact contact)
     {
         Contact = contact;
+
+        ResinInfo.IsShown = Settings.HintResinEnable;
+        SignInInfo.IsShown = Settings.HintHoyolabEnable;
+        FinishedTaskInfo.IsShown = Settings.HintQuestEventsProceEnable;
+        ResinDiscountInfo.IsShown = Settings.HintResinDiscountEnable;
+        TransformerInfo.IsShown = Settings.HintTransformerEnable;
+        ExpeditionInfo.IsShown = Settings.HintInteeExploreEnable;
+        HomeCoinInfo.IsShown = Settings.HintHomeCoinEnable;
+        SpiralAbyssInfo.IsShown = Settings.HintAbyssEnable;
+        LazyInfo.IsShown = Settings.HintQuestRandomProceEnable;
     }
 
     [RelayCommand]
@@ -304,7 +313,7 @@ public partial class ContactViewModel
         {
             try
             {
-                await FetchLazyInfoAsync();
+                FetchLazyInfoAsync().Forget();
                 await FetchWeekendAsync();
                 await FetchHoyolabUserInfoAsync();
                 await FetchGenshinRoleInfosAsync();
@@ -374,6 +383,12 @@ public partial class ContactViewModel
 
     public async Task FetchSignInInfoAsync()
     {
+        if (!Settings.HintHoyolabSign)
+        {
+            SignInInfo.IsShown = false;
+            return;
+        }
+
         if (roleFetched == null)
         {
             await FetchGenshinRoleInfosAsync();
@@ -386,16 +401,25 @@ public partial class ContactViewModel
                 signInInfoFetched = await client.GetSignInInfoAsync(roleFetched!);
 
                 Logger.Info($"[SignInInfoAsync] IsSign=\"{signInInfoFetched!.IsSign}\"");
-                SignInInfo.SetGreen(signInInfoFetched!.IsSign);
+                SignInInfo.SetGreen(signInInfoFetched!.IsSign, Settings.HintHoyolabRed);
 
                 SignInViewModel!.IsFetched = true;
                 ContactMapperProvider.Map(signInInfoFetched, SignInViewModel);
                 OnPropertyChanged(nameof(SignInViewModel));
+
+                if (!signInInfoFetched.IsSign && !SignInInfo.IsNotified && !Settings.HintSilentMode)
+                {
+                    if (UpdateTime.TodayOffset(10).TotalHours <= 0d)
+                    {
+                        SignInInfo.IsNotified = true;
+                        NoticeService.AddNotice("米游社签到提醒", $"账号 {roleFetched!.Nickname} 未签到，客官请尽快签到吧。");
+                    }
+                }
             }
             catch (Exception e)
             {
                 Logger.Error(e);
-                SignInInfo.SetYellow(true);
+                SignInInfo.SetYellow(true, Settings.HintHoyolabRed);
                 SignInViewModel!.IsFetched = false;
                 OnPropertyChanged(nameof(SignInViewModel));
             }
@@ -437,35 +461,90 @@ public partial class ContactViewModel
             {
                 dailyNoteFetched = await client.GetDailyNoteAsync(roleFetched!);
 
-                Logger.Info($"[DailyNote] CurrentResin=\"{dailyNoteFetched!.CurrentResin}\"");
-                ResinInfo.ValueMax = dailyNoteFetched!.MaxResin;
-                ResinInfo.Value = dailyNoteFetched!.CurrentResin;
-
-                Logger.Info($"[DailyNote] FinishedTaskNumber=\"{dailyNoteFetched!.FinishedTaskNumber}\" IsExtraTaskRewardReceived=\"{dailyNoteFetched!.IsExtraTaskRewardReceived}\"");
-                FinishedTaskInfo.ValueMax = dailyNoteFetched!.TotalTaskNumber;
-                FinishedTaskInfo.Value = dailyNoteFetched.FinishedTaskNumber;
-                FinishedTaskInfo.SetGreen(dailyNoteFetched.IsExtraTaskRewardReceived);
-
-                ResinDiscountInfo.ValueMax = dailyNoteFetched!.ResinDiscountLimitedNumber;
-                ResinDiscountInfo.Value = dailyNoteFetched!.RemainResinDiscountNumber;
-                ResinDiscountInfo.SetGreen(dailyNoteFetched!.RemainResinDiscountNumber == 0);
-
-                if (dailyNoteFetched.Transformer!.Obtained)
+                if (Settings.HintResinEnable)
                 {
-                    TransformerInfo.SetGreen(!dailyNoteFetched.Transformer.RecoveryTime!.Reached);
+                    Logger.Info($"[DailyNote] CurrentResin=\"{dailyNoteFetched!.CurrentResin}\"");
+                    ResinInfo.ValueMax = dailyNoteFetched!.MaxResin;
+                    ResinInfo.Value = dailyNoteFetched!.CurrentResin;
                 }
                 else
                 {
-                    TransformerInfo.SetYellow(true);
+                    ResinInfo.IsShown = false;
                 }
 
-                ExpeditionInfo.Value = dailyNoteFetched!.CurrentExpeditionNumber;
-                ExpeditionInfo.ValueMax = dailyNoteFetched!.MaxExpeditionNumber;
-                ExpeditionInfo.SetGreen(dailyNoteFetched!.FinishedExpeditionNumber <= 0);
+                if (Settings.HintQuestEventsProceEnable)
+                {
+                    Logger.Info($"[DailyNote] FinishedTaskNumber=\"{dailyNoteFetched!.FinishedTaskNumber}\" IsExtraTaskRewardReceived=\"{dailyNoteFetched!.IsExtraTaskRewardReceived}\"");
+                    FinishedTaskInfo.ValueMax = dailyNoteFetched!.TotalTaskNumber;
+                    FinishedTaskInfo.Value = dailyNoteFetched.FinishedTaskNumber;
+                    FinishedTaskInfo.SetGreen(dailyNoteFetched.IsExtraTaskRewardReceived, Settings.HintQuestEventsProceRed);
+                }
+                else
+                {
+                    FinishedTaskInfo.IsShown = false;
+                }
 
-                HomeCoinInfo.Value = dailyNoteFetched!.CurrentHomeCoin;
-                HomeCoinInfo.ValueMax = dailyNoteFetched!.MaxHomeCoin;
-                HomeCoinInfo.SetGreen((HomeCoinInfo.Value.ValueInt32 / HomeCoinInfo!.ValueMax.ValueInt32) < 0.8d);
+                if (Settings.HintResinDiscountEnable)
+                {
+                    ResinDiscountInfo.ValueMax = dailyNoteFetched!.ResinDiscountLimitedNumber;
+                    ResinDiscountInfo.Value = dailyNoteFetched!.RemainResinDiscountNumber;
+
+                    int limitDay = UpdateTime.GetSundayDateOffset(4).Days;
+
+                    ResinDiscountInfo.SetGreen(dailyNoteFetched!.RemainResinDiscountNumber == 0, Settings.HintResinDiscountRed && (limitDay < Settings.HintAbyssDeadline));
+                }
+                else
+                {
+                    ResinDiscountInfo.IsShown = false;
+                }
+
+
+                if (Settings.HintTransformerEnable)
+                {
+                    if (dailyNoteFetched.Transformer!.Obtained)
+                    {
+                        TransformerInfo.SetGreen(!dailyNoteFetched.Transformer.RecoveryTime!.Reached, Settings.HintTransformerRed);
+                    }
+                    else
+                    {
+                        TransformerInfo.SetYellow(true, Settings.HintTransformerRed);
+                    }
+                }
+                else
+                {
+                    TransformerInfo.IsShown = false;
+                }
+
+                if (Settings.HintInteeExploreEnable)
+                {
+                    ExpeditionInfo.Value = dailyNoteFetched!.CurrentExpeditionNumber;
+                    ExpeditionInfo.ValueMax = dailyNoteFetched!.MaxExpeditionNumber;
+
+                    if (Settings.HintInteeExploreType == (int)InteeExploreType.Any)
+                    {
+                        ExpeditionInfo.SetGreen(dailyNoteFetched!.FinishedExpeditionNumber <= 0, Settings.HintInteeExploreRed);
+                    }
+                    else
+                    {
+                        ExpeditionInfo.SetGreen(dailyNoteFetched!.FinishedExpeditionNumber < dailyNoteFetched!.MaxExpeditionNumber, Settings.HintInteeExploreRed);
+                    }
+                }
+                else
+                {
+                    ExpeditionInfo.IsShown = false;
+                }
+
+                if (Settings.HintHomeCoinEnable)
+                {
+                    HomeCoinInfo.Value = dailyNoteFetched!.CurrentHomeCoin;
+                    HomeCoinInfo.ValueMax = dailyNoteFetched!.MaxHomeCoin;
+
+                    HomeCoinInfo.SetGreen(HomeCoinInfo.Value.ValueInt32 < Settings.HintHomeCoinLimit, Settings.HintHomeCoinRed);
+                }
+                else
+                {
+                    HomeCoinInfo.IsShown = false;
+                }
 
                 ContactMapperProvider.Map(dailyNoteFetched, DailyNoteViewModel);
                 OnPropertyChanged(nameof(DailyNoteViewModel));
@@ -479,6 +558,12 @@ public partial class ContactViewModel
 
     public async Task FetchSpiralAbyssInfoAsync()
     {
+        if (!Settings.HintAbyssEnable)
+        {
+            SpiralAbyssInfo.IsShown = false;
+            return;
+        }
+
         if (roleFetched == null)
         {
             await FetchGenshinRoleInfosAsync();
@@ -496,11 +581,14 @@ public partial class ContactViewModel
                 {
                     SpiralAbyssInfo.ValueMax = 36;
                     SpiralAbyssInfo.Value = spiralAbyssInfoFetched!.TotalStar;
-                    SpiralAbyssInfo.SetGreen(SpiralAbyssInfo.Value >= SpiralAbyssInfo.ValueMax);
+
+                    int limitDay = (spiralAbyssInfoFetched.EndTime - DateTime.Now).Days;
+
+                    SpiralAbyssInfo.SetGreen(SpiralAbyssInfo.Value >= SpiralAbyssInfo.ValueMax, Settings.HintAbyssRed && (limitDay < Settings.HintAbyssDeadline));
                 }
                 else
                 {
-                    SpiralAbyssInfo.SetYellow(true);
+                    SpiralAbyssInfo.SetYellow(true, Settings.HintAbyssRed);
                 }
 
                 ContactMapperProvider.Map(spiralAbyssInfoFetched, SpiralAbyssInfoViewModel);
@@ -517,6 +605,12 @@ public partial class ContactViewModel
     {
         try
         {
+            if (!Settings.HintQuestRandomProceEnable)
+            {
+                LazyInfo.IsShown = false;
+                return;
+            }
+
             LazyInfoViewModel!.IsUnlocked = await LazyVerification.VerifyAssembly(Settings.ComponentLazyPath.Get());
 
             if (!LazyInfoViewModel.IsUnlocked)
@@ -531,7 +625,7 @@ public partial class ContactViewModel
 
             bool hasLazyToday = await LazyOutputHelper.Check(Contact.Uid?.ToString()!);
 
-            LazyInfo.SetGreen(hasLazyToday);
+            LazyInfo.SetGreen(hasLazyToday, Settings.HintQuestRandomProceRed);
 
             LazyInfoViewModel!.IsFinished = hasLazyToday;
             LazyInfoViewModel!.IsFetched = true;
@@ -540,7 +634,7 @@ public partial class ContactViewModel
         catch (Exception e)
         {
             Logger.Error(e);
-            LazyInfo.SetYellow(true);
+            LazyInfo.SetYellow(true, Settings.HintQuestRandomProceRed);
             LazyInfoViewModel!.IsFinished = false;
             LazyInfoViewModel!.IsFetched = false;
             OnPropertyChanged(nameof(LazyInfoViewModel));

@@ -59,4 +59,34 @@ public static class UpdateTime
         }
         return null;
     }
+
+    public static DateTime GetSundayDate(DateTime someDate, int hour = 4)
+    {
+        int i = someDate.DayOfWeek - DayOfWeek.Sunday;
+
+        if (i != 0)
+        {
+            i = 7 - i;
+        }
+        TimeSpan ts = new(i, hour, 0, 0);
+        return someDate.Add(ts);
+    }
+
+    public static TimeSpan GetSundayDateOffset(int hour = 4)
+    {
+        DateTime now = DateTime.Now;
+        return GetSundayDate(now, hour) - now;
+    }
+
+    public static DateTime Today(int hour = 10)
+    {
+        DateTime now = DateTime.Now;
+        return new(now.Year, now.Month, now.Day, hour, 0, 0);
+    }
+
+    public static TimeSpan TodayOffset(int hour = 10)
+    {
+        DateTime now = DateTime.Now;
+        return Today(hour) - now;
+    }
 }

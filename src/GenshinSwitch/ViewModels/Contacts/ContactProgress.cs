@@ -47,6 +47,13 @@ public class ContactProgress : ObservableRecipient
         set => SetProperty(ref opacity, value);
     }
 
+    private bool isNotified = false;
+    public bool IsNotified
+    {
+        get => isNotified;
+        set => SetProperty(ref isNotified, value);
+    }
+
     /// <summary>
     /// Icon with hint
     /// </summary>
@@ -90,23 +97,23 @@ public class ContactProgress : ObservableRecipient
         IsRed = false;
     }
 
-    public void SetGreen(bool value)
+    public void SetGreen(bool value, bool isRedable = true)
     {
         IsGreen = value;
-        IsRed = IsRedCanceled ? false : !value;
+        IsRed = IsRedCanceled ? false : isRedable ? !value : false;
         IsYellow = false;
     }
 
-    public void SetYellow(bool value)
+    public void SetYellow(bool value, bool isRedable = true)
     {
         IsYellow = value;
-        IsRed = IsRedCanceled ? false : !value;
+        IsRed = IsRedCanceled ? false : isRedable ? !value : false;
         IsGreen = !value;
     }
 
-    public void SetRed(bool value)
+    public void SetRed(bool value, bool isRedable = true)
     {
-        IsRed = IsRedCanceled ? false : value;
+        IsRed = IsRedCanceled ? false : isRedable ? value : false;
         IsGreen = !value;
         IsYellow = false;
     }

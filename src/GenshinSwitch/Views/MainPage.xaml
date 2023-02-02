@@ -136,20 +136,21 @@
                                     </StackPanel>
                                     <controls:WrapPanel Grid.Column="2" Margin="15,0,0,0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                                         <!-- 原粹树脂 -->
-                                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0"
-                                                Command="{x:Bind ViewModel.CancelRedCommand}"
-                                                CommandParameter="Resin"
-                                                Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
-                                            <Grid Width="30" Height="30" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.ResinInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter}}">
-                                                <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_210.png"/>
-                                                <Border BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}" CornerRadius="4" Background="{x:Bind ViewModel.ResinInfo.Value,Converter={StaticResource ResinBrushHintConverter},Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Right">
-                                                    <TextBlock Text="{x:Bind ViewModel.ResinInfo.Value,Mode=OneWay}" Margin="2,0,2,-1" FontSize="12" Foreground="#FFFFFF" FontWeight="Normal" FontFamily="{StaticResource DigitalClock}"/>
-                                                </Border>
-                                            </Grid>
-                                            <Button.Flyout>
-                                                <Flyout>
-                                                    <StackPanel Margin="4,0,0,0" Orientation="Horizontal">
-                                                        <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_ItemIcon_210.png" Stretch="Uniform" />
+                                        <Grid Visibility="{x:Bind ViewModel.IsFetched,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}">
+                                            <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0"
+                                                    Command="{x:Bind ViewModel.CancelRedCommand}"
+                                                    CommandParameter="Resin"
+                                                    Visibility="{x:Bind ViewModel.ResinInfo.IsShown,Converter={StaticResource BoolToVisibilityConverter}}">
+                                                <Grid Width="30" Height="30" VerticalAlignment="Center">
+                                                    <Image Width="28" Opacity="1" Source="ms-appx:///Assets/Images/UI_ItemIcon_210.png"/>
+                                                    <Border BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}" CornerRadius="4" Background="{x:Bind ViewModel.ResinInfo.Value,Converter={StaticResource ResinBrushHintConverter},Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                                        <TextBlock Text="{x:Bind ViewModel.ResinInfo.Value,Mode=OneWay}" Margin="2,0,2,-1" FontSize="12" Foreground="#FFFFFF" FontWeight="Normal" FontFamily="{StaticResource DigitalClock}"/>
+                                                    </Border>
+                                                </Grid>
+                                                <Button.Flyout>
+                                                    <Flyout>
+                                                        <StackPanel Margin="4,0,0,0" Orientation="Horizontal">
+                                                            <Image Width="30" Height="30" Source="ms-appx:///Assets/Images/UI_ItemIcon_210.png" Stretch="Uniform" />
                                                             <StackPanel Margin="12,0,0,0">
                                                                 <TextBlock Text="原粹树脂" />
                                                                 <TextBlock Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsResinFull,Converter={StaticResource BoolToVisibilityReversedConverter},Mode=OneWay}"
@@ -160,17 +161,18 @@
                                                                     <Run Text="{x:Bind ViewModel.DailyNoteViewModel.ResinFullTime,Converter={StaticResource DateTimeOffsetToTimeStringConverter},Mode=OneWay}" />
                                                                     <Run Text="全部恢复" />
                                                                 </TextBlock>
-                                                            <TextBlock Text="已全部恢复" Foreground="Green" Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsResinFull,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" />
+                                                                <TextBlock Text="已全部恢复" Foreground="Green" Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsResinFull,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" />
                                                             </StackPanel>
                                                             <TextBlock VerticalAlignment="Center" Margin="12,0,5,0">
                                                                 <Run Text="{x:Bind ViewModel.DailyNoteViewModel.CurrentResin,Mode=OneWay}" />
                                                                 <Run Text="/" />
                                                                 <Run Text="{x:Bind ViewModel.DailyNoteViewModel.MaxResin,Mode=OneWay}" />
                                                             </TextBlock>
-                                                    </StackPanel>
-                                                </Flyout>
-                                            </Button.Flyout>
-                                        </Button>
+                                                        </StackPanel>
+                                                    </Flyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                        </Grid>
                                         <!-- 米游社 -->
                                         <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" Margin="0" Padding="0"
                                                 Command="{x:Bind ViewModel.CancelRedCommand}"

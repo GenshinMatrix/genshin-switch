@@ -5,12 +5,12 @@ namespace GenshinSwitch.Fetch.Lazy;
 public static class UpdateTime
 {
     internal const string DATETIME_FORMAT = "yyyy/MM/dd HH:mm:ss";
-    public static DateTime NextUpdateTime = UpdateNextTime();
+    public static DateTime NextUpdateTime => GetUpdateNextTime();
     public static string NextUpdateTimeViewString => NextUpdateTime.ToString(DATETIME_FORMAT);
 
     public static bool IsCountStartedFormNextUpdateTime { get; set; } = false;
 
-    public static DateTime UpdateNextTime()
+    public static DateTime GetUpdateNextTime()
     {
         int timeZoneOffset8 = 8 - TimeZoneInfo.Local.BaseUtcOffset.Hours;
         DateTime dateTime8 = DateTime.Now.AddHours(timeZoneOffset8);
@@ -20,7 +20,7 @@ public static class UpdateTime
         {
             dateTimeUpdate8 = dateTimeUpdate8.AddDays(1);
         }
-        return NextUpdateTime = dateTimeUpdate8.AddHours(-timeZoneOffset8);
+        return dateTimeUpdate8.AddHours(-timeZoneOffset8);
     }
 
     public static bool IsToday(DateTime dateTime)

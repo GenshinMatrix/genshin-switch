@@ -24,6 +24,21 @@ public sealed partial class MainWindow : WindowEx
         Title = "AppDisplayName".GetLocalized();
 
         WeakReferenceMessenger.Default.Register<ThemeChangedMessage>(this, (_, _) => SetupBackdrop());
+
+        bool autostart = false;
+        VisibilityChanged += (_, _) =>
+        {
+            if (autostart)
+            {
+                return;
+            }
+
+            if (Visible && CommandLineHelper.Has("autostart"))
+            {
+                autostart = true;
+                AppWindow.Hide();
+            }
+        };
     }
 
     private void SetupBackdrop()

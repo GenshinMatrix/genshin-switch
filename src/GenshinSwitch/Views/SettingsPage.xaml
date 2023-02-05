@@ -26,30 +26,56 @@
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                        Text="主题设置" />
 
-                    <control:SettingCard Margin="0,10,0,0">
-                        <control:SettingCard.Icon>
-                            <Image Width="28"
-                            Height="28"
-                            Margin="-4"
-                            Source="ms-appx:///Assets/Logos/StoreLogo.png">
-                            </Image>
-                        </control:SettingCard.Icon>
-                        <control:SettingCard.Content>
-                            <TextBlock>
-                        <Run Text="{x:Bind ViewModel.AppName}" />
-                        <LineBreak />
-                        <Run FontSize="12"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Text="{x:Bind ViewModel.AppVersion}" />
-                            </TextBlock>
-                        </control:SettingCard.Content>
-                        <control:SettingCard.Selector>
-                            <Button HorizontalAlignment="Right"
-                                    Command="{x:Bind ViewModel.CheckUpdateCommand}"
-                                    Content="检查更新" />
-                        </control:SettingCard.Selector>
-                    </control:SettingCard>
-
+                    <Expander Margin="0,5,0,0"
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Stretch">
+                        <Expander.Header>
+                            <Grid>
+                                <StackPanel Padding="4,16,0,16" Orientation="Horizontal">
+                                    <Image Width="28" Height="28" Margin="-4"
+                                           control:ImageHelper.Width="28"
+                                           Source="ms-appx:///Assets/Logos/StoreLogo.png">
+                                    </Image>
+                                    <TextBlock Margin="20,0,0,0">
+                                        <Run Text="{x:Bind ViewModel.AppName}" />
+                                        <LineBreak />
+                                        <Run FontSize="12"
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                Text="{x:Bind ViewModel.AppVersion}" />
+                                    </TextBlock>
+                                </StackPanel>
+                                <Button HorizontalAlignment="Right"
+                                        Command="{x:Bind ViewModel.CheckUpdateCommand}"
+                                        Content="检查更新" />
+                            </Grid>
+                        </Expander.Header>
+                        <Expander.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Margin="5,-16,44,-16">
+                                    <FontIcon FontSize="20" Glyph="&#xf83d;" />
+                                    <FontIcon FontSize="13" Glyph="&#xf83f;" Margin="6,4,0,0"/>
+                                </Grid>
+                                <Grid Grid.Column="1" Margin="-25,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock>
+                                        <Run Text="开机启动" />
+                                        <LineBreak />
+                                        <Run FontSize="12"
+                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                             Text="开机后将自动后台启动" />
+                                    </TextBlock>
+                                </Grid>
+                                <ToggleSwitch Grid.Column="2" Margin="0,0,45,0"
+                                                  HorizontalAlignment="Right" MinWidth="0"
+                                                  IsOn="{x:Bind ViewModel.AutoStart,Mode=TwoWay}"/>
+                            </Grid>
+                        </Expander.Content>
+                    </Expander>
+                    
                     <control:SettingCard Margin="0,5,0,0">
                         <control:SettingCard.Icon>
                             <FontIcon FontSize="20"
@@ -74,8 +100,8 @@
                     </control:SettingCard>
 
                     <Expander Margin="0,5,0,0"
-                      HorizontalAlignment="Stretch"
-                      HorizontalContentAlignment="Stretch">
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Stretch">
                         <Expander.Header>
                             <Grid>
                                 <StackPanel Padding="4,16,0,16" Orientation="Horizontal">
@@ -491,6 +517,32 @@
                             </StackPanel>
                         </Expander.Content>
                     </Expander>
+
+                    <TextBlock Margin="0,10,0,4"
+                       FontSize="20"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       Text="数据" />
+
+                    <control:SettingCard Margin="0,5,0,0">
+                        <control:SettingCard.Icon>
+                            <FontIcon FontSize="20"
+                              Glyph="&#xed25;" />
+                        </control:SettingCard.Icon>
+                        <control:SettingCard.Content>
+                            <TextBlock VerticalAlignment="Center">
+                                <Run Text="用户数据" />
+                                <LineBreak />
+                                <Run FontSize="12"
+                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                     Text="本地记录的用户数据" />
+                            </TextBlock>
+                        </control:SettingCard.Content>
+                        <control:SettingCard.Selector>
+                            <Button HorizontalAlignment="Right"
+                                    Command="{x:Bind ViewModel.OpenSpecialFolderCommand}"
+                                    Content="打开目录" />
+                        </control:SettingCard.Selector>
+                    </control:SettingCard>
 
                     <Frame Margin="0,20,0,0"/>
                     

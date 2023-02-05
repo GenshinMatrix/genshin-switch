@@ -30,11 +30,14 @@ public partial class SettingsViewModel : ObservableRecipient
     public string AppVersion => Pack.AppVersion;
     public string UserDataPath => SpecialPathService.Provider.GetPath(string.Empty);
 
+    [ObservableProperty]
     private ElementTheme elementTheme;
-    public ElementTheme ElementTheme
+
+    [ObservableProperty]
+    private bool autoStart = AutoStartManager.IsEnabled();
+    partial void OnAutoStartChanged(bool value)
     {
-        get => elementTheme;
-        set => SetProperty(ref elementTheme, value);
+        AutoStartManager.SetEnabled(value);
     }
 
     [ObservableProperty]
@@ -356,6 +359,24 @@ public partial class SettingsViewModel : ObservableRecipient
         {
             ElementTheme = param;
             await themeSelectorService.SetThemeAsync(param);
+        }
+    }
+
+    [RelayCommand]
+    private void OpenSpecialFolder()
+    {
+        try
+        {
+            _ = Process.Start(new ProcessStartInfo()
+            {
+                UseShellExecute = true,
+                FileName = "explorer.exe",
+                Arguments = $"\"{SpecialPathService.Provider.GetFolder()}\"",
+            });
+        }
+        catch (Exception e)
+        {
+            Logger.Error(e);
         }
     }
 

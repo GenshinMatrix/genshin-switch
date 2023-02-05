@@ -11,7 +11,7 @@ internal class QuestEventStatsColorConverter : IValueConverter
 {
     private static readonly SolidColorBrush Green = new(Colors.Green);
     private static readonly SolidColorBrush OrangeRed = new(Colors.OrangeRed);
-    private static readonly SolidColorBrush Gray = (Microsoft.UI.Xaml.Application.Current.Resources["TextFillColorSecondaryBrush"] as SolidColorBrush)!;
+    private static SolidColorBrush Gray => (Microsoft.UI.Xaml.Application.Current.Resources["TextFillColorSecondaryBrush"] as SolidColorBrush)!;
 
     public object Convert(object value, Type targetType, object parameter, string language)
     {

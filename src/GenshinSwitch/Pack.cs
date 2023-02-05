@@ -1,17 +1,22 @@
-﻿using Windows.ApplicationModel;
+﻿using GenshinSwitch.Helpers;
+using Windows.ApplicationModel;
 
 namespace GenshinSwitch;
 
 public class Pack
 {
-    public static string AppName => Package.Current.DisplayName;
+    public static string AppName => RuntimeHelper.IsMSIX ? Package.Current.DisplayName : "GenshinSwitch";
 
     public static string AppVersion
     {
         get
         {
-            PackageVersion v = Package.Current.Id.Version;
-            return $"{v.Major}.{v.Minor}.{v.Build}.{v.Revision}";
+            if (RuntimeHelper.IsMSIX)
+            {
+                PackageVersion v = Package.Current.Id.Version;
+                return $"v{v.Major}.{v.Minor}.{v.Build}.{v.Revision}";
+            }
+            return AssemblyUtils.GetAssemblyVersion(typeof(App).Assembly, prefix: "v");
         }
     }
 

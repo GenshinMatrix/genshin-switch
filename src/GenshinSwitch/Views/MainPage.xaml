@@ -26,6 +26,7 @@
         <converters:QuestEventStatsStringConverter x:Key="QuestEventStatsStringConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:HoyolabSignInStatsStringConverter x:Key="HoyolabSignInStatsStringConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:LazyInfoStatsStringConverter x:Key="LazyInfoStatsStringConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
+        <converters:LazyInfoStatsColorConverter x:Key="LazyInfoStatsColorConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:ExpeditionStatusToColorConverter x:Key="ExpeditionStatusToColorConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:TreasurebowCoinsIconConverter x:Key="TreasurebowCoinsIconConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
         <converters:TreasurebowCoinsMarginConverter x:Key="TreasurebowCoinsMarginConverter" xmlns:converters="using:GenshinSwitch.Views.Converters"/>
@@ -154,7 +155,7 @@
                                                             <StackPanel Margin="12,0,0,0">
                                                                 <TextBlock Text="原粹树脂" />
                                                                 <TextBlock Visibility="{x:Bind ViewModel.DailyNoteViewModel.IsResinFull,Converter={StaticResource BoolToVisibilityReversedConverter},Mode=OneWay}"
-                                                                           Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                                                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                                            Style="{ThemeResource CaptionTextBlockStyle}">
                                                                     <Run Text="将于" />
                                                                     <Run Text="{x:Bind ViewModel.DailyNoteViewModel.ResinFullTime,Converter={StaticResource DateTimeOffsetToDayStringConverter},Mode=OneWay}" />
@@ -191,7 +192,7 @@
                                                         <StackPanel Margin="10,0,0,0" Orientation="Vertical">
                                                             <TextBlock Text="米游社" VerticalAlignment="Center"/>
                                                             <TextBlock Text="{x:Bind ViewModel.SignInViewModel,Converter={StaticResource HoyolabSignInStatsStringConverter},ConverterParameter={Binding ViewModel.SignInInfo},Mode=OneWay}"
-                                                                       Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                                                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                                        Style="{ThemeResource CaptionTextBlockStyle}"
                                                                        VerticalAlignment="Center"/>
                                                         </StackPanel>
@@ -278,7 +279,7 @@
                                                             </Grid>
                                                             <StackPanel Margin="12,0,0,0">
                                                                 <TextBlock Text="每日世界任务" />
-                                                                <TextBlock Foreground="{x:Bind ViewModel.LazyInfoViewModel,Converter={StaticResource QuestEventStatsColorConverter},Mode=OneWay}"
+                                                                <TextBlock Foreground="{x:Bind ViewModel.LazyInfoViewModel,Converter={StaticResource LazyInfoStatsColorConverter},Mode=OneWay}"
                                                                            Style="{ThemeResource CaptionTextBlockStyle}"
                                                                            Text="{x:Bind ViewModel.LazyInfoViewModel,Converter={StaticResource LazyInfoStatsStringConverter},Mode=OneWay}" />
                                                             </StackPanel>

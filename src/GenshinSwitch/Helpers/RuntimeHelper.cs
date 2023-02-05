@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.UI.Dispatching;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
@@ -57,11 +58,23 @@ public class RuntimeHelper
 
     public static void RestartAsElevated(int? exitCode = null)
     {
+        static string ReArguments()
+        {
+            string[] args = Environment.GetCommandLineArgs()[1..^0];
+
+            for (int i = default; i < args.Length; i++)
+            {
+                args[i] = $@"""{args[i]}""";
+            }
+            return string.Join(' ', args);
+        }
+
         try
         {
             _ = Process.Start(new ProcessStartInfo()
             {
                 Verb = "runas",
+                Arguments = ReArguments(),
                 UseShellExecute = true,
                 FileName = Environment.ProcessPath,
                 WorkingDirectory = Environment.CurrentDirectory,
@@ -72,5 +85,33 @@ public class RuntimeHelper
             return;
         }
         Environment.Exit(exitCode ?? 0);
+    }
+
+    public static void CheckSingleInstance()
+    {
+        EventWaitHandle? handle;
+
+        try
+        {
+            handle = EventWaitHandle.OpenExisting(Pack.AppName);
+            handle.Set();
+            Environment.Exit(0xFFFF);
+        }
+        catch (WaitHandleCannotBeOpenedException)
+        {
+            handle = new EventWaitHandle(false, EventResetMode.AutoReset, Pack.AppName);
+        }
+        GC.KeepAlive(handle);
+        _ = Task.Run(() =>
+        {
+            while (handle.WaitOne())
+            {
+                App.MainWindow?.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, () =>
+                {
+                    App.MainWindow?.Activate();
+                    App.MainWindow?.Show();
+                });
+            }
+        });
     }
 }

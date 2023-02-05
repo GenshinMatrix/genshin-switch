@@ -11,6 +11,7 @@ internal static class Program
     internal static void Main()
     {
         RuntimeHelper.EnsureElevated();
+        RuntimeHelper.CheckSingleInstance();
         RuntimeHelper.XamlCheckProcessRequirements();
         ComWrappersSupport.InitializeComWrappers();
         Application.Start((p) =>

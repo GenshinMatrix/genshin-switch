@@ -133,7 +133,6 @@ public partial class MainViewModel : ObservableRecipient
         }
     }
 
-
     [RelayCommand]
     private async Task RefreshAsync()
     {

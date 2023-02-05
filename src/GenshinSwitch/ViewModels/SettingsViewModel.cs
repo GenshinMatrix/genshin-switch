@@ -394,7 +394,7 @@ public partial class SettingsViewModel : ObservableRecipient
     }
 
     [RelayCommand]
-    private async Task CopyVersion()
+    private void CopyVersion()
     {
         if (!string.IsNullOrWhiteSpace(AppVersion))
         {

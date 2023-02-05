@@ -498,7 +498,6 @@ public partial class ContactViewModel
                     ResinDiscountInfo.IsShown = false;
                 }
 
-
                 if (Settings.HintTransformerEnable)
                 {
                     if (dailyNoteFetched.Transformer!.Obtained)

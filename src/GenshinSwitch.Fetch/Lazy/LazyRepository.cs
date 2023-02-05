@@ -35,7 +35,6 @@ public static class LazyRepository
             {
                 if (c.Name == path)
                 {
-                    Logger.Info(c);
                     return c.Content;
                 }
             }

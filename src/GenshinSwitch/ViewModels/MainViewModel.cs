@@ -151,6 +151,32 @@ public partial class MainViewModel : ObservableRecipient
     }
 
     [RelayCommand]
+    private async Task LaunchGameFromListAsync()
+    {
+        if (SelectedItem == null)
+        {
+            Bubble.Warning($"请选择要启动的账号");
+            return;
+        }
+        LaunchGameAsync(SelectedItem).Forget();
+    }
+
+    [RelayCommand]
+    private async Task LaunchGameFromListWithDelayAsync(string minsString)
+    {
+        if (SelectedItem == null)
+        {
+            Bubble.Warning($"请选择要启动的账号");
+            return;
+        }
+        if (int.TryParse(minsString, out int mins))
+        {
+            await Task.Delay(mins);
+        }
+        LaunchGameAsync(SelectedItem).Forget();
+    }
+
+    [RelayCommand]
     private async Task RefreshContactAsync()
     {
         if (SelectedItem == null)

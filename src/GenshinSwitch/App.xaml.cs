@@ -115,7 +115,6 @@ public partial class App : Application
             try
             {
                 _ = tcs?.TrySetResult(action.Invoke());
-                tcs = null;
             }
             catch (Exception e)
             {

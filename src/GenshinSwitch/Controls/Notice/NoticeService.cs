@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.WinUI.Notifications;
+using GenshinSwitch.Core;
 
 namespace GenshinSwitch.Controls.Notice;
 
@@ -35,8 +36,9 @@ internal static class NoticeService
         {
             ToastNotificationManagerCompat.History.Clear();
         }
-        catch
+        catch (Exception e)
         {
+            Logger.Error(e);
         }
     }
 }

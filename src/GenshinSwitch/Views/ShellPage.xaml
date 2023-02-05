@@ -2,29 +2,25 @@
     x:Class="GenshinSwitch.Views.ShellPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:notifyIcon="using:H.NotifyIcon"
-    xmlns:vm="using:GenshinSwitch.ViewModels"
     xmlns:base="using:GenshinSwitch"
     xmlns:helpers="using:GenshinSwitch.Helpers"
     xmlns:styles="using:GenshinSwitch.Styles"
-    xmlns:behaviors="using:GenshinSwitch.Behaviors"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:notifyIcon="using:H.NotifyIcon"
     Loaded="OnLoaded">
-
     <Grid>
         <notifyIcon:TaskbarIcon
             x:Name="TaskbarIconApp"
-            LeftClickCommand="{x:Bind vm:GlobalCommandViewModel.ExitAppCommand}"
+            DoubleClickCommand="{x:Bind ViewModel.ActiveOrHideAppCommand}"
             MenuActivation="RightClick"
             NoLeftClickDelay="True"
             IconSource="{x:Bind base:Pack.UriIcon}"
             Visibility="Visible">
             <notifyIcon:TaskbarIcon.ContextFlyout>
-                <MenuFlyout AreOpenCloseAnimationsEnabled="False">
-                    <MenuFlyoutItem
-                        Command="{x:Bind vm:GlobalCommandViewModel.ExitAppCommand}" />
+                <MenuFlyout Placement="RightEdgeAlignedTop" AreOpenCloseAnimationsEnabled="False">
+                    <MenuFlyoutItem Text="显示" Icon="Refresh" Command="{x:Bind ViewModel.ActiveAppCommand}" />
+                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutItem Text="隐藏" Icon="Refresh" Command="{x:Bind ViewModel.HideAppCommand}" />
+                    <MenuFlyoutItem Text="退出" Icon="Refresh" Command="{x:Bind ViewModel.ExitAppCommand}" />
                 </MenuFlyout>
             </notifyIcon:TaskbarIcon.ContextFlyout>
         </notifyIcon:TaskbarIcon>

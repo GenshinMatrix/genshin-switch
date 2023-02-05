@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using GenshinSwitch.Core;
 using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Models.Messages;
@@ -33,10 +34,17 @@ public sealed partial class MainWindow : WindowEx
                 return;
             }
 
-            if (Visible && CommandLineHelper.Has("autostart"))
+            try
             {
-                autostart = true;
-                AppWindow.Hide();
+                if (Visible && CommandLineHelper.Has("autostart"))
+                {
+                    autostart = true;
+                    AppWindow.Hide();
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e);
             }
         };
     }

@@ -11,7 +11,10 @@ using GenshinSwitch.Views;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
+using Microsoft.VisualStudio.Threading;
+using Vanara.PInvoke;
 
 namespace GenshinSwitch;
 
@@ -91,13 +94,49 @@ public partial class App : Application
         UnhandledException += App_UnhandledException;
     }
 
+    public static void TryEnqueue(Action action)
+    {
+        try
+        {
+            action.Invoke();
+        }
+        catch (Exception e)
+        {
+            Logger.Error(e);
+        }
+    }
+
+    public static async Task<T> TryEnqueueAsync<T>(Func<T> action)
+    {
+        TaskCompletionSource<T> tcs = new();
+
+        _ = MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, () =>
+        {
+            try
+            {
+                _ = tcs?.TrySetResult(action.Invoke());
+                tcs = null;
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e);
+            }
+        });
+        return await tcs.Task;
+    }
+
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
         Logger.Fatal(e.Exception);
         e.Handled = true;
     }
 
-    protected async override void OnLaunched(LaunchActivatedEventArgs args)
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    {
+        OnLaunchedAsync(args).Forget();
+    }
+
+    protected async Task OnLaunchedAsync(LaunchActivatedEventArgs args)
     {
         base.OnLaunched(args);
 

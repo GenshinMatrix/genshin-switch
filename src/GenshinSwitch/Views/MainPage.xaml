@@ -116,7 +116,7 @@
                                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                                             <TextBlock Text="{x:Bind AliasName}" x:Phase="1" FontSize="18" Margin="0"/>
                                             <Border Visibility="{x:Bind ViewModel.IsRunning,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"
-                                                    CornerRadius="3" BorderBrush="AliceBlue" BorderThickness="1" Background="#EA1D953F" Margin="3,0,0,0">
+                                                    CornerRadius="3" BorderBrush="AliceBlue" BorderThickness="0" Background="#EA1D953F" Margin="3,0,0,0">
                                                 <TextBlock Text="正在游戏" Foreground="White" Opacity="1" FontSize="16" Margin="3,0,3,0"/>
                                             </Border>
                                         </StackPanel>

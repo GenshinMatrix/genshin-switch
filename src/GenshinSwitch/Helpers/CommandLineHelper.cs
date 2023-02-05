@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using GenshinSwitch.Core;
+using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 
 namespace GenshinSwitch;
@@ -107,8 +108,9 @@ public class CommandLineHelper
                 ret = Convert.ToBoolean(value);
             }
         }
-        catch
+        catch (Exception e)
         {
+            Logger.Error(e);
         }
         return ret;
     }
@@ -126,8 +128,9 @@ public class CommandLineHelper
                 ret = Convert.ToInt32(value);
             }
         }
-        catch
+        catch (Exception e)
         {
+            Logger.Error(e);
         }
         return ret;
     }
@@ -145,8 +148,9 @@ public class CommandLineHelper
                 ret = Convert.ToDouble(value);
             }
         }
-        catch
+        catch (Exception e)
         {
+            Logger.Error(e);
         }
         return ret;
     }

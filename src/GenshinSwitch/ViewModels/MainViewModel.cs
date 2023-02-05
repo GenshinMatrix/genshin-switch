@@ -11,63 +11,100 @@ using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Models.Messages;
 using GenshinSwitch.Views;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.VisualStudio.Threading;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace GenshinSwitch.ViewModels;
 
+[SuppressMessage("Usage", "VSTHRD101:Avoid unsupported async delegates", Justification = "<Pending>")]
 public partial class MainViewModel : ObservableRecipient
 {
     [ObservableProperty]
     private Contact selectedItem = null!;
 
-    public DispatcherTimer DispatcherTimer { get; } = new();
-    public ObservableCollection<Contact> Contacts { get; set; } = new();
+    public Timer Timer { get; }
+    public ObservableCollection<Contact> Contacts { get; } = new();
 
     public MainViewModel()
     {
-        DispatcherTimer.Interval = TimeSpan.FromSeconds(2);
-        DispatcherTimer.Tick += (s, e) =>
-        {
-            if (LaunchCtrl.TryGetProcessRegion(out string region))
-            {
-                string runningProd = region switch
-                {
-                    LaunchCtrl.RegionOVERSEA => GenshinRegedit.ProdOVERSEA,
-                    LaunchCtrl.RegionCN or _ => GenshinRegedit.ProdCN,
-                };
+        Timer = new(ForeverTick, null!, 2000, 2000);
+    }
 
-                foreach (Contact contact in Contacts)
-                {
-#if !DEBUG
-                    if (!LaunchCtrl.GetElevated())
-                    {
-                        break;
-                    }
-#endif
-                    if (contact.Prod == runningProd)
-                    {
-                        contact.ViewModel.IsRunning = true;
-                    }
-                    else
-                    {
-                        contact.ViewModel.IsRunning = false;
-                    }
-                }
-            }
-            else
+    private void ForeverTick(object? state)
+    {
+        _ = state;
+        ForeverCheckLaunch();
+        ForeverFetch();
+    }
+
+    private void ForeverCheckLaunch()
+    {
+        if (LaunchCtrl.TryGetProcessRegion(out string region))
+        {
+            string runningProd = region switch
             {
-                foreach (Contact contact in Contacts)
+                LaunchCtrl.RegionOVERSEA => GenshinRegedit.ProdOVERSEA,
+                LaunchCtrl.RegionCN or _ => GenshinRegedit.ProdCN,
+            };
+
+            foreach (Contact contact in Contacts)
+            {
+#if !DEBUG
+                if (!LaunchCtrl.GetElevated())
                 {
-                    contact.ViewModel.IsRunning = false;
+                    break;
+                }
+#endif
+                if (contact.Prod == runningProd)
+                {
+                    App.TryEnqueueAsync(() => contact.ViewModel.IsRunning = true).Forget();
+                }
+                else
+                {
+                    App.TryEnqueueAsync(() => contact.ViewModel.IsRunning = false).Forget();
                 }
             }
-        };
-        DispatcherTimer.Start();
+        }
+        else
+        {
+            foreach (Contact contact in Contacts)
+            {
+                App.TryEnqueueAsync(() => contact.ViewModel.IsRunning = false).Forget();
+            }
+        }
+    }
+
+    private DateTime fetchLatest = DateTime.Now;
+    private void ForeverFetch()
+    {
+        if (!Settings.HintRefreshEnable)
+        {
+            return;
+        }
+        if ((DateTime.Now - fetchLatest).TotalMinutes < Settings.HintRefreshMins)
+        {
+            return;
+        }
+        fetchLatest = DateTime.Now;
+
+        App.TryEnqueueAsync(async () =>
+        {
+            foreach (Contact contact in Contacts)
+            {
+                try
+                {
+                    await contact.ViewModel.FetchAllAsync();
+                }
+                catch (Exception e)
+                {
+                    Logger.Error(e);
+                }
+            }
+        }).Forget();
     }
 
     [RelayCommand]

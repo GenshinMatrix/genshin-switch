@@ -181,8 +181,8 @@
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
                                         <StackPanel Orientation="Horizontal" ToolTipService.ToolTip="启用静默模式后将会错过下列所有推送提醒" HorizontalAlignment="Right">
-                                            <TextBlock Text="静默模式" VerticalAlignment="Center" />
-                                            <ToggleSwitch OnContent="" OffContent="" MinWidth="0" Margin="5,-8,0,0" MaxHeight="30"
+                                            <TextBlock Text="静默模式" VerticalAlignment="Center" Visibility="Collapsed"/>
+                                            <ToggleSwitch OnContent="" OffContent="" MinWidth="0" Margin="5,-8,0,0" MaxHeight="30" Visibility="Collapsed"
                                                           IsOn="{x:Bind ViewModel.HintSilentMode,Mode=TwoWay}"/>
                                         </StackPanel>
                                         <TextBlock Text="间隔" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,5,0"/>

@@ -1,31 +1,26 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-
+using CommunityToolkit.Mvvm.Input;
 using GenshinSwitch.Contracts.Services;
 using GenshinSwitch.Views;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Xaml.Interactivity;
+using Windows.UI.Notifications;
 
 namespace GenshinSwitch.ViewModels;
 
-public class ShellViewModel : ObservableRecipient
+public partial class ShellViewModel : ObservableRecipient
 {
     public INavigationService NavigationService { get; }
 
     public INavigationViewService NavigationViewService { get; }
 
+    [ObservableProperty]
     private bool isBackEnabled;
-    public bool IsBackEnabled
-    {
-        get => isBackEnabled;
-        set => SetProperty(ref isBackEnabled, value);
-    }
 
+    [ObservableProperty]
     private object? selected;
-    public object? Selected
-    {
-        get => selected;
-        set => SetProperty(ref selected, value);
-    }
 
     public ShellViewModel(INavigationService navigationService, INavigationViewService navigationViewService)
     {
@@ -49,5 +44,39 @@ public class ShellViewModel : ObservableRecipient
         {
             Selected = selectedItem;
         }
+    }
+
+    [RelayCommand]
+    public static void ActiveApp()
+    {
+        App.MainWindow.Activate();
+        App.MainWindow.Show();
+    }
+
+    [RelayCommand]
+    public static void HideApp()
+    {
+        App.MainWindow.Hide();
+    }
+
+    [RelayCommand]
+    public static void ActiveOrHideApp()
+    {
+        if (App.MainWindow.Visible)
+        {
+            App.MainWindow.Hide();
+        }
+        else
+        {
+            App.MainWindow.Activate();
+            App.MainWindow.Show();
+        }
+    }
+
+    [RelayCommand]
+    public static void ExitApp()
+    {
+        ToastNotificationManager.History.Clear();
+        Application.Current.Exit();
     }
 }

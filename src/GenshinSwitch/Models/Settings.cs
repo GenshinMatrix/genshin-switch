@@ -16,7 +16,7 @@ public class Settings
     public static SettingsDefinition<string> ComponentLazyPath { get; } = new(nameof(ComponentLazyPath), string.Empty);
 
     public static SettingsDefinition<bool> HintSilentMode { get; } = new(nameof(HintSilentMode), false);
-    public static SettingsDefinition<bool> HintRefreshEnable { get; } = new(nameof(HintRefreshEnable), true);
+    public static SettingsDefinition<bool> HintRefreshEnable { get; } = new(nameof(HintRefreshEnable), false);
     public static SettingsDefinition<int> HintRefreshMins { get; } = new(nameof(HintRefreshMins), 15);
 
     public static SettingsDefinition<bool> HintResinEnable { get; } = new(nameof(HintResinEnable), true);

@@ -33,7 +33,7 @@
         <converter:QuestRandomProceIconConverter x:Key="QuestRandomProceIconConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
     </Page.Resources>
 
-    <Grid x:Name="ContentArea">
+    <Grid x:Name="ContentArea" Margin="5">
         <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0">
             <Image Width="418" Opacity="0.3" Source="ms-appx:///Assets/Images/UI_SummerTime_ImgDecorate_01.png"/>
         </Grid>
@@ -52,6 +52,14 @@
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon Glyph="{x:Bind styles:FontSymbols.AddFriend}" FontSize="16"/>
                                 <TextBlock Text="添加" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{x:Bind ViewModel.RefreshCommand}" Margin="5,0,0,0">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="{x:Bind styles:FontSymbols.Refresh}" FontSize="16"/>
+                                <TextBlock Text="刷新" Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button.Content>
                     </Button>

@@ -133,6 +133,23 @@ public partial class MainViewModel : ObservableRecipient
         }
     }
 
+
+    [RelayCommand]
+    private async Task RefreshAsync()
+    {
+        foreach (Contact contact in Contacts)
+        {
+            try
+            {
+                await contact.ViewModel.FetchAllAsync();
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e);
+            }
+        }
+    }
+
     [RelayCommand]
     private async Task RefreshContactAsync()
     {

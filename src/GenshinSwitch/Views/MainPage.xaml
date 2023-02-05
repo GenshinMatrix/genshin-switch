@@ -364,9 +364,9 @@
                                                             <Run Text=")" />
                                                             </TextBlock>
                                                             <Button Content="&#xE783;"
-                                                                FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                                Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
+                                                                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                                    Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
                                                                 <Button.Flyout>
                                                                     <Flyout>
                                                                         <TextBlock Text="下方时间是探索派遣完成的时刻" />

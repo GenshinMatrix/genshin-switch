@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:control="using:GenshinSwitch.Controls"
+    xmlns:styles="using:GenshinSwitch.Styles"
     xmlns:xaml="using:Microsoft.UI.Xaml"
     mc:Ignorable="d">
     <Page.Resources>
@@ -36,13 +37,22 @@
                                            control:ImageHelper.Width="28"
                                            Source="ms-appx:///Assets/Logos/StoreLogo.png">
                                     </Image>
-                                    <TextBlock Margin="20,0,0,0">
-                                        <Run Text="{x:Bind ViewModel.AppName}" />
-                                        <LineBreak />
-                                        <Run FontSize="12"
-                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                Text="{x:Bind ViewModel.AppVersion}" />
-                                    </TextBlock>
+                                    <StackPanel Margin="20,0,0,0">
+                                        <TextBlock Text="{x:Bind ViewModel.AppName}" >
+                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontSize="12"
+                                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                       Text="{x:Bind ViewModel.AppVersion}" />
+                                            <Button HorizontalAlignment="Center" Padding="0" Margin="2,0,0,0"
+                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                    Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
+                                                    Command="{x:Bind ViewModel.CopyVersionCommand}"
+                                                    ToolTipService.ToolTip="复制版本号">
+                                                <FontIcon Glyph="{x:Bind styles:FontSymbols.Copy}" FontSize="12"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </StackPanel>
                                 </StackPanel>
                                 <Button HorizontalAlignment="Right"
                                         Command="{x:Bind ViewModel.CheckUpdateCommand}"
@@ -125,7 +135,7 @@
                             </Grid>
                         </Expander.Header>
                         <Expander.Content>
-                            <StackPanel Margin="0,-16,44,-16">
+                            <StackPanel Margin="0,-16,44,-16" Visibility="Collapsed">
                                 <Grid Padding="44,12,0,12">
                                     <TextBlock>
                                 <Run Text="始终激活背景" />

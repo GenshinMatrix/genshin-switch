@@ -393,6 +393,16 @@ public partial class SettingsViewModel : ObservableRecipient
         }
     }
 
+    [RelayCommand]
+    private async Task CopyVersion()
+    {
+        if (!string.IsNullOrWhiteSpace(AppVersion))
+        {
+            ClipboardHelper.SetText(AppVersion);
+            Bubble.Information($"版本号:{AppVersion}已复制到剪贴板");
+        }
+    }
+
     private static string GetVersionDescription()
     {
         Version version;

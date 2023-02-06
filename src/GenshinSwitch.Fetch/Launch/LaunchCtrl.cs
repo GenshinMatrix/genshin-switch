@@ -128,7 +128,7 @@ public class LaunchCtrl
 
             launchParameter ??= new();
 
-            if (string.IsNullOrEmpty(launchParameter.Region) || launchParameter.Region == RegionCN)
+            if (string.IsNullOrEmpty(launchParameter.Server) || launchParameter.Server == RegionCN)
             {
                 if (!string.IsNullOrEmpty(launchParameter.Prod))
                 {
@@ -143,7 +143,7 @@ public class LaunchCtrl
                     }
                 }
             }
-            else if (launchParameter.Region == RegionOVERSEA)
+            else if (launchParameter.Server == RegionOVERSEA)
             {
                 if (!string.IsNullOrEmpty(launchParameter.Prod))
                 {

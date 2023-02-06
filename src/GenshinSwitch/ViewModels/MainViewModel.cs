@@ -157,7 +157,7 @@ public partial class MainViewModel : ObservableRecipient
             Bubble.Warning($"请选择要启动的账号");
             return;
         }
-        LaunchGameAsync(SelectedItem).Forget();
+        await LaunchGameAsync(SelectedItem);
     }
 
     [RelayCommand]
@@ -170,9 +170,9 @@ public partial class MainViewModel : ObservableRecipient
         }
         if (int.TryParse(minsString, out int mins))
         {
-            await Task.Delay(mins);
+            await Task.Delay(mins * 60 * 1000);
         }
-        LaunchGameAsync(SelectedItem).Forget();
+        await LaunchGameAsync(SelectedItem);
     }
 
     [RelayCommand]
@@ -307,7 +307,7 @@ public partial class MainViewModel : ObservableRecipient
         {
             await LaunchCtrl.LaunchAsync(relaunchMethod: Settings.RelaunchMethod.Get(), launchParameter: new LaunchParameter()
             {
-                Region = contact.RegionName,
+                Server = contact.Server,
                 Prod = contact.Prod,
             });
         }

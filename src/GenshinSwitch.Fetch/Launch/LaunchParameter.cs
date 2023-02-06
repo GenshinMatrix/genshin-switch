@@ -4,7 +4,7 @@ namespace GenshinSwitch.Fetch.Launch;
 
 public class LaunchParameter
 {
-    public string? Region { get; set; } = null!;
+    public string? Server { get; set; } = null!;
     public string? Prod { get; set; } = null!;
 
     public bool? IsFullScreen { get; set; } = null!;

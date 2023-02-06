@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Text.Json.Serialization;
 using Xunkong.Hoyolab.DailyNote;
 
 namespace GenshinSwitch.ViewModels.Contacts;

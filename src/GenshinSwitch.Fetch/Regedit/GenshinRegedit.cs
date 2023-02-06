@@ -1,6 +1,5 @@
 ﻿using GenshinSwitch.Core;
 using Microsoft.Win32;
-using System.Security.Principal;
 using System.Text;
 
 namespace GenshinSwitch.Fetch.Regedit;

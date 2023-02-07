@@ -2,17 +2,14 @@
 using GenshinSwitch.Controls;
 using GenshinSwitch.Helpers;
 using GenshinSwitch.ViewModels;
-
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 
-using Windows.System;
-
 namespace GenshinSwitch.Views;
 
-public sealed partial class ShellPage : Page
+public sealed partial class ShellPage : Page, IDisposable
 {
     public ShellViewModel ViewModel { get; }
 
@@ -32,6 +29,11 @@ public sealed partial class ShellPage : Page
         App.MainWindow.SetTitleBar(AppTitleBar);
         App.MainWindow.Activated += MainWindow_Activated;
         AppTitleBarText.Text = "AppDisplayName".GetLocalized();
+    }
+
+    public void Dispose()
+    {
+        TaskbarIconApp?.Dispose();
     }
 
     private void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)

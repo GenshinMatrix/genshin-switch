@@ -14,13 +14,12 @@
             MenuActivation="RightClick"
             NoLeftClickDelay="True"
             IconSource="{x:Bind base:Pack.UriIcon}"
-            Visibility="Visible">
+            ContextMenuMode="SecondWindow">
             <notifyIcon:TaskbarIcon.ContextFlyout>
                 <MenuFlyout Placement="RightEdgeAlignedTop" AreOpenCloseAnimationsEnabled="False">
-                    <MenuFlyoutItem Text="显示" Icon="Refresh" Command="{x:Bind ViewModel.ActiveAppCommand}" />
+                    <MenuFlyoutItem Text="显示／隐藏" Command="{x:Bind ViewModel.ActiveOrHideAppCommand}" />
                     <MenuFlyoutSeparator/>
-                    <MenuFlyoutItem Text="隐藏" Icon="Refresh" Command="{x:Bind ViewModel.HideAppCommand}" />
-                    <MenuFlyoutItem Text="退出" Icon="Refresh" Command="{x:Bind ViewModel.ExitAppCommand}" />
+                    <MenuFlyoutItem Text="退出" Icon="Cancel" Command="{x:Bind ViewModel.ExitAppCommand}" />
                 </MenuFlyout>
             </notifyIcon:TaskbarIcon.ContextFlyout>
         </notifyIcon:TaskbarIcon>

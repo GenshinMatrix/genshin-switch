@@ -137,10 +137,7 @@ public class LaunchCtrl
                         throw new GenshinSwitchException("Needed to run as an administrator to obtain registry write permission.");
                     }
 
-                    if (GenshinRegedit.ProdCN != launchParameter.Prod)
-                    {
-                        GenshinRegedit.ProdCN = launchParameter.Prod;
-                    }
+                    GenshinRegedit.ProdCN = launchParameter.Prod;
                 }
             }
             else if (launchParameter.Server == RegionOVERSEA)
@@ -152,10 +149,7 @@ public class LaunchCtrl
                         throw new GenshinSwitchException("Needed to run as an administrator to obtain registry write permission.");
                     }
 
-                    if (GenshinRegedit.ProdOVERSEA != launchParameter.Prod)
-                    {
-                        GenshinRegedit.ProdOVERSEA = launchParameter.Prod;
-                    }
+                    GenshinRegedit.ProdOVERSEA = launchParameter.Prod;
                 }
             }
 

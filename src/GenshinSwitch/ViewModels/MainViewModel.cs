@@ -31,7 +31,7 @@ public partial class MainViewModel : ObservableRecipient
 
     public MainViewModel()
     {
-        Timer = new(ForeverTick, null!, 2000, 2000);
+        Timer = new(ForeverTick, null!, 3000, 3000);
     }
 
     private void ForeverTick(object? state)
@@ -59,7 +59,8 @@ public partial class MainViewModel : ObservableRecipient
                     break;
                 }
 #endif
-                if (contact.Prod == runningProd)
+                if (contact.Prod != null && runningProd != null &&
+                    contact.Prod.Replace("\0", string.Empty) == runningProd.Replace("\0", string.Empty))
                 {
                     App.TryEnqueueAsync(() => contact.ViewModel.IsRunning = true).Forget();
                 }

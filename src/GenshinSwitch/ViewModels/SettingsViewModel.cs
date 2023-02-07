@@ -460,6 +460,16 @@ public partial class SettingsViewModel : ObservableRecipient
     }
 
     [RelayCommand]
+    private async Task SetLazyTokenAsync()
+    {
+        _ = await new SetLazyTokenContentDialog()
+        {
+            XamlRoot = App.MainWindow.XamlRoot,
+            RequestedTheme = App.MainWindow.ActualTheme,
+        }.ShowAsync();
+    }
+
+    [RelayCommand]
     private async Task ShowLazyServerAsync()
     {
         try

@@ -84,6 +84,7 @@ public partial class App : Application
             services.AddTransient<ShellViewModel>();
             services.AddTransient<AddContactViewModel>();
             services.AddTransient<ShowLazyViewModel>();
+            services.AddTransient<SetLazyTokenViewModel>();
 
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));

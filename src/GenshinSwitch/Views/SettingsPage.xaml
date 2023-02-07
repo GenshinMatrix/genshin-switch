@@ -8,12 +8,14 @@
     xmlns:control="using:GenshinSwitch.Controls"
     xmlns:styles="using:GenshinSwitch.Styles"
     xmlns:xaml="using:Microsoft.UI.Xaml"
+    xmlns:runtimeHelper="using:GenshinSwitch.Helpers"
     mc:Ignorable="d">
     <Page.Resources>
         <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
         <converter:LazyNetstatIconConverter x:Key="LazyNetstatIconConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
         <converter:IsNullOrEmptyToVisibilityConverter x:Key="IsNullOrEmptyToVisibilityConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
         <converter:QuestRandomProceIconConverter x:Key="QuestRandomProceIconConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
     </Page.Resources>
     <Grid>
         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0">
@@ -38,8 +40,10 @@
                                            Source="ms-appx:///Assets/Logos/StoreLogo.png">
                                     </Image>
                                     <StackPanel Margin="20,0,0,0">
-                                        <TextBlock Text="{x:Bind ViewModel.AppName}" >
-                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{x:Bind ViewModel.AppName}"/>
+                                            <TextBlock Text="[管理员]" Visibility="{x:Bind runtimeHelper:RuntimeHelper.IsElevated,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" Margin="3,0,0,0" FontSize="14" VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                        </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock FontSize="12"
                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -335,6 +339,15 @@
                                                 <Flyout>
                                                     <StackPanel>
                                                         <Button HorizontalAlignment="Center" MinWidth="130"
+                                                                Command="{x:Bind ViewModel.SetLazyTokenCommand,Mode=OneTime}">
+                                                            <Button.Content>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <FontIcon FontSize="18" Glyph="&#xe92f;"/>
+                                                                    <TextBlock Text="设定令牌" Margin="5,0,0,0"/>
+                                                                </StackPanel>
+                                                            </Button.Content>
+                                                        </Button>
+                                                        <Button HorizontalAlignment="Center" Margin="0,5,0,0" MinWidth="130"
                                                                 Command="{x:Bind ViewModel.ShowLazyServerCommand,Mode=OneTime}">
                                                             <Button.Content>
                                                                 <StackPanel Orientation="Horizontal">

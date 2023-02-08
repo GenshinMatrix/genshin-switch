@@ -18,10 +18,10 @@ public sealed partial class MainWindow : WindowEx
     public MainWindow()
     {
         Hwnd = WindowNative.GetWindowHandle(this);
+        SetupBackdrop();
         InitializeComponent();
         AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/Logos/Favicon.ico"));
         Content = null;
-        SetupBackdrop();
         Title = "AppDisplayName".GetLocalized();
 
         WeakReferenceMessenger.Default.Register<ThemeChangedMessage>(this, (_, _) => SetupBackdrop());

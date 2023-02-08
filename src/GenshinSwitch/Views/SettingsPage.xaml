@@ -42,7 +42,7 @@
                                     <StackPanel Margin="20,0,0,0">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{x:Bind ViewModel.AppName}"/>
-                                            <TextBlock Text="[管理员]" Visibility="{x:Bind runtimeHelper:RuntimeHelper.IsElevated,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" Margin="3,0,0,0" FontSize="14" VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                            <TextBlock Text="[管理员]" Visibility="{x:Bind runtimeHelper:RuntimeHelper.IsElevated,Converter={StaticResource BoolToVisibilityConverter}}" Margin="3,0,0,0" FontSize="14" VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock FontSize="12"
@@ -69,6 +69,7 @@
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0" Margin="5,-16,44,-16">
                                     <FontIcon FontSize="20" Glyph="&#xf83d;" />
@@ -83,9 +84,15 @@
                                              Text="开机后将自动后台启动" />
                                     </TextBlock>
                                 </Grid>
-                                <ToggleSwitch Grid.Column="2" Margin="0,0,45,0"
-                                                  HorizontalAlignment="Right" MinWidth="0"
-                                                  IsOn="{x:Bind ViewModel.AutoStart,Mode=TwoWay}"/>
+                                <ToggleSwitch Grid.Column="2" Margin="0,0,15,0" Visibility="Collapsed"
+                                              HorizontalAlignment="Right" MinWidth="0"
+                                              IsOn="{x:Bind ViewModel.AutoStart,Mode=TwoWay}"/>
+                                <Button Grid.Column="3" HorizontalAlignment="Center" ToolTipService.ToolTip="前往设置" Margin="0,0,45,0"
+                                        Command="{x:Bind ViewModel.LaunchAtWindowsStartupLinkCommand}">
+                                    <Button.Content>
+                                        <FontIcon FontSize="18" Glyph="&#xe92f;"/>
+                                    </Button.Content>
+                                </Button>
                             </Grid>
                         </Expander.Content>
                     </Expander>

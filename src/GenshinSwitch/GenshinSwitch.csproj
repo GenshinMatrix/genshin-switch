@@ -28,13 +28,14 @@
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <StartupObject>GenshinSwitch.Program</StartupObject>
+    <AppxPackageDir>D:\GitHub\genshin-switch\src\GenshinSwitch\bin\x64\Release\net6.0-windows10.0.19041.0\win10-x64\AppPackages</AppxPackageDir>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\Images\LocalAvatars\CreateCSharp.py" />

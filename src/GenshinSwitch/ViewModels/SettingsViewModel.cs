@@ -14,6 +14,7 @@ using GenshinSwitch.Models.Messages;
 using GenshinSwitch.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Documents;
 using Microsoft.VisualStudio.Threading;
 using System.Diagnostics;
 using System.Reflection;
@@ -350,6 +351,12 @@ public partial class SettingsViewModel : ObservableRecipient
         this.themeSelectorService = themeSelectorService;
         elementTheme = this.themeSelectorService.Theme;
         versionDescription = GetVersionDescription();
+    }
+
+    [RelayCommand]
+    private async Task LaunchAtWindowsStartupLinkAsync()
+    {
+        _ = await Launcher.LaunchUriAsync(new Uri("ms-settings:startupapps"));
     }
 
     [RelayCommand]

@@ -8,8 +8,8 @@
     xmlns:windowex="using:WinUIEx"
     MinWidth="200"
     MinHeight="200"
-    Width="500"
-    Height="500"
+    Width="700"
+    Height="900"
     PersistenceId="MainWindow"
     mc:Ignorable="d">
 </windowex:WindowEx>

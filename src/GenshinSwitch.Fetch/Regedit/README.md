@@ -8,6 +8,16 @@
 计算机\HKEY_CURRENT_USER\Software\miHoYo\原神
 ```
 
+```bash
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup
+C:\Users\ema\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+```
+
+```bash
+shell:startup
+shell:appsfolder
+```
+
 > 恢复原神注册表
 
 ```ini

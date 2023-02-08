@@ -19,7 +19,7 @@ internal class QuestEventStatsColorConverter : IValueConverter
         {
             if (info.IsExtraTaskRewardReceived)
             {
-                return Gray;
+                return Green;
             }
             else
             {

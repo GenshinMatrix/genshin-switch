@@ -31,7 +31,7 @@
 
 ## 其他说明
 
-- 本程序的1.x系列已停止维护并转入[legacy](https://github.com/genshin-matrix/genshin-switch/tree/legacy)仓库
+- 本程序的1.x系列已停止维护并转入[legacy](https://github.com/genshin-matrix/genshin-switch/tree/legacy)分支
 - 需要管理员权限是因为游戏要管理员权限启动
 - 选中账号右键可以使用「缓启动」（自动3分钟后启动，方便循环打大世界BOSS材料）
 

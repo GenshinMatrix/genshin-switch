@@ -14,7 +14,7 @@
             MenuActivation="RightClick"
             NoLeftClickDelay="True"
             IconSource="{x:Bind base:Pack.UriIcon}"
-            ContextMenuMode="SecondWindow">
+            ContextMenuMode="PopupMenu">
             <notifyIcon:TaskbarIcon.ContextFlyout>
                 <MenuFlyout Placement="RightEdgeAlignedTop" AreOpenCloseAnimationsEnabled="False">
                     <MenuFlyoutItem Text="显示／隐藏" Command="{x:Bind ViewModel.ActiveOrHideAppCommand}" />

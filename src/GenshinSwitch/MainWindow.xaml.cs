@@ -26,6 +26,12 @@ public sealed partial class MainWindow : WindowEx
 
         WeakReferenceMessenger.Default.Register<ThemeChangedMessage>(this, (_, _) => SetupBackdrop());
 
+        AppWindow.Closing += (_, e) =>
+        {
+            e.Cancel = true;
+            AppWindow.Hide();
+        };
+
         bool autostart = false;
         VisibilityChanged += (_, _) =>
         {
@@ -36,7 +42,7 @@ public sealed partial class MainWindow : WindowEx
 
             try
             {
-                if (Visible && CommandLineHelper.Has("autostart"))
+                if (AppWindow.IsVisible && CommandLineHelper.Has("autostart"))
                 {
                     autostart = true;
                     AppWindow.Hide();

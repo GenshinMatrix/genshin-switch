@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Xaml.Interactivity;
+using System.Diagnostics;
 using Windows.UI.Notifications;
 
 namespace GenshinSwitch.ViewModels;
@@ -78,5 +79,6 @@ public partial class ShellViewModel : ObservableRecipient
     {
         ToastNotificationManager.History.Clear();
         Application.Current.Exit();
+        Process.GetCurrentProcess().Kill();
     }
 }

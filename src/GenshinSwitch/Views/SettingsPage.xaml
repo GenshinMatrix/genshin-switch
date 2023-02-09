@@ -85,7 +85,7 @@
                                              Text="开机后将自动后台启动" />
                                         </TextBlock>
                                     </Grid>
-                                    <ToggleSwitch Grid.Column="2" Margin="0,0,15,0" Visibility="Collapsed"
+                                    <ToggleSwitch Grid.Column="2" Margin="0,0,15,0"
                                               HorizontalAlignment="Right" MinWidth="0"
                                               IsOn="{x:Bind ViewModel.AutoStart,Mode=TwoWay}"/>
                                     <Button Grid.Column="3" HorizontalAlignment="Center" ToolTipService.ToolTip="前往设置" Margin="0,0,45,0"
@@ -114,19 +114,16 @@
                                              Text="创建桌面快捷方式" />
                                         </TextBlock>
                                     </Grid>
-                                    <ToggleSwitch Grid.Column="2" Margin="0,0,15,0" Visibility="Collapsed"
-                                              HorizontalAlignment="Right" MinWidth="0"
-                                              IsOn="{x:Bind ViewModel.AutoStart,Mode=TwoWay}"/>
-                                    <Button Grid.Column="3" HorizontalAlignment="Center" ToolTipService.ToolTip="创建桌面快捷方式" Margin="0,0,45,0"
-                                            Command="{x:Bind ViewModel.CreateDesktopShortCutCommand}">
-                                        <Button.Content>
-                                            <FontIcon FontSize="18" Glyph="&#xe92f;"/>
-                                        </Button.Content>
-                                    </Button>
                                     <Button Grid.Column="2" HorizontalAlignment="Center" ToolTipService.ToolTip="打开程序安装目录" Margin="0,0,10,0"
                                             Command="{x:Bind ViewModel.OpenProgramFolderCommand}">
                                         <Button.Content>
                                             <FontIcon FontSize="18" Glyph="&#xe838;"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Grid.Column="3" HorizontalAlignment="Center" ToolTipService.ToolTip="创建桌面快捷方式" Margin="0,0,45,0"
+                                            Command="{x:Bind ViewModel.CreateDesktopShortCutCommand}">
+                                        <Button.Content>
+                                            <FontIcon FontSize="18" Glyph="&#xe92f;"/>
                                         </Button.Content>
                                     </Button>
                                 </Grid>

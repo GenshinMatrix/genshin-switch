@@ -365,6 +365,7 @@ public partial class SettingsViewModel : ObservableRecipient
         try
         {
             ShortcutCreator.CreateShortcutOnDesktop(Pack.AppName, Environment.ProcessPath!);
+            NoticeService.AddNotice("创建桌面快捷方式", "操作成功");
         }
         catch (Exception e)
         {

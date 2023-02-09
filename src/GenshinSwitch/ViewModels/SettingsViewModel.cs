@@ -360,6 +360,26 @@ public partial class SettingsViewModel : ObservableRecipient
     }
 
     [RelayCommand]
+    private void CreateDesktopShortCut()
+    {
+        try
+        {
+            ShortcutCreator.CreateShortcutOnDesktop(Pack.AppName, Environment.ProcessPath!);
+        }
+        catch (Exception e)
+        {
+            Logger.Error(e);
+            NoticeService.AddNotice("Create ShortCut error", "See detail following", e.ToString());
+        }
+    }
+
+    [RelayCommand]
+    private async Task OpenProgramFolderAsync()
+    {
+        _ = await Launcher.LaunchUriAsync(new Uri($"file://{new FileInfo(Environment.ProcessPath!).Directory!.FullName}"));
+    }
+
+    [RelayCommand]
     private async Task SwitchThemeAsync(ElementTheme param)
     {
         if (ElementTheme != param)

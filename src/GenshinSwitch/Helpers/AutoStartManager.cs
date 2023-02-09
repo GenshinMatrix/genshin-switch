@@ -1,6 +1,4 @@
-﻿using GenshinSwitch.Models;
-
-namespace GenshinSwitch.Helpers;
+﻿namespace GenshinSwitch.Helpers;
 
 /// <summary>
 /// https://github.com/eservicepartner/espUrl/blob/master/espurl.win.screenshot/Infrastructure/SettingsManager.cs

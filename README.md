@@ -1,8 +1,6 @@
 # GenshinSwitch
 
-![UI_Tab_GachaShowPanel_Default](src/GenshinSwitch/Assets/Images/UI_Tab_GachaShowPanel_Default.png)
-
-<img src="src/GenshinSwitch/Assets/Logos/Square44x44Logo.altform-unplated_targetsize-256.png" alt="Square44x44Logo.altform-unplated_targetsize-256" style="zoom:50%;" />
+![StoreLogo.scale-200](src/GenshinSwitch/Assets/Logos/StoreLogo.scale-200.png)
 
 [![GitHub downloads](https://img.shields.io/github/downloads/emako/genshin-switch/total)](https://github.com/emako/genshin-switch/releases)
 [![GitHub downloads](https://img.shields.io/github/downloads/emako/genshin-switch/latest/total)](https://github.com/emako/genshin-switch/releases)
@@ -11,8 +9,6 @@
 >
 > - [x] 原神账号快速切换工具（国服／国际服）
 > - [x] 米游社实时便签等接口支持（国服）
-
-**当前施工进度：2.x首版已完成75%**
 
 ## 截图
 

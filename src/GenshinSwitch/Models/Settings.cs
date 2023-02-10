@@ -10,6 +10,7 @@ public class Settings
 {
     public static SettingsDefinition<string> Language { get; } = new(nameof(Language), string.Empty);
     public static SettingsDefinition<string> Backdrop { get; } = new(nameof(Backdrop), string.Empty);
+    public static SettingsDefinition<int> CloseButtonMethod { get; } = new(nameof(CloseButtonMethod), 1);
     public static SettingsDefinition<ElementTheme> Theme { get; } = new(nameof(Theme), ElementTheme.Default);
     public static SettingsDefinition<Dictionary<string, Contact>> Contacts { get; } = new(nameof(Contacts), new());
     public static SettingsDefinition<RelaunchMethods> RelaunchMethod { get; } = new(nameof(RelaunchMethod), RelaunchMethods.Kill);

@@ -24,12 +24,24 @@ public sealed partial class MainWindow : WindowEx
         Content = null;
         Title = "AppDisplayName".GetLocalized();
 
+        bool closeForced = false;
         WeakReferenceMessenger.Default.Register<ThemeChangedMessage>(this, (_, _) => SetupBackdrop());
+        WeakReferenceMessenger.Default.Register<CloseForcedMessage>(this, (_, _) => closeForced = true);
 
         AppWindow.Closing += (_, e) =>
         {
-            e.Cancel = true;
-            AppWindow.Hide();
+            if (closeForced)
+            {
+                return;
+            }
+
+            switch (Settings.CloseButtonMethod)
+            {
+                case 1:
+                    e.Cancel = true;
+                    AppWindow.Hide();
+                    break;
+            }
         };
 
         bool autostart = false;

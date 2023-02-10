@@ -14,6 +14,7 @@ public sealed partial class MainPage : Page
     public MainPage()
     {
         ViewModel = App.GetService<MainViewModel>();
+        InitializeComponent();
 
         foreach (var kv in Settings.Contacts.Get())
         {
@@ -24,6 +25,5 @@ public sealed partial class MainPage : Page
                 await kv.Value.ViewModel.FetchAllAsync();
             });
         }
-        InitializeComponent();
     }
 }

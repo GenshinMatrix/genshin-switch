@@ -8,13 +8,11 @@ using GenshinSwitch.Notifications;
 using GenshinSwitch.Services;
 using GenshinSwitch.ViewModels;
 using GenshinSwitch.Views;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.VisualStudio.Threading;
-using Vanara.PInvoke;
 
 namespace GenshinSwitch;
 

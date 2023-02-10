@@ -4,18 +4,19 @@ namespace GenshinSwitch.Helpers;
 
 /// <summary>
 /// https://github.com/eservicepartner/espUrl/blob/master/espurl.win.screenshot/Infrastructure/AutoStart.cs
+/// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
 /// </summary>
-public class AutoStartHelper
+public class AutoStartRegistyHelper : IAutoStartHelper
 {
     private const string RunLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
     private readonly string keyName;
     private readonly string launchCommand;
 
-    public AutoStartHelper(string keyName, string assemblyLocation)
+    public AutoStartRegistyHelper()
     {
-        this.keyName = keyName;
-        launchCommand = $"\"{assemblyLocation}\" -autostart";
+        keyName = Pack.AppName;
+        launchCommand = $"\"{Environment.ProcessPath!}\" -autostart";
     }
 
     public void Enable()

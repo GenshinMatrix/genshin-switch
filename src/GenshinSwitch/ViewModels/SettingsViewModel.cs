@@ -14,7 +14,6 @@ using GenshinSwitch.Models.Messages;
 using GenshinSwitch.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Documents;
 using Microsoft.VisualStudio.Threading;
 using System.Diagnostics;
 using System.Reflection;
@@ -372,6 +371,12 @@ public partial class SettingsViewModel : ObservableRecipient
             Logger.Error(e);
             NoticeService.AddNotice("Create ShortCut error", "See detail following", e.ToString());
         }
+    }
+
+    [RelayCommand]
+    private async Task OpenStartupFolderAsync()
+    {
+        _ = await Launcher.LaunchUriAsync(new Uri($"file://{AutoStartProgramDataHelper.StartupFolder}"));
     }
 
     [RelayCommand]

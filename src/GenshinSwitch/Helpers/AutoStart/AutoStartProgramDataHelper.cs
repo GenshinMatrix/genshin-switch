@@ -4,7 +4,11 @@ using Lnk;
 
 namespace GenshinSwitch.Helpers;
 
-public class AutoStartupHelper
+/// <summary>
+/// v C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup
+/// x C:\Users\{userName}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+/// </summary>
+public class AutoStartProgramDataHelper : IAutoStartHelper
 {
     public static string StartupFolder => Environment.GetEnvironmentVariable("windir") + @"\..\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\";
 
@@ -14,7 +18,7 @@ public class AutoStartupHelper
         {
             if (Directory.Exists(StartupFolder))
             {
-                ShortcutCreator.CreateShortcut(StartupFolder, Pack.AppName, Environment.ProcessPath!);
+                ShortcutCreator.CreateShortcut(StartupFolder, Pack.AppName, Environment.ProcessPath!, "-autostart");
             }
         }
         catch (Exception e)

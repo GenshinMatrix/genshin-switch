@@ -84,6 +84,14 @@ public partial class SettingsViewModel : ObservableRecipient
     }
 
     [ObservableProperty]
+    private int selectedCloseButtonMethodIndex = Settings.CloseButtonMethod.Get();
+    partial void OnSelectedCloseButtonMethodIndexChanged(int value)
+    {
+        Settings.CloseButtonMethod.Set(value);
+        SettingsManager.Save();
+    }
+
+    [ObservableProperty]
     private bool hintSilentMode = Settings.HintSilentMode;
     partial void OnHintSilentModeChanged(bool value)
     {

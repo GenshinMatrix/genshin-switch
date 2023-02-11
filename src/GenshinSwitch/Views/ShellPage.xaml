@@ -10,6 +10,7 @@
     <Grid>
         <notifyIcon:TaskbarIcon
             x:Name="TaskbarIconApp"
+            x:FieldModifier="public"
             DoubleClickCommand="{x:Bind ViewModel.ActiveOrHideAppCommand}"
             MenuActivation="RightClick"
             NoLeftClickDelay="True"

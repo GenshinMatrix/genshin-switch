@@ -4,12 +4,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using GenshinSwitch.Contracts.Services;
 using GenshinSwitch.Models.Messages;
 using GenshinSwitch.Views;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Microsoft.Xaml.Interactivity;
-using System.Diagnostics;
-using Windows.UI.Notifications;
 
 namespace GenshinSwitch.ViewModels;
 
@@ -79,8 +75,6 @@ public partial class ShellViewModel : ObservableRecipient
     [RelayCommand]
     public static void ExitApp()
     {
-        WeakReferenceMessenger.Default.Send(new CloseForcedMessage());
-        ToastNotificationManager.History.Clear();
-        Application.Current.Exit();
+        (App.Current as App)?.ExitForce();
     }
 }

@@ -31,7 +31,6 @@ public class ActivationService : IActivationService
         {
             shell = App.GetService<ShellPage>();
             App.MainWindow.Content = shell ?? new Frame();
-            App.MainWindow.Closed += (_, _) => (shell as IDisposable)?.Dispose();
         }
 
         // Handle activation via ActivationHandlers.

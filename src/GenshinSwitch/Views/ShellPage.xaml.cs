@@ -9,7 +9,7 @@ using Microsoft.UI.Xaml.Media;
 
 namespace GenshinSwitch.Views;
 
-public sealed partial class ShellPage : Page, IDisposable
+public sealed partial class ShellPage : Page
 {
     public ShellViewModel ViewModel { get; }
 
@@ -31,12 +31,7 @@ public sealed partial class ShellPage : Page, IDisposable
         AppTitleBarText.Text = "AppDisplayName".GetLocalized();
     }
 
-    public void Dispose()
-    {
-        TaskbarIconApp?.Dispose();
-    }
-
-    private void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    private void OnLoaded(object sender, RoutedEventArgs e)
     {
         TitleBarHelper.UpdateTitleBar(RequestedTheme);
 

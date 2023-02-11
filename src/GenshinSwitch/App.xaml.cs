@@ -1,10 +1,12 @@
-﻿using GenshinSwitch.Activation;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using GenshinSwitch.Activation;
 using GenshinSwitch.Contracts.Services;
 using GenshinSwitch.Core;
 using GenshinSwitch.Core.Contracts.Services;
 using GenshinSwitch.Core.Services;
 using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
+using GenshinSwitch.Models.Messages;
 using GenshinSwitch.Notifications;
 using GenshinSwitch.Services;
 using GenshinSwitch.ViewModels;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.VisualStudio.Threading;
+using Windows.UI.Notifications;
 
 namespace GenshinSwitch;
 
@@ -92,7 +95,13 @@ public partial class App : Application
         App.GetService<IAppNotificationService>().Initialize();
 
         UnhandledException += App_UnhandledException;
-        //SecurityControlHelper.AllowFullFolderSecurity();
+    }
+
+    public void ExitForce()
+    {
+        ToastNotificationManager.History.Clear();
+        (MainWindow.Content as ShellPage)?.TaskbarIconApp?.Dispose();
+        Environment.Exit(0);
     }
 
     public static void TryEnqueue(Action action)

@@ -134,6 +134,29 @@
                                         </Button.Content>
                                     </Button>
                                 </Grid>
+                                <Grid Margin="0,18,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Margin="5,-16,44,-16">
+                                        <FontIcon FontSize="20" Glyph="&#xe894;" />
+                                    </Grid>
+                                    <Grid Grid.Column="1" Margin="-25,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock>
+                                        <Run Text="关闭行为" />
+                                        <LineBreak />
+                                        <Run FontSize="12"
+                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                             Text="调整主窗口关闭按钮行为" />
+                                        </TextBlock>
+                                    </Grid>
+                                    <ComboBox Grid.Column="2" SelectedIndex="{x:Bind ViewModel.SelectedCloseButtonMethodIndex,Mode=TwoWay}" Margin="0,0,45,0">
+                                        <ComboBoxItem Content="托盘隐藏" />
+                                        <ComboBoxItem Content="正常退出" />
+                                    </ComboBox>
+                                </Grid>
                             </StackPanel>
                         </Expander.Content>
                     </Expander>

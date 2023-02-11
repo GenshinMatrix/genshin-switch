@@ -3,6 +3,7 @@ using GenshinSwitch.Contracts.Services;
 using GenshinSwitch.Core;
 using GenshinSwitch.Core.Contracts.Services;
 using GenshinSwitch.Core.Services;
+using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Notifications;
 using GenshinSwitch.Services;
@@ -91,6 +92,7 @@ public partial class App : Application
         App.GetService<IAppNotificationService>().Initialize();
 
         UnhandledException += App_UnhandledException;
+        //SecurityControlHelper.AllowFullFolderSecurity();
     }
 
     public static void TryEnqueue(Action action)

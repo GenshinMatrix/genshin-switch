@@ -132,10 +132,12 @@ public class LaunchCtrl
             {
                 if (!string.IsNullOrEmpty(launchParameter.Prod))
                 {
+#if LEGACY
                     if (!GetElevated())
                     {
                         throw new GenshinSwitchException("Needed to run as an administrator to obtain registry write permission.");
                     }
+#endif
 
                     GenshinRegedit.ProdCN = launchParameter.Prod;
                 }
@@ -144,10 +146,12 @@ public class LaunchCtrl
             {
                 if (!string.IsNullOrEmpty(launchParameter.Prod))
                 {
+#if LEGACY
                     if (!GetElevated())
                     {
                         throw new GenshinSwitchException("Needed to run as an administrator to obtain registry write permission.");
                     }
+#endif
 
                     GenshinRegedit.ProdOVERSEA = launchParameter.Prod;
                 }

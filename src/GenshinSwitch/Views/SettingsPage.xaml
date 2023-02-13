@@ -16,6 +16,7 @@
         <converter:IsNullOrEmptyToVisibilityConverter x:Key="IsNullOrEmptyToVisibilityConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
         <converter:QuestRandomProceIconConverter x:Key="QuestRandomProceIconConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
+        <converter:BoolInvertConverter x:Key="BoolInvertConverter" xmlns:converter="using:GenshinSwitch.Views.Converters"/>
     </Page.Resources>
     <Grid>
         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0">
@@ -74,6 +75,33 @@
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0" Margin="5,-16,44,-16">
+                                        <FontIcon FontSize="20" Glyph="&#xf83e;" />
+                                        <FontIcon FontSize="20" Glyph="&#xeb59;" Margin="0"/>
+                                    </Grid>
+                                    <Grid Grid.Column="1" Margin="-25,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock>
+                                        <Run Text="管理员权限" />
+                                        <LineBreak />
+                                        <Run FontSize="12"
+                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                             Text="部分操作需要管理员权限" />
+                                        </TextBlock>
+                                    </Grid>
+                                    <Button Grid.Column="3" HorizontalAlignment="Center" Margin="0,0,45,0"
+                                            Content="以管理员方式重启"
+                                            IsEnabled="{x:Bind runtimeHelper:RuntimeHelper.IsElevated,Converter={StaticResource BoolInvertConverter}}"
+                                            Command="{x:Bind ViewModel.RestartAsElevatedCommand}">
+                                    </Button>
+                                </Grid>
+                                <Grid Margin="0,18,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Margin="5,-16,44,-16">
                                         <FontIcon FontSize="20" Glyph="&#xf83d;" />
                                         <FontIcon FontSize="13" Glyph="&#xf83f;" Margin="6,4,0,0"/>
                                     </Grid>
@@ -87,8 +115,9 @@
                                         </TextBlock>
                                     </Grid>
                                     <ToggleSwitch Grid.Column="2" Margin="15,0,15,0"
-                                              HorizontalAlignment="Left" MinWidth="0"
-                                              IsOn="{x:Bind ViewModel.AutoStart,Mode=TwoWay}"/>
+                                                  IsEnabled="{x:Bind runtimeHelper:RuntimeHelper.IsElevated}"
+                                                  HorizontalAlignment="Left" MinWidth="0"
+                                                  IsOn="{x:Bind ViewModel.AutoStart,Mode=TwoWay}"/>
                                     <Button Grid.Column="3" HorizontalAlignment="Center" ToolTipService.ToolTip="打开开机启动目录" Margin="0,0,5,0"
                                             Command="{x:Bind ViewModel.OpenStartupFolderCommand}">
                                         <Button.Content>

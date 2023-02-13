@@ -52,11 +52,11 @@ public class RuntimeHelper
         }
         if (!IsElevated)
         {
-            RestartAsElevated('r' + 'u' + 'n' + 'a' + 's');
+            RestartAsElevated();
         }
     }
 
-    public static void RestartAsElevated(int? exitCode = null)
+    public static void RestartAsElevated(int? exitCode = null, bool forced = false)
     {
         static string ReArguments()
         {
@@ -84,7 +84,11 @@ public class RuntimeHelper
         {
             return;
         }
-        Environment.Exit(exitCode ?? 0);
+        if (forced)
+        {
+            Process.GetCurrentProcess().Kill();
+        }
+        Environment.Exit(exitCode ?? 'r' + 'u' + 'n' + 'a' + 's');
     }
 
     public static void CheckSingleInstance()

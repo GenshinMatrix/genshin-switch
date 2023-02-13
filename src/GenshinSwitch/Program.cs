@@ -10,7 +10,6 @@ internal static class Program
     [STAThread]
     internal static void Main()
     {
-        RuntimeHelper.EnsureElevated();
         RuntimeHelper.CheckSingleInstance();
         RuntimeHelper.XamlCheckProcessRequirements();
         ComWrappersSupport.InitializeComWrappers();

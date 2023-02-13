@@ -53,12 +53,6 @@ public partial class MainViewModel : ObservableRecipient
 
             foreach (Contact contact in Contacts)
             {
-#if !DEBUG
-                if (!LaunchCtrl.GetElevated())
-                {
-                    break;
-                }
-#endif
                 if (contact.Prod != null && runningProd != null &&
                     contact.Prod.Replace("\0", string.Empty) == runningProd.Replace("\0", string.Empty))
                 {

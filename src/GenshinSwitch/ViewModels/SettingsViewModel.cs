@@ -361,6 +361,12 @@ public partial class SettingsViewModel : ObservableRecipient
     }
 
     [RelayCommand]
+    private void RestartAsElevated()
+    {
+        RuntimeHelper.RestartAsElevated(forced: true);
+    }
+
+    [RelayCommand]
     private async Task LaunchAtWindowsStartupLinkAsync()
     {
         _ = await Launcher.LaunchUriAsync(new Uri("ms-settings:startupapps"));

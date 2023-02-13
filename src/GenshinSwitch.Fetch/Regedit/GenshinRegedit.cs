@@ -1,4 +1,5 @@
-﻿using GenshinSwitch.Core;
+﻿using CliWrap;
+using GenshinSwitch.Core;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Text;
@@ -71,6 +72,7 @@ public static class GenshinRegedit
 
     internal static string GetStringFromRegedit(string key, GameType type = GameType.CN)
     {
+#if LEGACY
         object? value = Registry.GetValue(type.GetRegKeyName(), key, string.Empty);
 
         if (value is byte[] bytes)
@@ -78,6 +80,25 @@ public static class GenshinRegedit
             return Encoding.UTF8.GetString(bytes);
         }
         return null!;
+#endif
+        using MemoryStream stream = new();
+        CommandResult result = Cli.Wrap("PowerShell")
+            .WithArguments(@$"Get-ItemPropertyValue -Path 'HKCU:\Software\miHoYo\{type.ParseGameType()}' -Name '{type.GetRegKey()}';")
+            .WithStandardOutputPipe(PipeTarget.ToStream(stream, true))
+            .ExecuteAsync().Task.Result;
+        byte[] bytes = stream.ToArray();
+        string lines = Encoding.UTF8.GetString(bytes);
+        StringBuilder sb = new();
+
+        foreach (string line in lines.Replace("\r", string.Empty).Split('\n'))
+        {
+            if (byte.TryParse(line, out byte b))
+            {
+                sb.Append((char)b);
+            }
+        }
+        Logger.Info(sb.ToString());
+        return sb.ToString();
     }
 
     internal static void SetStringToRegedit(string key, string value, GameType type = GameType.CN)

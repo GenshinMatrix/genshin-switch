@@ -16,10 +16,7 @@ public class MuteManager
         set
         {
             autoMute = value;
-            if (!autoMute)
-            {
-                _ = MuteGameAsync(false);
-            }
+            _ = MuteGameAsync(value);
         }
     }
 
@@ -35,8 +32,6 @@ public class MuteManager
         {
             return;
         }
-
-        Logger.Info(e.WindowTitle);
 
         bool matchProcess = false;
         if (e.Hwnd != IntPtr.Zero)

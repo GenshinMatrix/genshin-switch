@@ -85,6 +85,12 @@ public partial class ShellViewModel : ObservableRecipient
     }
 
     [RelayCommand]
+    private void SetAutoMute()
+    {
+        AutoMute = !AutoMute;
+    }
+
+    [RelayCommand]
     private async Task CheckUpdateAsync()
     {
         try

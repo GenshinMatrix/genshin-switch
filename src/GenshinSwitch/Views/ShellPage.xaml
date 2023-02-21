@@ -19,13 +19,13 @@
             MenuActivation="RightClick"
             NoLeftClickDelay="True"
             IconSource="{x:Bind base:Pack.UriIcon}"
-            ContextMenuMode="SecondWindow">
+            ContextMenuMode="PopupMenu">
             <notifyIcon:TaskbarIcon.ContextFlyout>
                 <MenuFlyout Placement="RightEdgeAlignedTop" AreOpenCloseAnimationsEnabled="False">
                     <MenuFlyoutItem Text="打开主面板" Icon="Home" Command="{x:Bind ViewModel.ActiveAppCommand}" />
                     <MenuFlyoutItem Text="程序更新" Icon="Share" Command="{x:Bind ViewModel.CheckUpdateCommand}" />
                     <MenuFlyoutSeparator/>
-                    <ToggleMenuFlyoutItem Text="游戏自动静音" Icon="Mute" IsChecked="{x:Bind ViewModel.AutoMute,Mode=TwoWay}" ToolTipService.ToolTip="当游戏退出前台窗口状态时自动静音"/>
+                    <ToggleMenuFlyoutItem Text="游戏自动静音" Icon="Mute" IsChecked="{x:Bind ViewModel.AutoMute,Mode=TwoWay}" Command="{x:Bind ViewModel.SetAutoMuteCommand}" ToolTipService.ToolTip="当游戏退出前台窗口状态时自动静音"/>
                     <MenuFlyoutItem Text="退出" Icon="Cancel" Command="{x:Bind ViewModel.ExitAppCommand}" />
                 </MenuFlyout>
             </notifyIcon:TaskbarIcon.ContextFlyout>

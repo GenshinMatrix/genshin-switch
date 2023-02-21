@@ -97,7 +97,7 @@ public static class GenshinRegedit
                 sb.Append((char)b);
             }
         }
-        Logger.Info(sb.ToString());
+        Logger.Ignore(sb.ToString());
         return sb.ToString();
     }
 

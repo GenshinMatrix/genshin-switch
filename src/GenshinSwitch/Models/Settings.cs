@@ -15,6 +15,7 @@ public class Settings
     public static SettingsDefinition<Dictionary<string, Contact>> Contacts { get; } = new(nameof(Contacts), new());
     public static SettingsDefinition<RelaunchMethods> RelaunchMethod { get; } = new(nameof(RelaunchMethod), RelaunchMethods.Kill);
     public static SettingsDefinition<string> ComponentLazyPath { get; } = new(nameof(ComponentLazyPath), string.Empty);
+    public static SettingsDefinition<bool> AutoMute { get; } = new(nameof(AutoMute), false);
 
     public static SettingsDefinition<bool> HintSilentMode { get; } = new(nameof(HintSilentMode), false);
     public static SettingsDefinition<bool> HintRefreshEnable { get; } = new(nameof(HintRefreshEnable), false);

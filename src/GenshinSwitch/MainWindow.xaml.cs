@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using GenshinSwitch.Core;
+using GenshinSwitch.Fetch.Muter;
 using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Models.Messages;
@@ -24,6 +25,7 @@ public sealed partial class MainWindow : WindowEx
         Content = null;
         Title = "AppDisplayName".GetLocalized();
 
+        MuteManager.AutoMute = Settings.AutoMute;
         WeakReferenceMessenger.Default.Register<ThemeChangedMessage>(this, (_, _) => SetupBackdrop());
 
         AppWindow.Closing += (_, e) =>

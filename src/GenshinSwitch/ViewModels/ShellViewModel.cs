@@ -1,11 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using GenshinSwitch.Contracts.Services;
-using GenshinSwitch.Models.Messages;
+using GenshinSwitch.Core;
+using GenshinSwitch.Core.Settings;
+using GenshinSwitch.Fetch.Muter;
+using GenshinSwitch.Models;
 using GenshinSwitch.Views;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Windows.System;
 
 namespace GenshinSwitch.ViewModels;
 
@@ -20,6 +23,15 @@ public partial class ShellViewModel : ObservableRecipient
 
     [ObservableProperty]
     private object? selected;
+
+    [ObservableProperty]
+    private bool autoMute = Settings.AutoMute;
+    partial void OnAutoMuteChanged(bool value)
+    {
+        MuteManager.AutoMute = value;
+        Settings.AutoMute.Set(value);
+        SettingsManager.Save();
+    }
 
     public ShellViewModel(INavigationService navigationService, INavigationViewService navigationViewService)
     {
@@ -69,6 +81,19 @@ public partial class ShellViewModel : ObservableRecipient
         {
             App.MainWindow.Activate();
             App.MainWindow.Show();
+        }
+    }
+
+    [RelayCommand]
+    private async Task CheckUpdateAsync()
+    {
+        try
+        {
+            await Launcher.LaunchUriAsync(new Uri("https://github.com/genshin-matrix/genshin-switch/releases"));
+        }
+        catch (Exception e)
+        {
+            Logger.Error(e);
         }
     }
 

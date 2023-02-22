@@ -7,6 +7,8 @@ using MMDevices = NAudio.CoreAudioApi.MMDeviceEnumerator;
 
 namespace GenshinSwitch.Fetch.Muter;
 
+#pragma warning disable CS0465
+
 public class MuteManager
 {
     private static bool autoMute = false;
@@ -17,13 +19,26 @@ public class MuteManager
         {
             autoMute = value;
             _ = MuteGameAsync(value);
+            if (autoMute)
+            {
+                ForegroundWindowHelper.Initialize();
+            }
+            else
+            {
+                ForegroundWindowHelper.Uninitialize();
+            }
         }
     }
 
     static MuteManager()
     {
-        ForegroundWindowHelper.Initialize();
         ForegroundWindowHelper.ForegroundWindowChanged += OnForegroundWindowChanged;
+    }
+
+    public static void Finalize()
+    {
+        ForegroundWindowHelper.ForegroundWindowChanged -= OnForegroundWindowChanged;
+        ForegroundWindowHelper.Uninitialize();
     }
 
     private static async void OnForegroundWindowChanged(ForegroundWindowHelperEventArgs e)

@@ -186,6 +186,36 @@
                                         <ComboBoxItem Content="正常退出" />
                                     </ComboBox>
                                 </Grid>
+                                <Grid Margin="0,18,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Margin="5,-16,44,-16">
+                                        <FontIcon FontSize="20" Glyph="&#xe74f;" />
+                                    </Grid>
+                                    <Grid Grid.Column="1" Margin="-25,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock>
+                                        <Run Text="自动静音" />
+                                        <LineBreak />
+                                        <Run FontSize="12"
+                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                             Text="当游戏退出前台窗口状态时自动静音" />
+                                        </TextBlock>
+                                    </Grid>
+                                    <ToggleSwitch Grid.Column="2" Margin="15,0,15,0"
+                                                  HorizontalAlignment="Left" MinWidth="0"
+                                                  IsOn="{x:Bind ViewModel.AutoMute,Mode=TwoWay}"/>
+                                    <Button Grid.Column="4" HorizontalAlignment="Center" ToolTipService.ToolTip="前往设置" Margin="0,0,45,0"
+                                            Command="{x:Bind ViewModel.LaunchAtWindowsSoundLinkCommand}">
+                                        <Button.Content>
+                                            <FontIcon FontSize="18" Glyph="&#xe92f;"/>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
                             </StackPanel>
                         </Expander.Content>
                     </Expander>

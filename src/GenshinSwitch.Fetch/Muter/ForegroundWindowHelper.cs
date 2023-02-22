@@ -8,7 +8,7 @@ namespace GenshinSwitch.Fetch.Muter;
 /// </summary>
 public static class ForegroundWindowHelper
 {
-    private static bool initialized;
+    private static bool initialized = false;
     private static User32.HWINEVENTHOOK hook;
     private static User32.WinEventProc? eventProc;
 
@@ -48,6 +48,11 @@ public static class ForegroundWindowHelper
 
     public static void Uninitialize()
     {
+        if (!initialized)
+        {
+            return;
+        }
+
         initialized = false;
 
         try

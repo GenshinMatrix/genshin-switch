@@ -8,6 +8,7 @@ using GenshinSwitch.Core;
 using GenshinSwitch.Core.Services;
 using GenshinSwitch.Core.Settings;
 using GenshinSwitch.Fetch.Lazy;
+using GenshinSwitch.Fetch.Muter;
 using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Models.Messages;
@@ -19,6 +20,7 @@ using System.Diagnostics;
 using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.System;
+using YamlDotNet.Core.Tokens;
 
 namespace GenshinSwitch.ViewModels;
 
@@ -38,6 +40,21 @@ public partial class SettingsViewModel : ObservableRecipient
     partial void OnAutoStartChanged(bool value)
     {
         AutoStartManager.SetEnabled(value);
+    }
+
+    [ObservableProperty]
+    private bool autoMute = Settings.AutoMute;
+    partial void OnAutoMuteChanged(bool value)
+    {
+        MuteManager.AutoMute = value;
+        Settings.AutoMute.Set(value);
+        SettingsManager.Save();
+        WeakReferenceMessenger.Default.Send(new AutoMuteChangedMessage());
+    }
+    private void OnAutoMuteChangedReceived()
+    {
+        autoMute = Settings.AutoMute;
+        OnPropertyChanged(nameof(AutoMute));
     }
 
     [ObservableProperty]
@@ -358,6 +375,7 @@ public partial class SettingsViewModel : ObservableRecipient
         this.themeSelectorService = themeSelectorService;
         elementTheme = this.themeSelectorService.Theme;
         versionDescription = GetVersionDescription();
+        WeakReferenceMessenger.Default.Register<AutoMuteChangedMessage>(this, (_, _) => OnAutoMuteChangedReceived());
     }
 
     [RelayCommand]
@@ -370,6 +388,12 @@ public partial class SettingsViewModel : ObservableRecipient
     private async Task LaunchAtWindowsStartupLinkAsync()
     {
         _ = await Launcher.LaunchUriAsync(new Uri("ms-settings:startupapps"));
+    }
+
+    [RelayCommand]
+    private async Task LaunchAtWindowsSoundLinkAsync()
+    {
+        _ = await Launcher.LaunchUriAsync(new Uri("ms-settings:apps-volume"));
     }
 
     [RelayCommand]

@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using GenshinSwitch.Contracts.Services;
 using GenshinSwitch.Core;
 using GenshinSwitch.Core.Settings;
 using GenshinSwitch.Fetch.Muter;
 using GenshinSwitch.Models;
+using GenshinSwitch.Models.Messages;
 using GenshinSwitch.Views;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -31,6 +33,12 @@ public partial class ShellViewModel : ObservableRecipient
         MuteManager.AutoMute = value;
         Settings.AutoMute.Set(value);
         SettingsManager.Save();
+        WeakReferenceMessenger.Default.Send(new AutoMuteChangedMessage());
+    }
+    private void OnAutoMuteChangedReceived()
+    {
+        autoMute = Settings.AutoMute;
+        OnPropertyChanged(nameof(AutoMute));
     }
 
     public ShellViewModel(INavigationService navigationService, INavigationViewService navigationViewService)
@@ -38,6 +46,7 @@ public partial class ShellViewModel : ObservableRecipient
         NavigationService = navigationService;
         NavigationService.Navigated += OnNavigated;
         NavigationViewService = navigationViewService;
+        WeakReferenceMessenger.Default.Register<AutoMuteChangedMessage>(this, (_, _) => OnAutoMuteChangedReceived());
     }
 
     private void OnNavigated(object sender, NavigationEventArgs e)

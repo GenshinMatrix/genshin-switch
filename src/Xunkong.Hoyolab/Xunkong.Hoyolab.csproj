@@ -9,13 +9,14 @@
 		<FileVersion>1.0.0</FileVersion>
 		<Version>1.0.0</Version>
 		<Authors>Scighost</Authors>
-		<Company>Xunkong</Company>
+		<Company>Xunying</Company>
 		<Description>米游社原神部分 API （国服限定）</Description>
 		<PackageProjectUrl>https://github.com/xunkong</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/xunkong/common</RepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageTags>xunkong genshin</PackageTags>
+		<PackageTags>Xunying genshin</PackageTags>
 		<Platforms>x64</Platforms>
+		<AssemblyName>Xunying.Hoyolab</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>

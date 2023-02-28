@@ -108,7 +108,7 @@ public class LaunchCtrl
             throw new GenshinSwitchException(e);
         }
 
-        if (string.IsNullOrEmpty(GenshinRegedit.InstallPathCN))
+        if (string.IsNullOrEmpty(GenshinRegedit.InstallPathCN) && string.IsNullOrEmpty(GenshinRegedit.InstallPathOVERSEA))
         {
             throw new GenshinSwitchException("Genshin Impact not installed.");
         }
@@ -119,11 +119,11 @@ public class LaunchCtrl
                 await Task.Delay((int)delayMs);
             }
 
-            string fileName = Path.Combine(GenshinRegedit.InstallPathCN, FolderName, FileNameCN);
+            string fileName = Path.Combine(GenshinRegedit.InstallPathCN ?? string.Empty, FolderName, FileNameCN);
 
             if (!File.Exists(fileName))
             {
-                fileName = Path.Combine(GenshinRegedit.InstallPathCN, FolderName, FileNameOVERSEA);
+                fileName = Path.Combine(GenshinRegedit.InstallPathOVERSEA ?? string.Empty, FolderName, FileNameOVERSEA);
             }
 
             launchParameter ??= new();
@@ -132,13 +132,6 @@ public class LaunchCtrl
             {
                 if (!string.IsNullOrEmpty(launchParameter.Prod))
                 {
-#if LEGACY
-                    if (!GetElevated())
-                    {
-                        throw new GenshinSwitchException("Needed to run as an administrator to obtain registry write permission.");
-                    }
-#endif
-
                     GenshinRegedit.ProdCN = launchParameter.Prod;
                 }
             }
@@ -146,13 +139,6 @@ public class LaunchCtrl
             {
                 if (!string.IsNullOrEmpty(launchParameter.Prod))
                 {
-#if LEGACY
-                    if (!GetElevated())
-                    {
-                        throw new GenshinSwitchException("Needed to run as an administrator to obtain registry write permission.");
-                    }
-#endif
-
                     GenshinRegedit.ProdOVERSEA = launchParameter.Prod;
                 }
             }
@@ -160,9 +146,9 @@ public class LaunchCtrl
             _ = Process.Start(new ProcessStartInfo()
             {
                 UseShellExecute = true,
-                FileName = Path.Combine(GenshinRegedit.InstallPathCN, FolderName, fileName),
+                FileName = fileName,
                 Arguments = launchParameter.ToString(),
-                WorkingDirectory = Path.Combine(GenshinRegedit.InstallPathCN, FolderName),
+                WorkingDirectory = new FileInfo(fileName).DirectoryName,
                 Verb = "runas",
             });
         }

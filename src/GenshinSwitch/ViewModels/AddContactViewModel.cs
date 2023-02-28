@@ -1,10 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using GenshinSwitch.Controls;
+using GenshinSwitch.Fetch.Launch;
 using GenshinSwitch.Fetch.Regedit;
 using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
-using Microsoft.UI.Xaml.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -12,19 +11,11 @@ namespace GenshinSwitch.ViewModels;
 
 public partial class AddContactViewModel : ObservableRecipient
 {
+    [ObservableProperty]
     private string? aliasName = null!;
-    public string? AliasName
-    {
-        get => aliasName;
-        set => SetProperty(ref aliasName, value);
-    }
 
+    [ObservableProperty]
     private string? localIconUri = null!;
-    public string? LocalIconUri
-    {
-        get => localIconUri;
-        set => SetProperty(ref localIconUri, value);
-    }
 
     public ObservableCollection<AddContactSelectionViewModel> LocalIconSelectionUris { get; } = new();
 
@@ -32,24 +23,21 @@ public partial class AddContactViewModel : ObservableRecipient
     public string? Prod
     {
         get => prod;
-        set => SetProperty(ref prod, value?.Replace("\n", string.Empty));
+        set => SetProperty(ref prod, value?.Replace("\n", string.Empty) ?? string.Empty);
     }
 
-    [Obsolete]
-    private string? region = null!;
-    [Obsolete]
-    public string? Region
+    [ObservableProperty]
+    private string? server = null!;
+
+    [ObservableProperty]
+    private int selectedServerIndex = (int)AddContactServer.Auto;
+    partial void OnSelectedServerIndexChanged(int value)
     {
-        get => region;
-        set => SetProperty(ref region, value);
+        RegetProd();
     }
 
+    [ObservableProperty]
     private string? cookie = null!;
-    public string? Cookie
-    {
-        get => cookie;
-        set => SetProperty(ref cookie, value);
-    }
 
     public ICommand ChangeIconButtonCommand { get; }
 
@@ -81,24 +69,50 @@ public partial class AddContactViewModel : ObservableRecipient
     {
         if (contact is null)
         {
-            Prod = GenshinRegedit.ProdCN;
+            RegetProd();
             LocalIconUri = LocalAvatars.Default;
         }
         else
         {
             AliasName = contact.AliasName;
             LocalIconUri = contact.LocalIconUri;
+            Server = contact.Server;
             Prod = contact.Prod;
             Cookie = contact.Cookie;
         }
     }
 
     [RelayCommand]
-    private async Task RegetProdAsync()
+    private void RegetProd()
     {
-        if (await new MessageBoxX("是否确定要从注册表重新获取账号？", "重新获取账号").ShowAsync() == ContentDialogResult.Secondary)
+        switch ((AddContactServer)selectedServerIndex)
         {
-            Prod = GenshinRegedit.ProdCN;
+            case AddContactServer.Auto:
+                if (!string.IsNullOrEmpty(Prod = GenshinRegedit.ProdCN))
+                {
+                    Server = LaunchCtrl.RegionCN;
+                }
+                else
+                {
+                    Prod = GenshinRegedit.ProdOVERSEA;
+                    Server = LaunchCtrl.RegionOVERSEA;
+                }
+                break;
+            case AddContactServer.Ch:
+                Prod = GenshinRegedit.ProdCN;
+                Server = LaunchCtrl.RegionCN;
+                break;
+            case AddContactServer.Oversea:
+                Prod = GenshinRegedit.ProdOVERSEA;
+                Server = LaunchCtrl.RegionOVERSEA;
+                break;
         }
     }
+}
+
+public enum AddContactServer
+{
+    Auto,
+    Ch,
+    Oversea,
 }

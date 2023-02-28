@@ -81,24 +81,32 @@ public static class GenshinRegedit
         }
         return null!;
 #endif
-        using MemoryStream stream = new();
-        CommandResult result = Cli.Wrap("PowerShell")
-            .WithArguments(@$"Get-ItemPropertyValue -Path 'HKCU:\Software\miHoYo\{type.ParseGameType()}' -Name '{type.GetRegKey()}';")
-            .WithStandardOutputPipe(PipeTarget.ToStream(stream, true))
-            .ExecuteAsync().Task.Result;
-        byte[] bytes = stream.ToArray();
-        string lines = Encoding.UTF8.GetString(bytes);
-        StringBuilder sb = new();
-
-        foreach (string line in lines.Replace("\r", string.Empty).Split('\n'))
+        try
         {
-            if (byte.TryParse(line, out byte b))
+            using MemoryStream stream = new();
+            CommandResult result = Cli.Wrap("PowerShell")
+                .WithArguments(@$"Get-ItemPropertyValue -Path 'HKCU:\Software\miHoYo\{type.ParseGameType()}' -Name '{type.GetRegKey()}';")
+                .WithStandardOutputPipe(PipeTarget.ToStream(stream, true))
+                .ExecuteAsync().Task.Result;
+            byte[] bytes = stream.ToArray();
+            string lines = Encoding.UTF8.GetString(bytes);
+            StringBuilder sb = new();
+
+            foreach (string line in lines.Replace("\r", string.Empty).Split('\n'))
             {
-                sb.Append((char)b);
+                if (byte.TryParse(line, out byte b))
+                {
+                    sb.Append((char)b);
+                }
             }
+            Logger.Ignore(sb.ToString());
+            return sb.ToString();
         }
-        Logger.Ignore(sb.ToString());
-        return sb.ToString();
+        catch (Exception e)
+        {
+            Logger.Warn(e);
+        }
+        return null!;
     }
 
     internal static void SetStringToRegedit(string key, string value, GameType type = GameType.CN)
@@ -106,17 +114,25 @@ public static class GenshinRegedit
 #if LEGACY
         Registry.SetValue(GetRegKeyName(type), key, Encoding.UTF8.GetBytes(value));
 #endif
-        string base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
-        string script = $"""
+
+        try
+        {
+            string base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
+            string script = $"""
             $value = [Convert]::FromBase64String('{base64}');
             Set-ItemProperty -Path 'HKCU:\Software\miHoYo\{type.ParseGameType()}' -Name '{type.GetRegKey()}' -Value $value -Force;
             """;
-        Process.Start(new ProcessStartInfo()
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = "PowerShell",
+                Arguments = script,
+                CreateNoWindow = true,
+            })?.WaitForExit();
+        }
+        catch (Exception e)
         {
-            FileName = "PowerShell",
-            Arguments = script,
-            CreateNoWindow = true,
-        })?.WaitForExit();
+            Logger.Warn(e);
+        }
     }
 
     internal static string GetRegKey(this GameType type)

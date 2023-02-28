@@ -106,25 +106,32 @@
                 </TeachingTip.IconSource>
             </TeachingTip>
             <TextBox PlaceholderText="取个好辨认的名字" Text="{x:Bind ViewModel.AliasName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-            <StackPanel Margin="0,8,0,5" Orientation="Vertical">
-                <StackPanel Orientation="Horizontal" Margin="0,15,0,5">
-                    <TextBlock>
-                        <TextBlock.Inlines>
-                            <Run Text="*" Foreground="Red"/>
-                            <Run Text="当前账号" FontSize="16"/>
-                        </TextBlock.Inlines>
-                    </TextBlock>
-                    <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
+            <Grid>
+                <StackPanel Margin="0,8,0,5" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="0,15,0,5">
+                        <TextBlock>
+                            <TextBlock.Inlines>
+                                <Run Text="*" Foreground="Red"/>
+                                <Run Text="当前账号" FontSize="16"/>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}"
                             Padding="0" Margin="5,0,0,0"
                             ToolTipService.ToolTip="重新获取"
                             Command="{x:Bind ViewModel.RegetProdCommand}">
-                        <Button.Content>
-                            <FontIcon Glyph="&#xe72c;" FontSize="14"/>
-                        </Button.Content>
-                    </Button>
+                            <Button.Content>
+                                <FontIcon Glyph="&#xe72c;" FontSize="14"/>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                    <TextBlock Margin="2,0,0,0" Text="从注册表自动获取，亦可指定国际服。" Foreground="#61666D"/>
                 </StackPanel>
-                <TextBlock Margin="2,0,0,0" Text="从注册表自动获取，支持国际服。" Foreground="#61666D"/>
-            </StackPanel>
+                <ComboBox SelectedIndex="{x:Bind ViewModel.SelectedServerIndex,Mode=TwoWay}" Margin="0,35,0,0" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <ComboBoxItem Content="自动获取" />
+                    <ComboBoxItem Content="指定国服" />
+                    <ComboBoxItem Content="指定国际服" />
+                </ComboBox>
+            </Grid>
             <TextBox PlaceholderText="请勿随意修改"
                      Text="{x:Bind ViewModel.Prod,Mode=TwoWay}"
                      AcceptsReturn="False" TextWrapping="Wrap"

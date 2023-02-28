@@ -49,6 +49,7 @@ public sealed partial class AddContactContentDialog : ContentDialog
 
                 ContactMessage.Contact.AliasName = ViewModel.AliasName;
                 ContactMessage.Contact.LocalIconUri = ViewModel.LocalIconUri;
+                ContactMessage.Contact.Server = ViewModel.Server;
                 ContactMessage.Contact.Prod = ViewModel.Prod;
                 ContactMessage.Contact.Cookie = ViewModel.Cookie;
             }

@@ -72,7 +72,7 @@ public static class GenshinRegedit
 
     internal static string GetStringFromRegedit(string key, GameType type = GameType.CN)
     {
-#if LEGACY
+#if DISPSREG
         object? value = Registry.GetValue(type.GetRegKeyName(), key, string.Empty);
 
         if (value is byte[] bytes)
@@ -80,7 +80,7 @@ public static class GenshinRegedit
             return Encoding.UTF8.GetString(bytes);
         }
         return null!;
-#endif
+#else
         try
         {
             using MemoryStream stream = new();
@@ -107,14 +107,14 @@ public static class GenshinRegedit
             Logger.Warn(e);
         }
         return null!;
+#endif
     }
 
     internal static void SetStringToRegedit(string key, string value, GameType type = GameType.CN)
     {
-#if LEGACY
+#if DISPSREG
         Registry.SetValue(GetRegKeyName(type), key, Encoding.UTF8.GetBytes(value));
-#endif
-
+#else
         try
         {
             string base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
@@ -133,6 +133,7 @@ public static class GenshinRegedit
         {
             Logger.Warn(e);
         }
+#endif
     }
 
     internal static string GetRegKey(this GameType type)

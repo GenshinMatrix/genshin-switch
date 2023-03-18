@@ -86,10 +86,9 @@ public static class GenshinRegedit
             using MemoryStream stream = new();
             FluentProcess.Create()
                 .FileName("powershell")
-                .WorkingDirectory(Directory.GetCurrentDirectory())
+                .WorkingDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
                 .Arguments(@$"Get-ItemPropertyValue -Path 'HKCU:\Software\miHoYo\{type.ParseGameType()}' -Name '{type.GetRegKey()}';")
                 .UseShellExecute(false)
-                .Verb("runas")
                 .CreateNoWindow()
                 .RedirectStandardOutput()
                 .Start()
@@ -131,9 +130,10 @@ public static class GenshinRegedit
             """;
             Process.Start(new ProcessStartInfo()
             {
-                FileName = "PowerShell",
+                FileName = "powershell",
                 Arguments = script,
                 CreateNoWindow = true,
+                WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
             })?.WaitForExit();
         }
         catch (Exception e)

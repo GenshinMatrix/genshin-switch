@@ -8,9 +8,9 @@
     <ApplicationIcon>Assets/Logos/Favicon.ico</ApplicationIcon>
     <Platforms>x64</Platforms>
     <PlatformTarget>x64</PlatformTarget>
-    <AssemblyVersion>2.0.10</AssemblyVersion>
-    <FileVersion>2.0.10</FileVersion>
-    <Version>$(VersionPrefix)2.0.10</Version>
+    <AssemblyVersion>2.0.11</AssemblyVersion>
+    <FileVersion>2.0.11</FileVersion>
+    <Version>$(VersionPrefix)2.0.11</Version>
     <Authors>GenshinMatrix</Authors>
     <Company>GenshinMatrix</Company>
     <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>

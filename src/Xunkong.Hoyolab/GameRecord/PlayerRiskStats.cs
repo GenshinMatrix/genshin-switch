@@ -76,7 +76,7 @@ public class PlayerRiskStats
     /// </summary>
     [JsonPropertyName("spiral_abyss")]
     [Description("深境螺旋")]
-    public string SpiralAbyss { get; set; }
+    public string? SpiralAbyss { get; set; }
 
     /// <summary>
     /// 华丽宝箱

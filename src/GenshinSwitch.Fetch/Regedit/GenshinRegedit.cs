@@ -1,5 +1,5 @@
-﻿using CliWrap;
-using GenshinSwitch.Core;
+﻿using GenshinSwitch.Core;
+using GenshinSwitch.Core.Extensions;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Text;
@@ -84,12 +84,19 @@ public static class GenshinRegedit
         try
         {
             using MemoryStream stream = new();
-            CommandResult result = Cli.Wrap("PowerShell")
-                .WithArguments(@$"Get-ItemPropertyValue -Path 'HKCU:\Software\miHoYo\{type.ParseGameType()}' -Name '{type.GetRegKey()}';")
-                .WithStandardOutputPipe(PipeTarget.ToStream(stream, true))
-                .ExecuteAsync().Task.Result;
-            byte[] bytes = stream.ToArray();
-            string lines = Encoding.UTF8.GetString(bytes);
+            FluentProcess.Create()
+                .FileName("powershell")
+                .WorkingDirectory(Directory.GetCurrentDirectory())
+                .Arguments(@$"Get-ItemPropertyValue -Path 'HKCU:\Software\miHoYo\{type.ParseGameType()}' -Name '{type.GetRegKey()}';")
+                .UseShellExecute(false)
+                .Verb("runas")
+                .CreateNoWindow()
+                .RedirectStandardOutput()
+                .Start()
+                .BeginOutputRead(stream)
+                .WaitForExit();
+            stream.Position = 0;
+            string lines = Encoding.UTF8.GetString(stream.ToArray());
             StringBuilder sb = new();
 
             foreach (string line in lines.Replace("\r", string.Empty).Split('\n'))

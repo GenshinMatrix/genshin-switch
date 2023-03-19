@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
-    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <TargetFramework>net6.0-windows10.0.18362.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+    <SupportedOSPlatformVersion>10.0.18362.0</SupportedOSPlatformVersion>
     <RootNamespace>GenshinSwitch</RootNamespace>
     <ApplicationIcon>Assets/Logos/Favicon.ico</ApplicationIcon>
     <Platforms>x64</Platforms>
@@ -35,7 +35,7 @@
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <StartupObject>GenshinSwitch.Program</StartupObject>
-    <AppxPackageDir>D:\GitHub\genshin-switch\src\GenshinSwitch\bin\x64\Release\net6.0-windows10.0.19041.0\win10-x64\AppPackages</AppxPackageDir>
+    <AppxPackageDir>bin\x64\Release\net6.0-windows10.0.18362.0\win10-x64\AppPackages</AppxPackageDir>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\Images\LocalAvatars\CreateCSharp.py" />

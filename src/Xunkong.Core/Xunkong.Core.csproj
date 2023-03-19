@@ -9,6 +9,7 @@
 		<Version>1.0.0</Version>
 		<Authors>Scighost</Authors>
 		<Company>Xunying</Company>
+		<LangVersion>11.0</LangVersion>
 		<PackageProjectUrl>https://github.com/xunkong</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/xunkong/common</RepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>

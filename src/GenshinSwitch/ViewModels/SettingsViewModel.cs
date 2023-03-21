@@ -58,6 +58,14 @@ public partial class SettingsViewModel : ObservableRecipient
     }
 
     [ObservableProperty]
+    private bool autoCheckRunning = Settings.AutoCheckRunning;
+    partial void OnAutoCheckRunningChanged(bool value)
+    {
+        Settings.AutoCheckRunning.Set(value);
+        SettingsManager.Save();
+    }
+
+    [ObservableProperty]
     private string versionDescription;
 
     [ObservableProperty]

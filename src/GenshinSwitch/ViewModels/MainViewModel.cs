@@ -45,22 +45,25 @@ public partial class MainViewModel : ObservableRecipient
     {
         if (LaunchCtrl.TryGetProcessRegion(out string region))
         {
-            string runningProd = region switch
+            if (Settings.AutoCheckRunning)
             {
-                LaunchCtrl.RegionOVERSEA => GenshinRegedit.ProdOVERSEA,
-                LaunchCtrl.RegionCN or _ => GenshinRegedit.ProdCN,
-            };
+                string runningProd = region switch
+                {
+                    LaunchCtrl.RegionOVERSEA => GenshinRegedit.ProdOVERSEA,
+                    LaunchCtrl.RegionCN or _ => GenshinRegedit.ProdCN,
+                };
 
-            foreach (Contact contact in Contacts)
-            {
-                if (contact.Prod != null && runningProd != null &&
-                    contact.Prod.Replace("\0", string.Empty) == runningProd.Replace("\0", string.Empty))
+                foreach (Contact contact in Contacts)
                 {
-                    App.TryEnqueueAsync(() => contact.ViewModel.IsRunning = true).Forget();
-                }
-                else
-                {
-                    App.TryEnqueueAsync(() => contact.ViewModel.IsRunning = false).Forget();
+                    if (contact.Prod != null && runningProd != null &&
+                        contact.Prod.Replace("\0", string.Empty) == runningProd.Replace("\0", string.Empty))
+                    {
+                        App.TryEnqueueAsync(() => contact.ViewModel.IsRunning = true).Forget();
+                    }
+                    else
+                    {
+                        App.TryEnqueueAsync(() => contact.ViewModel.IsRunning = false).Forget();
+                    }
                 }
             }
         }

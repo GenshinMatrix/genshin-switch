@@ -1,14 +1,13 @@
-﻿using System.Windows.Input;
-
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
 using GenshinSwitch.Contracts.Services;
 using GenshinSwitch.Contracts.ViewModels;
-
 using Microsoft.Web.WebView2.Core;
+using System.Windows.Input;
 
 namespace GenshinSwitch.ViewModels;
+
+#pragma warning disable VSTHRD101
 
 // TODO: Review best practices and distribution guidelines for WebView2.
 // https://docs.microsoft.com/microsoft-edge/webview2/get-started/winui

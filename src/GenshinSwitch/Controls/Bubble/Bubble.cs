@@ -6,6 +6,8 @@ using Timer = System.Timers.Timer;
 
 namespace GenshinSwitch.Controls;
 
+#pragma warning disable VSTHRD101
+
 /// <summary>
 /// Modified version from
 /// https://github.com/xunkong/xunkong/blob/41cc491879f22d94da9ee190b341e021565a8e13/App/Helpers/NotificationProvider.cs

@@ -43,9 +43,9 @@ public partial class MainViewModel : ObservableRecipient
 
     private void ForeverCheckLaunch()
     {
-        if (LaunchCtrl.TryGetProcessRegion(out string region))
+        if (Settings.AutoCheckRunning)
         {
-            if (Settings.AutoCheckRunning)
+            if (LaunchCtrl.TryGetProcessRegion(out string region))
             {
                 string runningProd = region switch
                 {

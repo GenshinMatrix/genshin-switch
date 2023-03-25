@@ -44,6 +44,10 @@
         <uap:LockScreen BadgeLogo="Assets\Logos\BadgeLogo.png"  Notification="badge"/>
       </uap:VisualElements>
       <Extensions>
+		  <desktop:Extension Category="windows.fullTrustProcess" Executable="$targetnametoken$.exe">
+			  <desktop:FullTrustProcess />
+		  </desktop:Extension>
+		  
           <desktop:Extension Category="windows.toastNotificationActivation">
               <desktop:ToastNotificationActivation ToastActivatorCLSID="4754D477-D639-4F52-8832-E1852E0BCADE" />
           </desktop:Extension>
@@ -60,7 +64,7 @@
   </Applications>
 
   <Capabilities>
-    <rescap:Capability Name="allowElevation" />
+    <rescap:Capability Name="runFullTrust" />
   </Capabilities>
 
   <genTemplate:Metadata>

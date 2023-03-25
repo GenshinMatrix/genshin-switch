@@ -18,6 +18,7 @@
 		<PackageTags>Xunying genshin</PackageTags>
 		<Platforms>x64</Platforms>
 		<AssemblyName>Xunying.Hoyolab</AssemblyName>
+		<WarningsToSuppress>IDE0044;MVVMTK0033;MVVMTK0034</WarningsToSuppress>
 	</PropertyGroup>
 
 	<ItemGroup>

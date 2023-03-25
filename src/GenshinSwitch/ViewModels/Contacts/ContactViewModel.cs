@@ -25,14 +25,15 @@ using static GenshinSwitch.ViewModels.SettingsViewModel;
 
 namespace GenshinSwitch.ViewModels.Contacts;
 
+#pragma warning disable MVVMTK0034
+
 [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element should begin with upper-case letter", Justification = "<Pending>")]
 [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1404:Code analysis suppression should have justification", Justification = "<Pending>")]
 [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1027:Use tabs correctly", Justification = "<Pending>")]
 [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1134:Attributes should not share line", Justification = "<Pending>")]
 [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1137:Elements should have the same indentation", Justification = "<Pending>")]
 [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
-[ObservableObject]
-public partial class ContactViewModel
+public partial class ContactViewModel : ObservableObject
 {
     private readonly HoyolabClient client = new();
 

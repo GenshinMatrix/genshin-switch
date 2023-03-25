@@ -1,12 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Text.Json.Serialization;
 using Xunkong.Hoyolab.SpiralAbyss;
 
 namespace GenshinSwitch.ViewModels.Contacts;
 
-[ObservableObject]
-public partial class SpiralAbyssInfoViewModel
+public partial class SpiralAbyssInfoViewModel : ObservableObject
 {
     [ObservableProperty]
     private int id;
@@ -81,9 +79,8 @@ public partial class SpiralAbyssInfoViewModel
 /// <summary>
 /// 深境螺旋最值统计
 /// </summary>
-[ObservableObject]
 [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<Pending>")]
-public partial class SpiralAbyssRankViewModel
+public partial class SpiralAbyssRankViewModel : ObservableObject
 {
     [ObservableProperty]
     private int id;
@@ -104,9 +101,8 @@ public partial class SpiralAbyssRankViewModel
 /// <summary>
 /// 深境螺旋层
 /// </summary>
-[ObservableObject]
 [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<Pending>")]
-public partial class SpiralAbyssFloorViewModel
+public partial class SpiralAbyssFloorViewModel : ObservableObject
 {
     [ObservableProperty]
     private int id;
@@ -136,9 +132,8 @@ public partial class SpiralAbyssFloorViewModel
 /// <summary>
 /// 深境螺旋间
 /// </summary>
-[ObservableObject]
 [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<Pending>")]
-public partial class SpiralAbyssLevelViewModel
+public partial class SpiralAbyssLevelViewModel : ObservableObject
 {
     [ObservableProperty]
     private int id;

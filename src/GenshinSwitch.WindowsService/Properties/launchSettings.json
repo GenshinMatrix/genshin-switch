@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GenshinSwitch.WindowsService": {
+      "commandName": "Project",
+      "commandLineArgs": "start"
+    }
+  }
+}

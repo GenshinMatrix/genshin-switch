@@ -291,7 +291,6 @@ public partial class MainViewModel : ObservableRecipient
             if (Settings.DoubleClickBehavior == 0
              || Settings.DoubleClickBehavior == 1)
             {
-                MainService.ServiceEnabled = Settings.DoubleClickBehavior == 1;
                 LaunchGameAsync((Contact)e.ClickedItem).Forget();
             }
         }
@@ -315,6 +314,7 @@ public partial class MainViewModel : ObservableRecipient
 
     public async Task LaunchGameAsync(Contact contact)
     {
+        MainService.ServiceEnabled = Settings.DoubleClickBehavior == 1;
         try
         {
             await LaunchCtrl.LaunchAsync(relaunchMethod: Settings.RelaunchMethod.Get(), launchParameter: new LaunchParameter()

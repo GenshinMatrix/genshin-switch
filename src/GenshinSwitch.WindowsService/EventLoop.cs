@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
 namespace GenshinSwitch.WindowsService;
 
@@ -9,7 +8,7 @@ internal class EventLoop
     {
         while (true)
         {
-            Thread.Sleep(999);
+            Thread.Sleep(int.MaxValue);
         }
     }
 

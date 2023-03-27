@@ -11,7 +11,7 @@ public static class MainService
     internal static void SetGameAccountRegisty(string key, string value, GameType type = GameType.CN)
     {
         using NamedPipeClientStream pipeClient = new(".", "GenshinSwitch.WindowsService", PipeDirection.InOut);
-        pipeClient.Connect(3000);
+        pipeClient.Connect(2000);
         using StreamWriter writer = new StreamWriter(pipeClient);
         writer.WriteLine(JsonConvert.SerializeObject(new
         {

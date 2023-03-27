@@ -68,6 +68,13 @@ public partial class MainViewModel : ObservableRecipient
                     }
                 }
             }
+            else
+            {
+                foreach (Contact contact in Contacts)
+                {
+                    App.TryEnqueueAsync(() => contact.ViewModel.IsRunning = false).Forget();
+                }
+            }
         }
         else
         {

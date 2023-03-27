@@ -6,7 +6,20 @@
     <Nullable>enable</Nullable>
     <LangVersion>11.0</LangVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Sapphire.ico</ApplicationIcon>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <Version>$(VersionPrefix)1.0.0</Version>
+    <Authors>GenshinMatrix</Authors>
+    <Company>GenshinMatrix</Company>
+    <PublisherName>GenshinMatrix</PublisherName>
+    <Description>GenshinSwitch extending boxed APIs Provider.</Description>
+    <Copyright>GenshinMatrix</Copyright>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Sapphire.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Costura.Fody" Version="5.7.0">

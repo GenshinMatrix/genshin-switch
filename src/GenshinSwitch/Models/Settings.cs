@@ -17,6 +17,7 @@ public class Settings
     public static SettingsDefinition<string> ComponentLazyPath { get; } = new(nameof(ComponentLazyPath), string.Empty);
     public static SettingsDefinition<bool> AutoMute { get; } = new(nameof(AutoMute), false);
     public static SettingsDefinition<bool> AutoCheckRunning { get; } = new(nameof(AutoCheckRunning), false);
+    public static SettingsDefinition<int> DoubleClickBehavior { get; } = new(nameof(DoubleClickBehavior), 0);
 
     public static SettingsDefinition<bool> HintSilentMode { get; } = new(nameof(HintSilentMode), false);
     public static SettingsDefinition<bool> HintRefreshEnable { get; } = new(nameof(HintRefreshEnable), false);

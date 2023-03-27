@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.ServiceProcess;
 
@@ -25,6 +26,13 @@ internal static class Program
             {
                 MainRunner.Stop();
                 MainRegister.Unregister();
+                return;
+            }
+            else if (args[0].Equals("test", StringComparison.OrdinalIgnoreCase)
+                  || args[0].Equals("/t", StringComparison.OrdinalIgnoreCase))
+            {
+                new MainService().StartTest();
+                new EventLoop().Start();
                 return;
             }
         }

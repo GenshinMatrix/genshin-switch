@@ -20,7 +20,6 @@ using System.Diagnostics;
 using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.System;
-using YamlDotNet.Core.Tokens;
 
 namespace GenshinSwitch.ViewModels;
 
@@ -62,6 +61,14 @@ public partial class SettingsViewModel : ObservableRecipient
     partial void OnAutoCheckRunningChanged(bool value)
     {
         Settings.AutoCheckRunning.Set(value);
+        SettingsManager.Save();
+    }
+
+    [ObservableProperty]
+    private int doubleClickBehaviorIndex = Settings.DoubleClickBehavior.Get();
+    partial void OnDoubleClickBehaviorIndexChanged(int value)
+    {
+        Settings.DoubleClickBehavior.Set(value);
         SettingsManager.Save();
     }
 

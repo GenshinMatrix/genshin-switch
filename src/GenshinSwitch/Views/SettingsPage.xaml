@@ -690,7 +690,33 @@
                                           IsOn="{x:Bind ViewModel.AutoCheckRunning,Mode=TwoWay}"/>
                         </control:SettingCard.Selector>
                     </control:SettingCard>
-                    
+
+                    <control:SettingCard Margin="0,5,0,0">
+                        <control:SettingCard.Icon>
+                            <FontIcon FontSize="20"
+                              Glyph="&#xe71b;" />
+                        </control:SettingCard.Icon>
+                        <control:SettingCard.Content>
+                            <TextBlock VerticalAlignment="Center">
+                                <Run Text="角色账号" />
+                                <LineBreak />
+                                <Run FontSize="12"
+                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                     Text="定制启动游戏行为动作" />
+                            </TextBlock>
+                        </control:SettingCard.Content>
+                        <control:SettingCard.Selector>
+                            <ComboBox MinWidth="104"
+                                          HorizontalAlignment="Right"
+                                          VerticalAlignment="Center"
+                                          SelectedIndex="{x:Bind ViewModel.DoubleClickBehaviorIndex, Mode=TwoWay}">
+                                <ComboBoxItem Content="默认动作" />
+                                <ComboBoxItem Content="服务动作" />
+                                <ComboBoxItem Content="无动作" />
+                            </ComboBox>
+                        </control:SettingCard.Selector>
+                    </control:SettingCard>
+
                     <TextBlock Margin="0,10,0,4"
                        FontSize="20"
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"

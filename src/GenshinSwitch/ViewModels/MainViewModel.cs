@@ -7,6 +7,7 @@ using GenshinSwitch.Core;
 using GenshinSwitch.Core.Settings;
 using GenshinSwitch.Fetch.Launch;
 using GenshinSwitch.Fetch.Regedit;
+using GenshinSwitch.Fetch.Service;
 using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Models.Messages;
@@ -17,6 +18,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using YamlDotNet.Core.Tokens;
 
 namespace GenshinSwitch.ViewModels;
 
@@ -279,7 +281,12 @@ public partial class MainViewModel : ObservableRecipient
     {
         if (ListViewHelper.TryRaiseItemDoubleClick(sender, e))
         {
-            LaunchGameAsync((Contact)e.ClickedItem).Forget();
+            if (Settings.DoubleClickBehavior == 0
+             || Settings.DoubleClickBehavior == 1)
+            {
+                MainService.ServiceEnabled = Settings.DoubleClickBehavior == 1;
+                LaunchGameAsync((Contact)e.ClickedItem).Forget();
+            }
         }
     }
 

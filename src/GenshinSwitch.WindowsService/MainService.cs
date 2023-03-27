@@ -21,6 +21,11 @@ internal partial class MainService : ServiceBase
         InitializeComponent();
     }
 
+    public void StartTest()
+    {
+        OnStart(null!);
+    }
+
     private void InitializeComponent()
     {
         components = new Container();
@@ -42,13 +47,14 @@ internal partial class MainService : ServiceBase
         {
             try
             {
-                using NamedPipeClientStream pipeClient = new NamedPipeClientStream("GenshinSwitch.WindowsService", "main", PipeDirection.InOut);
-                pipeClient.Connect();
                 isRunning = true;
 
-                using StreamReader reader = new(pipeClient);
                 while (isRunning)
                 {
+                    using NamedPipeServerStream pipeServer = new("GenshinSwitch.WindowsService", PipeDirection.InOut);
+                    pipeServer.WaitForConnection();
+                    using StreamReader reader = new(pipeServer);
+
                     try
                     {
                         string? message = reader.ReadLine();

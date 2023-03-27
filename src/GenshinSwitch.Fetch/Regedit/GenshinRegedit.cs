@@ -1,5 +1,6 @@
 ﻿using GenshinSwitch.Core;
 using GenshinSwitch.Core.Extensions;
+using GenshinSwitch.Fetch.Service;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Text;
@@ -118,6 +119,12 @@ public static class GenshinRegedit
 
     internal static void SetStringToRegedit(string key, string value, GameType type = GameType.CN)
     {
+        if (MainService.ServiceEnabled)
+        {
+            MainService.SetGameAccountRegisty(key, value, type);
+            return;
+        }
+
 #if DISPSREG
         Registry.SetValue(GetRegKeyName(type), key, Encoding.UTF8.GetBytes(value));
 #else

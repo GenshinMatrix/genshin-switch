@@ -40,6 +40,8 @@ internal static class Program
             }
         }
 #endif
+        RuntimeHelper.CheckSingleInstance();
+        RuntimeHelper.EnsureElevated();
         new AutoStartRegistyHelper().Enable();
         new MainService().StartServe();
         new EventLoop().Start();

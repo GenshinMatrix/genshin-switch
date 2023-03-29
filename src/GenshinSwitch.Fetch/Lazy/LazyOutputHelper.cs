@@ -148,7 +148,7 @@ public static class LazyOutputHelper
             Dictionary<string, object> paramDict = LazyOutputSerializer.DeserializeObject<Dictionary<string, object>>(fileIn);
 
             uid ??= "0000000000";
-            prod ??= GenshinRegedit.ProdCN ?? GenshinRegedit.ProdOVERSEA;
+            //prod ??= GenshinRegedit.ProdCN ?? GenshinRegedit.ProdOVERSEA;
 
             if (paramDict != null)
             {

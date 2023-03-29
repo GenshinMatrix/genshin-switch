@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using GenshinSwitch.Activation;
 using GenshinSwitch.Contracts.Services;
+using GenshinSwitch.Controls.Notice;
 using GenshinSwitch.Core;
 using GenshinSwitch.Core.Contracts.Services;
 using GenshinSwitch.Core.Services;
@@ -99,7 +100,7 @@ public partial class App : Application
 
     public void ExitForce()
     {
-        ToastNotificationManager.History.Clear();
+        NoticeService.ClearNotice();
         (MainWindow.Content as ShellPage)?.TaskbarIconApp?.Dispose();
         Environment.Exit(0);
     }

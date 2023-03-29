@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -8,7 +7,6 @@ using System.IO.Pipes;
 using System.Security.AccessControl;
 using System.Security.Principal;
 using System.ServiceProcess;
-using System.Text;
 using System.Threading;
 
 namespace GenshinSwitch.WindowsService;
@@ -27,6 +25,28 @@ internal partial class MainService : ServiceBase
     public void StartServe()
     {
         OnStart(null!);
+    }
+
+    public void KillServe()
+    {
+        try
+        {
+            foreach (Process proc in Process.GetProcessesByName("GenshinSwitch.WindowsService"))
+            {
+                try
+                {
+                    proc.Kill();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine(e);
+        }
     }
 
     private void InitializeComponent()
@@ -64,13 +84,26 @@ internal partial class MainService : ServiceBase
                     
                     try
                     {
-                        string? message = reader.ReadLine();
-                        if (message == null) continue;
+                        string? cmd = reader.ReadLine();
+                        if (cmd == null)
+                        {
+                            continue;
+                        }
 
-                        Debug.WriteLine("Received message: " + message);
+                        Debug.WriteLine("Received message: " + cmd);
 
-                        dynamic? obj = JsonConvert.DeserializeObject(message!);
-                        CommandRunner.Run(obj);
+                        dynamic? cmdObj = JsonConvert.DeserializeObject(cmd!);
+                        dynamic? retObj = CommandRunner.Run(cmdObj);
+
+                        if (retObj != null)
+                        {
+                            using StreamWriter writer = new(stream: pipeServer);
+                            string ret = JsonConvert.SerializeObject(retObj);
+                            writer.WriteLine(ret);
+                            writer.Flush();
+                            Debug.WriteLine("Send message: " + ret);
+                            Thread.Sleep(999);
+                        }
                     }
                     catch (Exception e)
                     {

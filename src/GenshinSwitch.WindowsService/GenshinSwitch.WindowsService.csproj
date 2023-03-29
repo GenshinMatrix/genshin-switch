@@ -7,9 +7,9 @@
     <LangVersion>11.0</LangVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Sapphire.ico</ApplicationIcon>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
-    <Version>$(VersionPrefix)1.0.0</Version>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
+    <Version>$(VersionPrefix)1.0.1</Version>
     <Authors>GenshinMatrix</Authors>
     <Company>GenshinMatrix</Company>
     <PublisherName>GenshinMatrix</PublisherName>

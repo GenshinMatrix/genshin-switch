@@ -39,9 +39,21 @@ internal static class Program
                 return;
             }
         }
-#endif
+# endif
+        if (args.Length > 0)
+        {
+            if (args[0].Equals("stop", StringComparison.OrdinalIgnoreCase)
+             || args[0].Equals("/u", StringComparison.OrdinalIgnoreCase))
+            {
+                new AutoStartRegistyHelper().Disable();
+                new MainService().KillServe();
+                return;
+            }
+        }
+
         RuntimeHelper.CheckSingleInstance();
         RuntimeHelper.EnsureElevated();
+
         new AutoStartRegistyHelper().Enable();
         new MainService().StartServe();
         new EventLoop().Start();

@@ -44,6 +44,7 @@ public partial class MainViewModel : ObservableRecipient
 
     private void ForeverCheckLaunch()
     {
+        MainService.ServiceEnabled = Settings.DoubleClickBehavior == 1;
         if (Settings.AutoCheckRunning)
         {
             if (LaunchCtrl.TryGetProcessRegion(out string region))

@@ -269,14 +269,15 @@
                             </Grid>
                         </Expander.Header>
                         <Expander.Content>
-                            <StackPanel Margin="0,-16,44,-16" Visibility="Collapsed">
-                                <Grid Padding="44,12,0,12">
-                                    <TextBlock>
-                                <Run Text="始终激活背景" />
-                                <LineBreak />
-                                <Run FontSize="12"
-                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                     Text="窗口失去焦点时不会回退为纯色" />
+                            <StackPanel Margin="0,-16,44,-16">
+                                <TextBlock Text="暂时没有更多了" Margin="44,5,0,0"/>
+                                <Grid Padding="44,12,0,12" Visibility="Collapsed">
+                                    <TextBlock Text="">
+                                        <Run Text="始终激活背景" />
+                                        <LineBreak />
+                                        <Run FontSize="12"
+                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                             Text="窗口失去焦点时不会回退为纯色" />
                                     </TextBlock>
                                     <ToggleSwitch HorizontalAlignment="Right" MinWidth="0" IsEnabled="False"
                                           IsOn="{x:Bind ViewModel.AlwaysActiveBackdrop,Mode=TwoWay}"/>
@@ -706,14 +707,19 @@
                             </TextBlock>
                         </control:SettingCard.Content>
                         <control:SettingCard.Selector>
-                            <ComboBox MinWidth="104"
+                            <StackPanel Orientation="Horizontal">
+                                <Button HorizontalAlignment="Right"
+                                    Command="{x:Bind ViewModel.StopDoubleClickBehaviorServiceCommand}"
+                                    Content="取消服务" Margin="0,0,5,0" ToolTipService.ToolTip="服务动作属于额外的选项功能，需要自行启动并自动注册，此处可以取消服务注册。"/>
+                                <ComboBox MinWidth="104"
                                           HorizontalAlignment="Right"
                                           VerticalAlignment="Center"
                                           SelectedIndex="{x:Bind ViewModel.DoubleClickBehaviorIndex, Mode=TwoWay}">
-                                <ComboBoxItem Content="默认动作" />
-                                <ComboBoxItem Content="服务动作" />
-                                <ComboBoxItem Content="无动作" />
-                            </ComboBox>
+                                    <ComboBoxItem Content="默认动作" />
+                                    <ComboBoxItem Content="服务动作" />
+                                    <ComboBoxItem Content="无动作" />
+                                </ComboBox>
+                            </StackPanel>
                         </control:SettingCard.Selector>
                     </control:SettingCard>
 

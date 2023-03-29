@@ -72,6 +72,29 @@ public partial class SettingsViewModel : ObservableRecipient
         SettingsManager.Save();
     }
 
+    [RelayCommand]
+    private void StopDoubleClickBehaviorService()
+    {
+        try
+        {
+            foreach (Process proc in Process.GetProcessesByName("GenshinSwitch.WindowsService"))
+            {
+                try
+                {
+                    proc.Kill();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine(e);
+        }
+    }
+
     [ObservableProperty]
     private string versionDescription;
 

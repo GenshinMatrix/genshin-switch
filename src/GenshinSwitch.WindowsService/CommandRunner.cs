@@ -7,7 +7,7 @@ namespace GenshinSwitch.WindowsService;
 
 internal static class CommandRunner
 {
-    public static void Run(dynamic? obj)
+    public static dynamic? Run(dynamic? obj)
     {
         _ = obj ?? JsonConvert.DeserializeObject(
             """
@@ -48,7 +48,20 @@ internal static class CommandRunner
                 }
 #endif
             }
+            else if ((int)obj.Command == (int)MainServiceCommmand.GetGameAccountRegisty)
+            {
+                object? value = Registry.GetValue(((GameType)Enum.Parse(typeof(GameType), (string)obj.Type)).GetRegKeyName(), (string)obj.Key, string.Empty);
+
+                return new
+                {
+                    Value = (value is byte[] bytes) ? Convert.ToBase64String(bytes) : string.Empty,
+                    obj.Command,
+                    obj.Type,
+                    obj.Key,
+                };
+            }
         }
+        return null!;
     }
 }
 
@@ -56,6 +69,7 @@ file enum MainServiceCommmand
 {
     None = 0x00,
     SetGameAccountRegisty = 0x01,
+    GetGameAccountRegisty = 0x02,
 }
 
 file enum GameType

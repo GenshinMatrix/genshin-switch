@@ -73,6 +73,11 @@ public static class GenshinRegedit
 
     internal static string GetStringFromRegedit(string key, GameType type = GameType.CN)
     {
+        if (MainService.ServiceEnabled)
+        {
+            return MainService.GetGameAccountRegisty(key, type);
+        }
+
 #if DISPSREG
         object? value = Registry.GetValue(type.GetRegKeyName(), key, string.Empty);
 

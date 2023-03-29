@@ -60,6 +60,11 @@ internal static class CommandRunner
                     obj.Key,
                 };
             }
+            else if ((int)obj.Command == (int)MainServiceCommmand.Kill)
+            {
+                new AutoStartRegistyHelper().Disable();
+                Environment.Exit((int)MainServiceCommmand.Kill);
+            }
         }
         return null!;
     }
@@ -70,6 +75,7 @@ file enum MainServiceCommmand
     None = 0x00,
     SetGameAccountRegisty = 0x01,
     GetGameAccountRegisty = 0x02,
+    Kill = 0x88,
 }
 
 file enum GameType

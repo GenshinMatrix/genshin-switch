@@ -710,7 +710,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button HorizontalAlignment="Right"
                                     Command="{x:Bind ViewModel.StopDoubleClickBehaviorServiceCommand}"
-                                    Content="取消服务" Margin="0,0,5,0" ToolTipService.ToolTip="服务动作属于额外的选项功能，需要自行启动并自动注册，此处可以取消服务注册。"/>
+                                    Content="取消服务" Margin="0,0,5,0" ToolTipService.ToolTip="服务动作属于额外的选项功能，需要自行启动并自动注册，此处可以取消服务注册。需要服务已启动时才能取消服务注册。"/>
                                 <ComboBox MinWidth="104"
                                           HorizontalAlignment="Right"
                                           VerticalAlignment="Center"

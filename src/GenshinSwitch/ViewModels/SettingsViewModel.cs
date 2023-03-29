@@ -9,6 +9,7 @@ using GenshinSwitch.Core.Services;
 using GenshinSwitch.Core.Settings;
 using GenshinSwitch.Fetch.Lazy;
 using GenshinSwitch.Fetch.Muter;
+using GenshinSwitch.Fetch.Service;
 using GenshinSwitch.Helpers;
 using GenshinSwitch.Models;
 using GenshinSwitch.Models.Messages;
@@ -73,8 +74,9 @@ public partial class SettingsViewModel : ObservableRecipient
     }
 
     [RelayCommand]
-    private void StopDoubleClickBehaviorService()
+    private async Task StopDoubleClickBehaviorServiceAsync()
     {
+#if false
         try
         {
             foreach (Process proc in Process.GetProcessesByName("GenshinSwitch.WindowsService"))
@@ -88,6 +90,15 @@ public partial class SettingsViewModel : ObservableRecipient
                     Debug.WriteLine(e);
                 }
             }
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine(e);
+        }
+#endif
+        try
+        {
+            await Task.Run(MainService.Kill);
         }
         catch (Exception e)
         {

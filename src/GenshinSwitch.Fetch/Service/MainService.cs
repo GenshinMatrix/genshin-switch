@@ -9,6 +9,19 @@ public static class MainService
 {
     public static bool ServiceEnabled { get; set; } = false;
 
+    public static void Kill()
+    {
+        using NamedPipeClientStream pipeClient = new(".", "GenshinSwitch.WindowsService", PipeDirection.InOut);
+        pipeClient.Connect(2000);
+        using StreamWriter writer = new(pipeClient);
+        writer.WriteLine(JsonConvert.SerializeObject(new
+        {
+            Command = MainServiceCommmand.Kill.GetHashCode(),
+        }));
+        writer.Flush();
+        return;
+    }
+
     internal static void SetGameAccountRegisty(string key, string value, GameType type = GameType.CN)
     {
         using NamedPipeClientStream pipeClient = new(".", "GenshinSwitch.WindowsService", PipeDirection.InOut);

@@ -24,6 +24,9 @@ using Windows.System;
 
 namespace GenshinSwitch.ViewModels;
 
+#pragma warning disable MVVMTK0034
+#pragma warning disable IDE0044
+
 public partial class SettingsViewModel : ObservableRecipient
 {
     private readonly IThemeSelectorService themeSelectorService;

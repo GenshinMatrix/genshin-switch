@@ -15,11 +15,17 @@
             x:Name="TaskbarIconApp"
             x:FieldModifier="public"
             DoubleClickCommand="{x:Bind ViewModel.ActiveOrHideAppCommand}"
-            ToolTipText="{x:Bind base:Pack.AppName}"
+            ToolTipText="Genshin Switch"
+            ToolTipService.ToolTip="Genshin Switch"
             MenuActivation="RightClick"
             NoLeftClickDelay="True"
             IconSource="{x:Bind base:Pack.UriIcon}"
             ContextMenuMode="PopupMenu">
+            <notifyIcon:TaskbarIcon.TrayToolTip>
+                <Border BorderBrush="Black" BorderThickness="2">
+                    <TextBlock Text="Genshin Switch" FontSize="20"/>
+                </Border>
+            </notifyIcon:TaskbarIcon.TrayToolTip>
             <notifyIcon:TaskbarIcon.ContextFlyout>
                 <MenuFlyout Placement="RightEdgeAlignedTop" AreOpenCloseAnimationsEnabled="False">
                     <MenuFlyoutItem Text="打开主面板" Icon="Home" Command="{x:Bind ViewModel.ActiveAppCommand}" />

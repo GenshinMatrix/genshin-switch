@@ -5,7 +5,7 @@ namespace GenshinSwitch;
 
 public class Pack
 {
-    public static string AppName => RuntimeHelper.IsMSIX ? Package.Current.DisplayName : "GenshinSwitch";
+    public static string AppName => "GenshinSwitch";
 
     public static string AppVersion
     {

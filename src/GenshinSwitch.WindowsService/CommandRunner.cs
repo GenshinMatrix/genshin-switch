@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 
 namespace GenshinSwitch.WindowsService;
@@ -60,6 +62,21 @@ internal static class CommandRunner
                     obj.Key,
                 };
             }
+            else if ((int)obj.Command == (int)MainServiceCommmand.LaunchProcess)
+            {
+                using Process p = Process.Start(new ProcessStartInfo()
+                {
+                    UseShellExecute = DynamicExtension.IsNullOrSelf(obj, "UseShellExecute", true),
+                    FileName = obj.FileName,
+                    Arguments = DynamicExtension.IsNullOrSelf(obj, "Arguments", string.Empty),
+                    WorkingDirectory = DynamicExtension.IsNullOrSelf(obj, "WorkingDirectory", string.Empty),
+                    Verb = DynamicExtension.IsNullOrSelf(obj, "Verb", string.Empty),
+                });
+                if (obj.IsNullOrSelf("WaitForExit", false))
+                {
+                    p.WaitForExit();
+                }
+            }
             else if ((int)obj.Command == (int)MainServiceCommmand.Kill)
             {
                 new AutoStartRegistyHelper().Disable();
@@ -70,11 +87,26 @@ internal static class CommandRunner
     }
 }
 
+file static class DynamicExtension
+{
+    public static object IsNullOrSelf(this object obj, string propertyName, object defaultValue = null!)
+    {
+        PropertyInfo prop = obj.GetType().GetProperty(propertyName);
+
+        if (prop != null)
+        {
+            return prop.GetValue(obj, null!) ?? defaultValue;
+        }
+        return defaultValue;
+    }
+}
+
 file enum MainServiceCommmand
 {
     None = 0x00,
     SetGameAccountRegisty = 0x01,
     GetGameAccountRegisty = 0x02,
+    LaunchProcess = 0x03,
     Kill = 0x88,
 }
 

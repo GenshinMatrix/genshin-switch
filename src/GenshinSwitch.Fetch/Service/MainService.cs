@@ -1,5 +1,6 @@
 ﻿using GenshinSwitch.Fetch.Regedit;
 using Newtonsoft.Json;
+using System.Diagnostics;
 using System.IO.Pipes;
 using System.Text;
 
@@ -72,5 +73,23 @@ public static class MainService
             }
         }
         return null!;
+    }
+
+    internal static void LaunchProcess(ProcessStartInfo psi)
+    {
+        using NamedPipeClientStream pipeClient = new(".", "GenshinSwitch.WindowsService", PipeDirection.InOut);
+        pipeClient.Connect(2000);
+        using StreamWriter writer = new(pipeClient);
+        writer.WriteLine(JsonConvert.SerializeObject(new
+        {
+            Command = MainServiceCommmand.LaunchProcess.GetHashCode(),
+            psi.UseShellExecute,
+            psi.FileName,
+            psi.Arguments,
+            psi.WorkingDirectory,
+            psi.Verb,
+        }));
+        writer.Flush();
+        return;
     }
 }

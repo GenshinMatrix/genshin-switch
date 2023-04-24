@@ -1,5 +1,6 @@
 ﻿using GenshinSwitch.Core;
 using GenshinSwitch.Fetch.Regedit;
+using GenshinSwitch.Fetch.Service;
 using System.Diagnostics;
 using System.Security.Principal;
 
@@ -141,6 +142,19 @@ public class LaunchCtrl
                 {
                     GenshinRegedit.ProdOVERSEA = launchParameter.Prod;
                 }
+            }
+
+            if (MainService.ServiceEnabled)
+            {
+                MainService.LaunchProcess(new ProcessStartInfo()
+                {
+                    UseShellExecute = true,
+                    FileName = fileName,
+                    Arguments = launchParameter.ToString(),
+                    WorkingDirectory = new FileInfo(fileName).DirectoryName,
+                    Verb = "runas",
+                });
+                return;
             }
 
             _ = Process.Start(new ProcessStartInfo()

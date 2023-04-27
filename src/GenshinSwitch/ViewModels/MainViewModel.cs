@@ -284,6 +284,7 @@ public partial class MainViewModel : ObservableRecipient
         }
     }
 
+    private DateTime doubleClickLimit = DateTime.MinValue;
     public void OnContactListViewItemClick(object sender, ItemClickEventArgs e)
     {
         if (ListViewHelper.TryRaiseItemDoubleClick(sender, e))
@@ -291,7 +292,11 @@ public partial class MainViewModel : ObservableRecipient
             if (Settings.DoubleClickBehavior == 0
              || Settings.DoubleClickBehavior == 1)
             {
-                LaunchGameAsync((Contact)e.ClickedItem).Forget();
+                if (DateTime.Now.Subtract(doubleClickLimit).TotalSeconds >= 2d)
+                {
+                    doubleClickLimit = DateTime.Now;
+                    LaunchGameAsync((Contact)e.ClickedItem).Forget();
+                }
             }
         }
     }

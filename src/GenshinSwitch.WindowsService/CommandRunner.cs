@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GenshinSwitch.WindowsService;
 
@@ -64,18 +65,21 @@ internal static class CommandRunner
             }
             else if ((int)obj.Command == (int)MainServiceCommmand.LaunchProcess)
             {
-                using Process p = Process.Start(new ProcessStartInfo()
+                _ = Task.Run(() =>
                 {
-                    UseShellExecute = DynamicExtension.IsNullOrSelf(obj, "UseShellExecute", true),
-                    FileName = obj.FileName,
-                    Arguments = DynamicExtension.IsNullOrSelf(obj, "Arguments", string.Empty),
-                    WorkingDirectory = DynamicExtension.IsNullOrSelf(obj, "WorkingDirectory", string.Empty),
-                    Verb = DynamicExtension.IsNullOrSelf(obj, "Verb", string.Empty),
+                    using Process p = Process.Start(new ProcessStartInfo()
+                    {
+                        UseShellExecute = DynamicExtension.IsNullOrSelf(obj, "UseShellExecute", true),
+                        FileName = obj.FileName,
+                        Arguments = DynamicExtension.IsNullOrSelf(obj, "Arguments", string.Empty),
+                        WorkingDirectory = DynamicExtension.IsNullOrSelf(obj, "WorkingDirectory", string.Empty),
+                        Verb = DynamicExtension.IsNullOrSelf(obj, "Verb", string.Empty),
+                    });
+                    if (DynamicExtension.IsNullOrSelf(obj, "WaitForExit", false))
+                    {
+                        p.WaitForExit();
+                    }
                 });
-                if (obj.IsNullOrSelf("WaitForExit", false))
-                {
-                    p.WaitForExit();
-                }
             }
             else if ((int)obj.Command == (int)MainServiceCommmand.Kill)
             {

@@ -68,20 +68,22 @@ internal partial class MainService : ServiceBase
     {
         thread = new Thread(() =>
         {
-            try
+            isRunning = true;
+
+            PipeSecurity ps = new();
+            ps.AddAccessRule(new PipeAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null!), PipeAccessRights.ReadWrite, AccessControlType.Allow));
+            ps.SetAccessRule(new PipeAccessRule("Everyone", PipeAccessRights.ReadWrite, AccessControlType.Allow));
+
+            while (isRunning)
             {
-                isRunning = true;
-
-                PipeSecurity ps = new();
-                ps.AddAccessRule(new PipeAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null!), PipeAccessRights.ReadWrite, AccessControlType.Allow));
-                ps.SetAccessRule(new PipeAccessRule("Everyone", PipeAccessRights.ReadWrite, AccessControlType.Allow));
-
-                while (isRunning)
+                try
                 {
                     using NamedPipeServerStream pipeServer = new("GenshinSwitch.WindowsService", PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous, 99999, 99999, ps);
                     pipeServer.WaitForConnection();
                     using StreamReader reader = new(pipeServer);
-                    
+
+                    Debug.WriteLine("GenshinSwitch.WindowsService REACHED");
+
                     try
                     {
                         string? cmd = reader.ReadLine();
@@ -102,7 +104,6 @@ internal partial class MainService : ServiceBase
                             writer.WriteLine(ret);
                             writer.Flush();
                             Debug.WriteLine("Send message: " + ret);
-                            Thread.Sleep(999);
                         }
                     }
                     catch (Exception e)
@@ -110,10 +111,10 @@ internal partial class MainService : ServiceBase
                         Debug.WriteLine(e);
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
             }
         });
         thread.Start();

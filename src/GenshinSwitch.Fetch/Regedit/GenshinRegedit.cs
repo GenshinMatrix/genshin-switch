@@ -75,7 +75,14 @@ public static class GenshinRegedit
     {
         if (MainService.ServiceEnabled)
         {
-            return MainService.GetGameAccountRegisty(key, type);
+            try
+            {
+                return MainService.GetGameAccountRegisty(key, type);
+            }
+            catch
+            {
+                return null!;
+            }
         }
 
 #if DISPSREG
@@ -126,7 +133,13 @@ public static class GenshinRegedit
     {
         if (MainService.ServiceEnabled)
         {
-            MainService.SetGameAccountRegisty(key, value, type);
+            try
+            {
+                MainService.SetGameAccountRegisty(key, value, type);
+            }
+            catch
+            {
+            }
             return;
         }
 

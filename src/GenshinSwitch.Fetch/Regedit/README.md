@@ -19,6 +19,8 @@ shell:appsfolder
 ```
 
 > 恢复原神注册表
+>
+> ※需要GBK编码
 
 ```ini
 Windows Registry Editor Version 5.00

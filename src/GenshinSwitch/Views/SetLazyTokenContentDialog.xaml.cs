@@ -12,4 +12,11 @@ public sealed partial class SetLazyTokenContentDialog : ContentDialog
         ViewModel = App.GetService<SetLazyTokenViewModel>();
         InitializeComponent();
     }
+
+    public async Task<(ContentDialogResult, string)> ShowAndGetTokenAsync()
+    {
+        ContentDialogResult result = await ShowAsync();
+        string tokenInput = ViewModel.TokenInput;
+        return (result, tokenInput);
+    }
 }

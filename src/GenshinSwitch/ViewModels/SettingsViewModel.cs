@@ -585,11 +585,16 @@ public partial class SettingsViewModel : ObservableRecipient
     [RelayCommand]
     private async Task SetLazyTokenAsync()
     {
-        _ = await new SetLazyTokenContentDialog()
+        (ContentDialogResult result, string token) = await new SetLazyTokenContentDialog()
         {
             XamlRoot = App.MainWindow.XamlRoot,
             RequestedTheme = App.MainWindow.ActualTheme,
-        }.ShowAsync();
+        }.ShowAndGetTokenAsync();
+
+        if (result == ContentDialogResult.Secondary)
+        {
+            await LazyRepository.SaveToken(token);
+        }
     }
 
     [RelayCommand]

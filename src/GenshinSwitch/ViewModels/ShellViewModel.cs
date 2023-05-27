@@ -14,6 +14,8 @@ using Windows.System;
 
 namespace GenshinSwitch.ViewModels;
 
+#pragma warning disable MVVMTK0034
+
 public partial class ShellViewModel : ObservableRecipient
 {
     public INavigationService NavigationService { get; }

@@ -2,6 +2,8 @@
 
 namespace GenshinSwitch.ViewModels.Contacts;
 
+#pragma warning disable MVVMTK0033
+
 [ObservableObject]
 public partial class LazyInfoViewModel
 {

@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GenshinSwitch.ViewModels.Contacts;
 
+#pragma warning disable MVVMTK0033
+
 [ObservableObject]
 public partial class SignInInfoViewModel
 {

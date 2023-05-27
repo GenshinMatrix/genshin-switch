@@ -51,7 +51,7 @@ public class HoyolabClient
     /// <param name="httpClient"></param>
     public HoyolabClient(HttpClient? httpClient = null)
     {
-        _httpClient = httpClient ?? new(new HttpClientHandler { AutomaticDecompression = System.Net.DecompressionMethods.All });
+        _httpClient = httpClient ?? new(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.All });
     }
 
 

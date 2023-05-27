@@ -115,12 +115,12 @@ public partial class WindowX : Window
     /// <summary>
     /// Gets a reference to the AppWindow for the app
     /// </summary>
-    public Microsoft.UI.Windowing.AppWindow AppWindow => manager.AppWindow;
+    public new Microsoft.UI.Windowing.AppWindow AppWindow => manager.AppWindow;
 
     /// <summary>
     /// Brings the window to the front
     /// </summary>
-    /// <returns></returns>
+    /// <returns>BringToFront</returns>
     public bool BringToFront() => WindowExtensions.SetForegroundWindow(this);
 
     private Icon? taskBarIcon;
@@ -339,6 +339,7 @@ public partial class WindowX : Window
         set => manager.MinHeight = value;
     }
 
+#if LEGACY
     /// <summary>
     /// Gets or sets the system backdrop for the window.
     /// Note: Windows 10 doesn't support these, so will fall back to default backdrop.
@@ -350,6 +351,19 @@ public partial class WindowX : Window
         get => manager.Backdrop;
         set => manager.Backdrop = value;
     }
+#else
+    /// <summary>
+    /// Gets or sets the system backdrop for the window.
+    /// Note: Windows 10 doesn't support these, so will fall back to default backdrop.
+    /// </summary>
+    /// <seealso cref="Microsoft.UI.Xaml.Media.MicaBackdrop"/>
+    /// <seealso cref="Microsoft.UI.Xaml.Media.DesktopAcrylicBackdrop"/>
+    public Microsoft.UI.Xaml.Media.SystemBackdrop? Backdrop
+    {
+        get => SystemBackdrop;
+        set => SystemBackdrop = value;
+    }
+#endif
 
     #region Window events and corresponding virtual methods
 

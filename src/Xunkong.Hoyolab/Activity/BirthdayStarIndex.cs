@@ -1,5 +1,7 @@
 ﻿namespace Xunkong.Hoyolab.Activity;
 
+#pragma warning disable CS8618
+
 /// <summary>
 /// 留影叙佳期，今日生日
 /// </summary>

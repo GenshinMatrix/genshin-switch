@@ -9,6 +9,8 @@ using System.Windows.Input;
 
 namespace GenshinSwitch.ViewModels;
 
+#pragma warning disable MVVMTK0034
+
 public partial class AddContactViewModel : ObservableRecipient
 {
     [ObservableProperty]

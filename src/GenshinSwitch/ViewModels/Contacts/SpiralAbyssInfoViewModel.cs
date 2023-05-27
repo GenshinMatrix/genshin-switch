@@ -4,6 +4,8 @@ using Xunkong.Hoyolab.SpiralAbyss;
 
 namespace GenshinSwitch.ViewModels.Contacts;
 
+#pragma warning disable MVVMTK0033
+
 public partial class SpiralAbyssInfoViewModel : ObservableObject
 {
     [ObservableProperty]

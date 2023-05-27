@@ -6,6 +6,7 @@ using GenshinSwitch.Models;
 using GenshinSwitch.Models.Messages;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 using WinRT.Interop;
 
 namespace GenshinSwitch;
@@ -67,11 +68,20 @@ public sealed partial class MainWindow : WindowEx
 
     private void SetupBackdrop()
     {
+#if LEGACY
         Backdrop = Settings.Backdrop.Get() switch
         {
             "None" => null,
             "Acrylic" => new AcrylicSystemBackdrop(),
             "Mica" or _ => new MicaSystemBackdrop(),
+        };
+#endif
+
+        SystemBackdrop = Settings.Backdrop.Get() switch
+        {
+            "None" => null,
+            "Acrylic" => new DesktopAcrylicBackdrop(),
+            "Mica" or _ => new MicaBackdrop(),
         };
     }
 }

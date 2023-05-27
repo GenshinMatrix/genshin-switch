@@ -3,6 +3,8 @@ using System.ComponentModel;
 
 namespace GenshinSwitch.ViewModels;
 
+#pragma warning disable MVVMTK0033
+
 [ObservableObject]
 public partial class SettingsContactProgressViewModel
 {

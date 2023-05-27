@@ -19,7 +19,7 @@ public class DailyNoteInfo
     /// 获取实时便笺时的时间
     /// </summary>
     [JsonIgnore]
-    public DateTimeOffset NowTime { get; init; } = DateTimeOffset.Now;
+    public DateTimeOffset UpdateTime { get; init; } = DateTimeOffset.Now;
 
     /// <summary>
     /// 当前树脂
@@ -49,7 +49,7 @@ public class DailyNoteInfo
     /// 树脂恢复满的时刻
     /// </summary>
     [JsonIgnore]
-    public DateTimeOffset ResinFullTime => NowTime + ResinRecoveryTime;
+    public DateTimeOffset ResinFullTime => UpdateTime + ResinRecoveryTime;
 
     /// <summary>
     /// 委托完成数
@@ -139,6 +139,6 @@ public class DailyNoteInfo
     /// 洞天宝钱攒满时刻
     /// </summary>
     [JsonIgnore]
-    public DateTimeOffset HomeCoinFullTime => NowTime + HomeCoinRecoveryTime;
+    public DateTimeOffset HomeCoinFullTime => UpdateTime + HomeCoinRecoveryTime;
 
 }

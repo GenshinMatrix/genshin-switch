@@ -317,12 +317,12 @@ public partial class MainViewModel : ObservableRecipient
         SettingsManager.Save();
     }
 
-    public async Task LaunchGameAsync(Contact contact)
+    public static async Task LaunchGameAsync(Contact contact)
     {
         MainService.ServiceEnabled = Settings.DoubleClickBehavior == 1;
         try
         {
-            await LaunchCtrl.LaunchAsync(relaunchMethod: Settings.RelaunchMethod.Get(), launchParameter: new LaunchParameter()
+            await LaunchCtrl.LaunchAsync(delayMs: 1000, relaunchMethod: Settings.RelaunchMethod.Get(), launchParameter: new LaunchParameter()
             {
                 Server = contact.Server,
                 Prod = contact.Prod,

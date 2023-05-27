@@ -133,7 +133,14 @@ public class Announcement
                 if (DateTimeOffset.TryParse(EndTime + "+08:00", out var result))
                 {
                     var remainTime = result - DateTimeOffset.Now;
-                    return $"{remainTime.Days}天{remainTime.Hours}小时后结束";
+                    if (remainTime.Days > 0)
+                    {
+                        return $"{remainTime.Days}天{remainTime.Hours}小时后结束";
+                    }
+                    else
+                    {
+                        return $"{remainTime.Hours}小时{remainTime.Minutes}分钟后结束";
+                    }
                 }
             }
             return null;

@@ -1,3 +1,7 @@
+
+
+**⚠️ 由于不好维护需要管理员权限的 WinUI 应用，该项目目前停止了维护，可移步到 [Fischless](https://github.com/GenshinMatrix/Fischless) 获得类似功能。**
+
 # GenshinSwitch
 
 ![StoreLogo.scale-200](src/GenshinSwitch/Assets/Logos/StoreLogo.scale-200.png)
